@@ -13,6 +13,7 @@ set(idl_files
 
 set(out_headers "")
 set(out_srcs "")
+set(out_tlbs "")
 
 # download idls
 foreach(_idl_file ${idl_files})
@@ -29,6 +30,7 @@ foreach(_idl_file ${idl_files})
     set(_out_dir ${CMAKE_CURRENT_BINARY_DIR}/gen)
     set(_out_header ${_out_dir}/${_file_name}.h)
     set(_out_src ${_out_dir}/${_file_name}_i.c)
+    set(_out_tlb ${_out_dir}/${_file_name}.tlb)
     add_custom_command(
         OUTPUT ${_out_header} ${_out_src}
         COMMAND ${MIDL_exe} /no_settings_comment /I ${CMAKE_CURRENT_SOURCE_DIR}/idl ${_idl_out_path} /out ${_out_dir}
@@ -39,6 +41,7 @@ foreach(_idl_file ${idl_files})
     )
     list(APPEND out_headers ${_out_header})
     list(APPEND out_srcs ${_out_src})
+    list(APPEND out_tlbs ${_out_tlb})
 endforeach()
 
 # static lib that has uuids
@@ -91,6 +94,12 @@ add_custom_target(copy_fabric_uuid_files
   COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_SOURCE_DIR}/src/fabric/src
   COMMAND ${CMAKE_COMMAND} -E copy_if_different ${out_srcs} ${CMAKE_CURRENT_SOURCE_DIR}/src/fabric/src
   DEPENDS ${out_srcs}
+)
+
+add_custom_target(copy_fabric_tlb_files
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_SOURCE_DIR}/tlb
+  COMMAND ${CMAKE_COMMAND} -E copy_if_different ${out_tlbs} ${CMAKE_CURRENT_SOURCE_DIR}/tlb
+  DEPENDS ${out_tlbs}
 )
 # fabric cpp only headers
 # add_library(fabric_headers INTERFACE ${out_header_cpps})
