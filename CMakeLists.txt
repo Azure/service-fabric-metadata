@@ -7,6 +7,8 @@ if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
     set(fabric_metadata_MAIN_PROJECT ON)
 endif()
 
+if(WIN32)
+
 # include code generation and file fetch
 # user of this project can skip these steps
 if(fabric_metadata_MAIN_PROJECT)
@@ -94,4 +96,35 @@ if(fabric_metadata_MAIN_PROJECT)
     src/fabric_internal/include src/fabric_internal/src importlibs
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
   )
+endif(fabric_metadata_MAIN_PROJECT)
+
+else(WIN32)
+
+#linux support
+# common lib dir
+if(NOT ServiceFabric_Runtime_ROOT)
+    set(ServiceFabric_Runtime_ROOT "/opt/microsoft/servicefabric/")
 endif()
+
+set(ServiceFabric_Runtime_BINARY_DIR "${ServiceFabric_Runtime_ROOT}/bin/Fabric/Fabric.Code")
+
+include(cmake/ImportFabric.cmake)
+add_subdirectory(src)
+add_subdirectory(examples)
+
+# find_program(docker_exe
+#   NAMES docker
+#   REQUIRED
+# )
+# message(STATUS "Found docker : ${docker_exe}")
+
+# add_custom_target(build_container
+#  COMMAND ${docker_exe} build -f ${CMAKE_CURRENT_SOURCE_DIR}/docker/Dockerfile -t fabric-metadata:v1 ${CMAKE_CURRENT_SOURCE_DIR}
+# )
+
+# add_custom_target(docker_run
+#   COMMAND gnome-terminal -- ${docker_exe} run --name fabric-metadata -it --rm --entrypoint bash fabric-metadata:v1
+#   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+# )
+
+endif(WIN32)

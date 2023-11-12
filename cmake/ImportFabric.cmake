@@ -15,6 +15,7 @@ function(add_fabric_lib)
     # foreach(src ${PARSED_ARGS_SRCS})
     #     message("- ${src}")
     # endforeach(src)
+if(WIN32)
     set(_lib_var "${FABRIC_LIB_NAME}_DLL")
     set(_lib_file "${FABRIC_LIB_NAME}.dll")
     set(_out_file "${FABRIC_LIB_NAME}.lib")
@@ -48,4 +49,17 @@ function(add_fabric_lib)
     )
 
     add_dependencies(${FABRIC_LIB_NAME} ${_generate_target_name})
+else(WIN32)
+    set(_lib_file "lib${FABRIC_LIB_NAME}.so")
+    set(_lib_var "${FABRIC_LIB_NAME}_SO")
+    find_file(${_lib_var}
+        NAMES ${_lib_file}
+        PATHS ${ServiceFabric_Runtime_BINARY_DIR}
+        REQUIRED
+    )
+    add_library(${FABRIC_LIB_NAME} SHARED IMPORTED GLOBAL)
+    set_target_properties(${FABRIC_LIB_NAME} PROPERTIES
+        IMPORTED_LOCATION ${_lib_var}
+    )
+endif(WIN32)
 endfunction(add_fabric_lib)
