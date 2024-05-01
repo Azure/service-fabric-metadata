@@ -16,6 +16,8 @@
             If Com is in fact not agile for special cases, user of the SF Rust needs to handle it with care. -->
         <EmitterRsp Include="emitter.settings.rsp"/>
     </ItemGroup>
+    <!-- Note: Native typedef is defined in autoTypes.json. The metadata generator eliminates native types during scanning. 
+    But native types/typedef make generated code better. -->
     <ItemGroup>
         <Idls Include="$(SFIdlDir)\FabricClient.idl;$(SFIdlDir)\FabricCommon.idl;$(SFIdlDir)\FabricRuntime.idl;$(SFIdlDir)\FabricTypes.idl;$(SFInternalIdlDir)\fabrictransport_.idl" />
         <ImportLibs Include="../importlibs/*.lib" />
