@@ -1,0 +1,6 @@
+[{
+    "Namespace": "Microsoft.ServiceFabric",
+    "Name": "FABRIC_URI",
+    "ValueType": "char*",
+    "NativeTypedef": true
+}]

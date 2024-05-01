@@ -8,3 +8,8 @@ This fails:
 -latest -requires Microsoft.NetCore.Component.Runtime.6.0 -requires Microsoft.NetCore.Component.SDK `
 -requires Microsoft.VisualStudio.Component.VC.Tools.ARM64 -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 `
 -requires Microsoft.VisualStudio.Component.Windows11SDK.22000
+
+To auto install the vs components required by generator:
+```ps1
+$HOME\.nuget\packages\microsoft.windows.winmdgenerator\0.56.13-preview\scripts\Install-VS.ps1
+```
