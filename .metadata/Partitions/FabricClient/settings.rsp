@@ -1,0 +1,4 @@
+--traverse
+<IncludeRoot>/FabricClient.h
+--namespace
+Microsoft.ServiceFabric.FabricClient

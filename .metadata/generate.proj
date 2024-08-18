@@ -3,11 +3,13 @@
     <PropertyGroup Label="Globals">
         <OutputWinmd>../.windows/winmd/Microsoft.ServiceFabric.winmd</OutputWinmd>
         <WinmdVersion>255.255.255.255</WinmdVersion>
+        <ExcludeFromCrossarch>true</ExcludeFromCrossarch>
+        <ScanArch>x64</ScanArch>
         <SFIdlDir>../idl</SFIdlDir>
         <SFInternalIdlDir>../internal_idl</SFInternalIdlDir>
         <AdditionalIncludes>$(SFIdlDir)</AdditionalIncludes>
-        <ExcludeFromCrossarch>true</ExcludeFromCrossarch>
-        <ScanArch>x64</ScanArch>
+        <!--compiled h headers from idl-->
+        <SdkIncRoot>obj\CompiledHeaders</SdkIncRoot>
     </PropertyGroup>
     <ItemGroup>
         <!-- Used to change agile attribute. 
@@ -21,34 +23,15 @@
     <ItemGroup>
         <Idls Include="$(SFIdlDir)\FabricClient.idl;$(SFIdlDir)\FabricCommon.idl;$(SFIdlDir)\FabricRuntime.idl;$(SFIdlDir)\FabricTypes.idl;$(SFInternalIdlDir)\fabrictransport_.idl" />
         <ImportLibs Include="../importlibs/*.lib" />
-        <Partition Include="FabricTypes.cpp">
-            <TraverseFiles>$(CompiledHeadersDir)\FabricTypes.h</TraverseFiles>
-            <Namespace>Microsoft.ServiceFabric</Namespace>
-        </Partition>
-        <Partition Include="FabricCommon.cpp">
-            <TraverseFiles>$(CompiledHeadersDir)\FabricCommon.h</TraverseFiles>
-            <Namespace>Microsoft.ServiceFabric.FabricCommon</Namespace>
-        </Partition>
-        <Partition Include="FabricClient.cpp">
-            <TraverseFiles>$(CompiledHeadersDir)\FabricClient.h</TraverseFiles>
-            <Namespace>Microsoft.ServiceFabric.FabricCommon.FabricClient</Namespace>
-        </Partition>
-        <Partition Include="FabricRuntime.cpp">
-            <TraverseFiles>$(CompiledHeadersDir)\FabricRuntime.h</TraverseFiles>
-            <Namespace>Microsoft.ServiceFabric.FabricCommon.FabricRuntime</Namespace>
-        </Partition>
-        <Partition Include="FabricTransport.cpp">
-            <TraverseFiles>$(CompiledHeadersDir)\fabrictransport_.h</TraverseFiles>
-            <Namespace>Microsoft.ServiceFabric.FabricCommon.FabricTransport</Namespace>
+        <PartitionFiles Include="partitions\**\main.cpp"/>
+        <Partition Include="@(PartitionFiles)">
+            <Name>$([System.IO.Path]::GetFileName($([System.IO.Path]::GetDirectoryName($([System.String]::Copy('%(Directory)'))))))</Name>
         </Partition>
     </ItemGroup>
+
     <Target Name="CopyWin32Metadata" AfterTargets="Build">
         <Copy
             SourceFiles="$(PkgMicrosoft_Windows_SDK_Win32Metadata)\Windows.Win32.winmd"
             DestinationFiles="..\.windows\winmd\Windows.Win32.winmd" />
-
-        <!-- <Copy
-            SourceFiles="$(PkgMicrosoft_Windows_SDK_Win32Metadata)\Windows.Win32.Interop.dll"
-            DestinationFiles="..\.windows\winmd\Windows.Win32.Interop.winmd" /> -->
     </Target>
 </Project>

@@ -16,6 +16,11 @@
 #define __REQUIRED_RPCNDR_H_VERSION__ 475
 #endif
 
+/* verify that the <rpcsal.h> version is high enough to compile this file*/
+#ifndef __REQUIRED_RPCSAL_H_VERSION__
+#define __REQUIRED_RPCSAL_H_VERSION__ 100
+#endif
+
 #include "rpc.h"
 #include "rpcndr.h"
 
@@ -1184,49 +1189,49 @@ EXTERN_C const IID IID_IFabricRuntime;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE BeginRegisterStatelessServiceFactory( 
-            /* [in] */ LPCWSTR serviceTypeName,
-            /* [in] */ IFabricStatelessServiceFactory *factory,
+            /* [in] */ __RPC__in LPCWSTR serviceTypeName,
+            /* [in] */ __RPC__in_opt IFabricStatelessServiceFactory *factory,
             /* [in] */ DWORD timeoutMilliseconds,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndRegisterStatelessServiceFactory( 
-            /* [in] */ IFabricAsyncOperationContext *context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE RegisterStatelessServiceFactory( 
-            /* [in] */ LPCWSTR serviceTypeName,
-            /* [in] */ IFabricStatelessServiceFactory *factory) = 0;
+            /* [in] */ __RPC__in LPCWSTR serviceTypeName,
+            /* [in] */ __RPC__in_opt IFabricStatelessServiceFactory *factory) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE BeginRegisterStatefulServiceFactory( 
-            /* [in] */ LPCWSTR serviceTypeName,
-            /* [in] */ IFabricStatefulServiceFactory *factory,
+            /* [in] */ __RPC__in LPCWSTR serviceTypeName,
+            /* [in] */ __RPC__in_opt IFabricStatefulServiceFactory *factory,
             /* [in] */ DWORD timeoutMilliseconds,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndRegisterStatefulServiceFactory( 
-            /* [in] */ IFabricAsyncOperationContext *context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE RegisterStatefulServiceFactory( 
-            /* [in] */ LPCWSTR serviceTypeName,
-            /* [in] */ IFabricStatefulServiceFactory *factory) = 0;
+            /* [in] */ __RPC__in LPCWSTR serviceTypeName,
+            /* [in] */ __RPC__in_opt IFabricStatefulServiceFactory *factory) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE CreateServiceGroupFactoryBuilder( 
-            /* [retval][out] */ IFabricServiceGroupFactoryBuilder **builder) = 0;
+            /* [retval][out] */ __RPC__deref_out_opt IFabricServiceGroupFactoryBuilder **builder) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE BeginRegisterServiceGroupFactory( 
-            /* [in] */ LPCWSTR groupServiceType,
-            /* [in] */ IFabricServiceGroupFactory *factory,
+            /* [in] */ __RPC__in LPCWSTR groupServiceType,
+            /* [in] */ __RPC__in_opt IFabricServiceGroupFactory *factory,
             /* [in] */ DWORD timeoutMilliseconds,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndRegisterServiceGroupFactory( 
-            /* [in] */ IFabricAsyncOperationContext *context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE RegisterServiceGroupFactory( 
-            /* [in] */ LPCWSTR groupServiceType,
-            /* [in] */ IFabricServiceGroupFactory *factory) = 0;
+            /* [in] */ __RPC__in LPCWSTR groupServiceType,
+            /* [in] */ __RPC__in_opt IFabricServiceGroupFactory *factory) = 0;
         
     };
     
@@ -1239,83 +1244,83 @@ EXTERN_C const IID IID_IFabricRuntime;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricRuntime * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricRuntime * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricRuntime * This);
+            __RPC__in IFabricRuntime * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricRuntime * This);
+            __RPC__in IFabricRuntime * This);
         
         DECLSPEC_XFGVIRT(IFabricRuntime, BeginRegisterStatelessServiceFactory)
         HRESULT ( STDMETHODCALLTYPE *BeginRegisterStatelessServiceFactory )( 
-            IFabricRuntime * This,
-            /* [in] */ LPCWSTR serviceTypeName,
-            /* [in] */ IFabricStatelessServiceFactory *factory,
+            __RPC__in IFabricRuntime * This,
+            /* [in] */ __RPC__in LPCWSTR serviceTypeName,
+            /* [in] */ __RPC__in_opt IFabricStatelessServiceFactory *factory,
             /* [in] */ DWORD timeoutMilliseconds,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricRuntime, EndRegisterStatelessServiceFactory)
         HRESULT ( STDMETHODCALLTYPE *EndRegisterStatelessServiceFactory )( 
-            IFabricRuntime * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricRuntime * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricRuntime, RegisterStatelessServiceFactory)
         HRESULT ( STDMETHODCALLTYPE *RegisterStatelessServiceFactory )( 
-            IFabricRuntime * This,
-            /* [in] */ LPCWSTR serviceTypeName,
-            /* [in] */ IFabricStatelessServiceFactory *factory);
+            __RPC__in IFabricRuntime * This,
+            /* [in] */ __RPC__in LPCWSTR serviceTypeName,
+            /* [in] */ __RPC__in_opt IFabricStatelessServiceFactory *factory);
         
         DECLSPEC_XFGVIRT(IFabricRuntime, BeginRegisterStatefulServiceFactory)
         HRESULT ( STDMETHODCALLTYPE *BeginRegisterStatefulServiceFactory )( 
-            IFabricRuntime * This,
-            /* [in] */ LPCWSTR serviceTypeName,
-            /* [in] */ IFabricStatefulServiceFactory *factory,
+            __RPC__in IFabricRuntime * This,
+            /* [in] */ __RPC__in LPCWSTR serviceTypeName,
+            /* [in] */ __RPC__in_opt IFabricStatefulServiceFactory *factory,
             /* [in] */ DWORD timeoutMilliseconds,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricRuntime, EndRegisterStatefulServiceFactory)
         HRESULT ( STDMETHODCALLTYPE *EndRegisterStatefulServiceFactory )( 
-            IFabricRuntime * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricRuntime * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricRuntime, RegisterStatefulServiceFactory)
         HRESULT ( STDMETHODCALLTYPE *RegisterStatefulServiceFactory )( 
-            IFabricRuntime * This,
-            /* [in] */ LPCWSTR serviceTypeName,
-            /* [in] */ IFabricStatefulServiceFactory *factory);
+            __RPC__in IFabricRuntime * This,
+            /* [in] */ __RPC__in LPCWSTR serviceTypeName,
+            /* [in] */ __RPC__in_opt IFabricStatefulServiceFactory *factory);
         
         DECLSPEC_XFGVIRT(IFabricRuntime, CreateServiceGroupFactoryBuilder)
         HRESULT ( STDMETHODCALLTYPE *CreateServiceGroupFactoryBuilder )( 
-            IFabricRuntime * This,
-            /* [retval][out] */ IFabricServiceGroupFactoryBuilder **builder);
+            __RPC__in IFabricRuntime * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricServiceGroupFactoryBuilder **builder);
         
         DECLSPEC_XFGVIRT(IFabricRuntime, BeginRegisterServiceGroupFactory)
         HRESULT ( STDMETHODCALLTYPE *BeginRegisterServiceGroupFactory )( 
-            IFabricRuntime * This,
-            /* [in] */ LPCWSTR groupServiceType,
-            /* [in] */ IFabricServiceGroupFactory *factory,
+            __RPC__in IFabricRuntime * This,
+            /* [in] */ __RPC__in LPCWSTR groupServiceType,
+            /* [in] */ __RPC__in_opt IFabricServiceGroupFactory *factory,
             /* [in] */ DWORD timeoutMilliseconds,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricRuntime, EndRegisterServiceGroupFactory)
         HRESULT ( STDMETHODCALLTYPE *EndRegisterServiceGroupFactory )( 
-            IFabricRuntime * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricRuntime * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricRuntime, RegisterServiceGroupFactory)
         HRESULT ( STDMETHODCALLTYPE *RegisterServiceGroupFactory )( 
-            IFabricRuntime * This,
-            /* [in] */ LPCWSTR groupServiceType,
-            /* [in] */ IFabricServiceGroupFactory *factory);
+            __RPC__in IFabricRuntime * This,
+            /* [in] */ __RPC__in LPCWSTR groupServiceType,
+            /* [in] */ __RPC__in_opt IFabricServiceGroupFactory *factory);
         
         END_INTERFACE
     } IFabricRuntimeVtbl;
@@ -1409,22 +1414,22 @@ EXTERN_C const IID IID_IFabricProcessExitHandler;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricProcessExitHandler * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricProcessExitHandler * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricProcessExitHandler * This);
+            __RPC__in IFabricProcessExitHandler * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricProcessExitHandler * This);
+            __RPC__in IFabricProcessExitHandler * This);
         
         DECLSPEC_XFGVIRT(IFabricProcessExitHandler, FabricProcessExited)
         void ( STDMETHODCALLTYPE *FabricProcessExited )( 
-            IFabricProcessExitHandler * This);
+            __RPC__in IFabricProcessExitHandler * This);
         
         END_INTERFACE
     } IFabricProcessExitHandlerVtbl;
@@ -1479,13 +1484,13 @@ EXTERN_C const IID IID_IFabricStatelessServiceFactory;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE CreateInstance( 
-            /* [in] */ LPCWSTR serviceTypeName,
-            /* [in] */ FABRIC_URI serviceName,
+            /* [in] */ __RPC__in LPCWSTR serviceTypeName,
+            /* [in] */ __RPC__in FABRIC_URI serviceName,
             /* [in] */ ULONG initializationDataLength,
-            /* [size_is][in] */ const byte *initializationData,
+            /* [size_is][in] */ __RPC__in_ecount_full(initializationDataLength) const byte *initializationData,
             /* [in] */ FABRIC_PARTITION_ID partitionId,
             /* [in] */ FABRIC_INSTANCE_ID instanceId,
-            /* [retval][out] */ IFabricStatelessServiceInstance **serviceInstance) = 0;
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStatelessServiceInstance **serviceInstance) = 0;
         
     };
     
@@ -1498,29 +1503,29 @@ EXTERN_C const IID IID_IFabricStatelessServiceFactory;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricStatelessServiceFactory * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricStatelessServiceFactory * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricStatelessServiceFactory * This);
+            __RPC__in IFabricStatelessServiceFactory * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricStatelessServiceFactory * This);
+            __RPC__in IFabricStatelessServiceFactory * This);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServiceFactory, CreateInstance)
         HRESULT ( STDMETHODCALLTYPE *CreateInstance )( 
-            IFabricStatelessServiceFactory * This,
-            /* [in] */ LPCWSTR serviceTypeName,
-            /* [in] */ FABRIC_URI serviceName,
+            __RPC__in IFabricStatelessServiceFactory * This,
+            /* [in] */ __RPC__in LPCWSTR serviceTypeName,
+            /* [in] */ __RPC__in FABRIC_URI serviceName,
             /* [in] */ ULONG initializationDataLength,
-            /* [size_is][in] */ const byte *initializationData,
+            /* [size_is][in] */ __RPC__in_ecount_full(initializationDataLength) const byte *initializationData,
             /* [in] */ FABRIC_PARTITION_ID partitionId,
             /* [in] */ FABRIC_INSTANCE_ID instanceId,
-            /* [retval][out] */ IFabricStatelessServiceInstance **serviceInstance);
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStatelessServiceInstance **serviceInstance);
         
         END_INTERFACE
     } IFabricStatelessServiceFactoryVtbl;
@@ -1575,20 +1580,20 @@ EXTERN_C const IID IID_IFabricStatelessServiceInstance;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE BeginOpen( 
-            /* [in] */ IFabricStatelessServicePartition *partition,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricStatelessServicePartition *partition,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndOpen( 
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricStringResult **serviceAddress) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **serviceAddress) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE BeginClose( 
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndClose( 
-            /* [in] */ IFabricAsyncOperationContext *context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context) = 0;
         
         virtual void STDMETHODCALLTYPE Abort( void) = 0;
         
@@ -1603,46 +1608,46 @@ EXTERN_C const IID IID_IFabricStatelessServiceInstance;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricStatelessServiceInstance * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricStatelessServiceInstance * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricStatelessServiceInstance * This);
+            __RPC__in IFabricStatelessServiceInstance * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricStatelessServiceInstance * This);
+            __RPC__in IFabricStatelessServiceInstance * This);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServiceInstance, BeginOpen)
         HRESULT ( STDMETHODCALLTYPE *BeginOpen )( 
-            IFabricStatelessServiceInstance * This,
-            /* [in] */ IFabricStatelessServicePartition *partition,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricStatelessServiceInstance * This,
+            /* [in] */ __RPC__in_opt IFabricStatelessServicePartition *partition,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServiceInstance, EndOpen)
         HRESULT ( STDMETHODCALLTYPE *EndOpen )( 
-            IFabricStatelessServiceInstance * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricStringResult **serviceAddress);
+            __RPC__in IFabricStatelessServiceInstance * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **serviceAddress);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServiceInstance, BeginClose)
         HRESULT ( STDMETHODCALLTYPE *BeginClose )( 
-            IFabricStatelessServiceInstance * This,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricStatelessServiceInstance * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServiceInstance, EndClose)
         HRESULT ( STDMETHODCALLTYPE *EndClose )( 
-            IFabricStatelessServiceInstance * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricStatelessServiceInstance * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServiceInstance, Abort)
         void ( STDMETHODCALLTYPE *Abort )( 
-            IFabricStatelessServiceInstance * This);
+            __RPC__in IFabricStatelessServiceInstance * This);
         
         END_INTERFACE
     } IFabricStatelessServiceInstanceVtbl;
@@ -1709,11 +1714,11 @@ EXTERN_C const IID IID_IFabricStatelessServicePartition;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE GetPartitionInfo( 
-            /* [retval][out] */ const FABRIC_SERVICE_PARTITION_INFORMATION **bufferedValue) = 0;
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_SERVICE_PARTITION_INFORMATION **bufferedValue) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE ReportLoad( 
             /* [in] */ ULONG metricCount,
-            /* [size_is][in] */ const FABRIC_LOAD_METRIC *metrics) = 0;
+            /* [size_is][in] */ __RPC__in_ecount_full(metricCount) const FABRIC_LOAD_METRIC *metrics) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE ReportFault( 
             /* [in] */ FABRIC_FAULT_TYPE faultType) = 0;
@@ -1729,33 +1734,33 @@ EXTERN_C const IID IID_IFabricStatelessServicePartition;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricStatelessServicePartition * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricStatelessServicePartition * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricStatelessServicePartition * This);
+            __RPC__in IFabricStatelessServicePartition * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricStatelessServicePartition * This);
+            __RPC__in IFabricStatelessServicePartition * This);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServicePartition, GetPartitionInfo)
         HRESULT ( STDMETHODCALLTYPE *GetPartitionInfo )( 
-            IFabricStatelessServicePartition * This,
-            /* [retval][out] */ const FABRIC_SERVICE_PARTITION_INFORMATION **bufferedValue);
+            __RPC__in IFabricStatelessServicePartition * This,
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_SERVICE_PARTITION_INFORMATION **bufferedValue);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServicePartition, ReportLoad)
         HRESULT ( STDMETHODCALLTYPE *ReportLoad )( 
-            IFabricStatelessServicePartition * This,
+            __RPC__in IFabricStatelessServicePartition * This,
             /* [in] */ ULONG metricCount,
-            /* [size_is][in] */ const FABRIC_LOAD_METRIC *metrics);
+            /* [size_is][in] */ __RPC__in_ecount_full(metricCount) const FABRIC_LOAD_METRIC *metrics);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServicePartition, ReportFault)
         HRESULT ( STDMETHODCALLTYPE *ReportFault )( 
-            IFabricStatelessServicePartition * This,
+            __RPC__in IFabricStatelessServicePartition * This,
             /* [in] */ FABRIC_FAULT_TYPE faultType);
         
         END_INTERFACE
@@ -1830,38 +1835,38 @@ EXTERN_C const IID IID_IFabricStatelessServicePartition1;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricStatelessServicePartition1 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricStatelessServicePartition1 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricStatelessServicePartition1 * This);
+            __RPC__in IFabricStatelessServicePartition1 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricStatelessServicePartition1 * This);
+            __RPC__in IFabricStatelessServicePartition1 * This);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServicePartition, GetPartitionInfo)
         HRESULT ( STDMETHODCALLTYPE *GetPartitionInfo )( 
-            IFabricStatelessServicePartition1 * This,
-            /* [retval][out] */ const FABRIC_SERVICE_PARTITION_INFORMATION **bufferedValue);
+            __RPC__in IFabricStatelessServicePartition1 * This,
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_SERVICE_PARTITION_INFORMATION **bufferedValue);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServicePartition, ReportLoad)
         HRESULT ( STDMETHODCALLTYPE *ReportLoad )( 
-            IFabricStatelessServicePartition1 * This,
+            __RPC__in IFabricStatelessServicePartition1 * This,
             /* [in] */ ULONG metricCount,
-            /* [size_is][in] */ const FABRIC_LOAD_METRIC *metrics);
+            /* [size_is][in] */ __RPC__in_ecount_full(metricCount) const FABRIC_LOAD_METRIC *metrics);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServicePartition, ReportFault)
         HRESULT ( STDMETHODCALLTYPE *ReportFault )( 
-            IFabricStatelessServicePartition1 * This,
+            __RPC__in IFabricStatelessServicePartition1 * This,
             /* [in] */ FABRIC_FAULT_TYPE faultType);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServicePartition1, ReportMoveCost)
         HRESULT ( STDMETHODCALLTYPE *ReportMoveCost )( 
-            IFabricStatelessServicePartition1 * This,
+            __RPC__in IFabricStatelessServicePartition1 * This,
             /* [in] */ FABRIC_MOVE_COST moveCost);
         
         END_INTERFACE
@@ -1927,10 +1932,10 @@ EXTERN_C const IID IID_IFabricStatelessServicePartition2;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE ReportInstanceHealth( 
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo) = 0;
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE ReportPartitionHealth( 
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo) = 0;
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo) = 0;
         
     };
     
@@ -1943,49 +1948,49 @@ EXTERN_C const IID IID_IFabricStatelessServicePartition2;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricStatelessServicePartition2 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricStatelessServicePartition2 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricStatelessServicePartition2 * This);
+            __RPC__in IFabricStatelessServicePartition2 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricStatelessServicePartition2 * This);
+            __RPC__in IFabricStatelessServicePartition2 * This);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServicePartition, GetPartitionInfo)
         HRESULT ( STDMETHODCALLTYPE *GetPartitionInfo )( 
-            IFabricStatelessServicePartition2 * This,
-            /* [retval][out] */ const FABRIC_SERVICE_PARTITION_INFORMATION **bufferedValue);
+            __RPC__in IFabricStatelessServicePartition2 * This,
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_SERVICE_PARTITION_INFORMATION **bufferedValue);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServicePartition, ReportLoad)
         HRESULT ( STDMETHODCALLTYPE *ReportLoad )( 
-            IFabricStatelessServicePartition2 * This,
+            __RPC__in IFabricStatelessServicePartition2 * This,
             /* [in] */ ULONG metricCount,
-            /* [size_is][in] */ const FABRIC_LOAD_METRIC *metrics);
+            /* [size_is][in] */ __RPC__in_ecount_full(metricCount) const FABRIC_LOAD_METRIC *metrics);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServicePartition, ReportFault)
         HRESULT ( STDMETHODCALLTYPE *ReportFault )( 
-            IFabricStatelessServicePartition2 * This,
+            __RPC__in IFabricStatelessServicePartition2 * This,
             /* [in] */ FABRIC_FAULT_TYPE faultType);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServicePartition1, ReportMoveCost)
         HRESULT ( STDMETHODCALLTYPE *ReportMoveCost )( 
-            IFabricStatelessServicePartition2 * This,
+            __RPC__in IFabricStatelessServicePartition2 * This,
             /* [in] */ FABRIC_MOVE_COST moveCost);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServicePartition2, ReportInstanceHealth)
         HRESULT ( STDMETHODCALLTYPE *ReportInstanceHealth )( 
-            IFabricStatelessServicePartition2 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo);
+            __RPC__in IFabricStatelessServicePartition2 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServicePartition2, ReportPartitionHealth)
         HRESULT ( STDMETHODCALLTYPE *ReportPartitionHealth )( 
-            IFabricStatelessServicePartition2 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo);
+            __RPC__in IFabricStatelessServicePartition2 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo);
         
         END_INTERFACE
     } IFabricStatelessServicePartition2Vtbl;
@@ -2057,12 +2062,12 @@ EXTERN_C const IID IID_IFabricStatelessServicePartition3;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE ReportInstanceHealth2( 
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo,
-            /* [in] */ const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions) = 0;
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE ReportPartitionHealth2( 
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo,
-            /* [in] */ const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions) = 0;
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions) = 0;
         
     };
     
@@ -2075,61 +2080,61 @@ EXTERN_C const IID IID_IFabricStatelessServicePartition3;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricStatelessServicePartition3 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricStatelessServicePartition3 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricStatelessServicePartition3 * This);
+            __RPC__in IFabricStatelessServicePartition3 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricStatelessServicePartition3 * This);
+            __RPC__in IFabricStatelessServicePartition3 * This);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServicePartition, GetPartitionInfo)
         HRESULT ( STDMETHODCALLTYPE *GetPartitionInfo )( 
-            IFabricStatelessServicePartition3 * This,
-            /* [retval][out] */ const FABRIC_SERVICE_PARTITION_INFORMATION **bufferedValue);
+            __RPC__in IFabricStatelessServicePartition3 * This,
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_SERVICE_PARTITION_INFORMATION **bufferedValue);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServicePartition, ReportLoad)
         HRESULT ( STDMETHODCALLTYPE *ReportLoad )( 
-            IFabricStatelessServicePartition3 * This,
+            __RPC__in IFabricStatelessServicePartition3 * This,
             /* [in] */ ULONG metricCount,
-            /* [size_is][in] */ const FABRIC_LOAD_METRIC *metrics);
+            /* [size_is][in] */ __RPC__in_ecount_full(metricCount) const FABRIC_LOAD_METRIC *metrics);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServicePartition, ReportFault)
         HRESULT ( STDMETHODCALLTYPE *ReportFault )( 
-            IFabricStatelessServicePartition3 * This,
+            __RPC__in IFabricStatelessServicePartition3 * This,
             /* [in] */ FABRIC_FAULT_TYPE faultType);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServicePartition1, ReportMoveCost)
         HRESULT ( STDMETHODCALLTYPE *ReportMoveCost )( 
-            IFabricStatelessServicePartition3 * This,
+            __RPC__in IFabricStatelessServicePartition3 * This,
             /* [in] */ FABRIC_MOVE_COST moveCost);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServicePartition2, ReportInstanceHealth)
         HRESULT ( STDMETHODCALLTYPE *ReportInstanceHealth )( 
-            IFabricStatelessServicePartition3 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo);
+            __RPC__in IFabricStatelessServicePartition3 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServicePartition2, ReportPartitionHealth)
         HRESULT ( STDMETHODCALLTYPE *ReportPartitionHealth )( 
-            IFabricStatelessServicePartition3 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo);
+            __RPC__in IFabricStatelessServicePartition3 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServicePartition3, ReportInstanceHealth2)
         HRESULT ( STDMETHODCALLTYPE *ReportInstanceHealth2 )( 
-            IFabricStatelessServicePartition3 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo,
-            /* [in] */ const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
+            __RPC__in IFabricStatelessServicePartition3 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
         
         DECLSPEC_XFGVIRT(IFabricStatelessServicePartition3, ReportPartitionHealth2)
         HRESULT ( STDMETHODCALLTYPE *ReportPartitionHealth2 )( 
-            IFabricStatelessServicePartition3 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo,
-            /* [in] */ const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
+            __RPC__in IFabricStatelessServicePartition3 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
         
         END_INTERFACE
     } IFabricStatelessServicePartition3Vtbl;
@@ -2208,13 +2213,13 @@ EXTERN_C const IID IID_IFabricStatefulServiceFactory;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE CreateReplica( 
-            /* [in] */ LPCWSTR serviceTypeName,
-            /* [in] */ FABRIC_URI serviceName,
+            /* [in] */ __RPC__in LPCWSTR serviceTypeName,
+            /* [in] */ __RPC__in FABRIC_URI serviceName,
             /* [in] */ ULONG initializationDataLength,
-            /* [size_is][in] */ const byte *initializationData,
+            /* [size_is][in] */ __RPC__in_ecount_full(initializationDataLength) const byte *initializationData,
             /* [in] */ FABRIC_PARTITION_ID partitionId,
             /* [in] */ FABRIC_REPLICA_ID replicaId,
-            /* [retval][out] */ IFabricStatefulServiceReplica **serviceReplica) = 0;
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStatefulServiceReplica **serviceReplica) = 0;
         
     };
     
@@ -2227,29 +2232,29 @@ EXTERN_C const IID IID_IFabricStatefulServiceFactory;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricStatefulServiceFactory * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricStatefulServiceFactory * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricStatefulServiceFactory * This);
+            __RPC__in IFabricStatefulServiceFactory * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricStatefulServiceFactory * This);
+            __RPC__in IFabricStatefulServiceFactory * This);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceFactory, CreateReplica)
         HRESULT ( STDMETHODCALLTYPE *CreateReplica )( 
-            IFabricStatefulServiceFactory * This,
-            /* [in] */ LPCWSTR serviceTypeName,
-            /* [in] */ FABRIC_URI serviceName,
+            __RPC__in IFabricStatefulServiceFactory * This,
+            /* [in] */ __RPC__in LPCWSTR serviceTypeName,
+            /* [in] */ __RPC__in FABRIC_URI serviceName,
             /* [in] */ ULONG initializationDataLength,
-            /* [size_is][in] */ const byte *initializationData,
+            /* [size_is][in] */ __RPC__in_ecount_full(initializationDataLength) const byte *initializationData,
             /* [in] */ FABRIC_PARTITION_ID partitionId,
             /* [in] */ FABRIC_REPLICA_ID replicaId,
-            /* [retval][out] */ IFabricStatefulServiceReplica **serviceReplica);
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStatefulServiceReplica **serviceReplica);
         
         END_INTERFACE
     } IFabricStatefulServiceFactoryVtbl;
@@ -2305,29 +2310,29 @@ EXTERN_C const IID IID_IFabricStatefulServiceReplica;
     public:
         virtual HRESULT STDMETHODCALLTYPE BeginOpen( 
             /* [in] */ FABRIC_REPLICA_OPEN_MODE openMode,
-            /* [in] */ IFabricStatefulServicePartition *partition,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricStatefulServicePartition *partition,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndOpen( 
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricReplicator **replicator) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricReplicator **replicator) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE BeginChangeRole( 
             /* [in] */ FABRIC_REPLICA_ROLE newRole,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndChangeRole( 
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricStringResult **serviceAddress) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **serviceAddress) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE BeginClose( 
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndClose( 
-            /* [in] */ IFabricAsyncOperationContext *context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context) = 0;
         
         virtual void STDMETHODCALLTYPE Abort( void) = 0;
         
@@ -2342,60 +2347,60 @@ EXTERN_C const IID IID_IFabricStatefulServiceReplica;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricStatefulServiceReplica * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricStatefulServiceReplica * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricStatefulServiceReplica * This);
+            __RPC__in IFabricStatefulServiceReplica * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricStatefulServiceReplica * This);
+            __RPC__in IFabricStatefulServiceReplica * This);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, BeginOpen)
         HRESULT ( STDMETHODCALLTYPE *BeginOpen )( 
-            IFabricStatefulServiceReplica * This,
+            __RPC__in IFabricStatefulServiceReplica * This,
             /* [in] */ FABRIC_REPLICA_OPEN_MODE openMode,
-            /* [in] */ IFabricStatefulServicePartition *partition,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricStatefulServicePartition *partition,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, EndOpen)
         HRESULT ( STDMETHODCALLTYPE *EndOpen )( 
-            IFabricStatefulServiceReplica * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricReplicator **replicator);
+            __RPC__in IFabricStatefulServiceReplica * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricReplicator **replicator);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, BeginChangeRole)
         HRESULT ( STDMETHODCALLTYPE *BeginChangeRole )( 
-            IFabricStatefulServiceReplica * This,
+            __RPC__in IFabricStatefulServiceReplica * This,
             /* [in] */ FABRIC_REPLICA_ROLE newRole,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, EndChangeRole)
         HRESULT ( STDMETHODCALLTYPE *EndChangeRole )( 
-            IFabricStatefulServiceReplica * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricStringResult **serviceAddress);
+            __RPC__in IFabricStatefulServiceReplica * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **serviceAddress);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, BeginClose)
         HRESULT ( STDMETHODCALLTYPE *BeginClose )( 
-            IFabricStatefulServiceReplica * This,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricStatefulServiceReplica * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, EndClose)
         HRESULT ( STDMETHODCALLTYPE *EndClose )( 
-            IFabricStatefulServiceReplica * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricStatefulServiceReplica * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, Abort)
         void ( STDMETHODCALLTYPE *Abort )( 
-            IFabricStatefulServiceReplica * This);
+            __RPC__in IFabricStatefulServiceReplica * This);
         
         END_INTERFACE
     } IFabricStatefulServiceReplicaVtbl;
@@ -2468,23 +2473,23 @@ EXTERN_C const IID IID_IFabricStatefulServicePartition;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE GetPartitionInfo( 
-            /* [retval][out] */ const FABRIC_SERVICE_PARTITION_INFORMATION **bufferedValue) = 0;
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_SERVICE_PARTITION_INFORMATION **bufferedValue) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetReadStatus( 
-            /* [retval][out] */ FABRIC_SERVICE_PARTITION_ACCESS_STATUS *readStatus) = 0;
+            /* [retval][out] */ __RPC__out FABRIC_SERVICE_PARTITION_ACCESS_STATUS *readStatus) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetWriteStatus( 
-            /* [retval][out] */ FABRIC_SERVICE_PARTITION_ACCESS_STATUS *writeStatus) = 0;
+            /* [retval][out] */ __RPC__out FABRIC_SERVICE_PARTITION_ACCESS_STATUS *writeStatus) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE CreateReplicator( 
-            /* [in] */ IFabricStateProvider *stateProvider,
-            /* [in] */ const FABRIC_REPLICATOR_SETTINGS *replicatorSettings,
-            /* [out] */ IFabricReplicator **replicator,
-            /* [retval][out] */ IFabricStateReplicator **stateReplicator) = 0;
+            /* [in] */ __RPC__in_opt IFabricStateProvider *stateProvider,
+            /* [in] */ __RPC__in const FABRIC_REPLICATOR_SETTINGS *replicatorSettings,
+            /* [out] */ __RPC__deref_out_opt IFabricReplicator **replicator,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStateReplicator **stateReplicator) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE ReportLoad( 
             /* [in] */ ULONG metricCount,
-            /* [size_is][in] */ const FABRIC_LOAD_METRIC *metrics) = 0;
+            /* [size_is][in] */ __RPC__in_ecount_full(metricCount) const FABRIC_LOAD_METRIC *metrics) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE ReportFault( 
             /* [in] */ FABRIC_FAULT_TYPE faultType) = 0;
@@ -2500,51 +2505,51 @@ EXTERN_C const IID IID_IFabricStatefulServicePartition;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricStatefulServicePartition * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricStatefulServicePartition * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricStatefulServicePartition * This);
+            __RPC__in IFabricStatefulServicePartition * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricStatefulServicePartition * This);
+            __RPC__in IFabricStatefulServicePartition * This);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, GetPartitionInfo)
         HRESULT ( STDMETHODCALLTYPE *GetPartitionInfo )( 
-            IFabricStatefulServicePartition * This,
-            /* [retval][out] */ const FABRIC_SERVICE_PARTITION_INFORMATION **bufferedValue);
+            __RPC__in IFabricStatefulServicePartition * This,
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_SERVICE_PARTITION_INFORMATION **bufferedValue);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, GetReadStatus)
         HRESULT ( STDMETHODCALLTYPE *GetReadStatus )( 
-            IFabricStatefulServicePartition * This,
-            /* [retval][out] */ FABRIC_SERVICE_PARTITION_ACCESS_STATUS *readStatus);
+            __RPC__in IFabricStatefulServicePartition * This,
+            /* [retval][out] */ __RPC__out FABRIC_SERVICE_PARTITION_ACCESS_STATUS *readStatus);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, GetWriteStatus)
         HRESULT ( STDMETHODCALLTYPE *GetWriteStatus )( 
-            IFabricStatefulServicePartition * This,
-            /* [retval][out] */ FABRIC_SERVICE_PARTITION_ACCESS_STATUS *writeStatus);
+            __RPC__in IFabricStatefulServicePartition * This,
+            /* [retval][out] */ __RPC__out FABRIC_SERVICE_PARTITION_ACCESS_STATUS *writeStatus);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, CreateReplicator)
         HRESULT ( STDMETHODCALLTYPE *CreateReplicator )( 
-            IFabricStatefulServicePartition * This,
-            /* [in] */ IFabricStateProvider *stateProvider,
-            /* [in] */ const FABRIC_REPLICATOR_SETTINGS *replicatorSettings,
-            /* [out] */ IFabricReplicator **replicator,
-            /* [retval][out] */ IFabricStateReplicator **stateReplicator);
+            __RPC__in IFabricStatefulServicePartition * This,
+            /* [in] */ __RPC__in_opt IFabricStateProvider *stateProvider,
+            /* [in] */ __RPC__in const FABRIC_REPLICATOR_SETTINGS *replicatorSettings,
+            /* [out] */ __RPC__deref_out_opt IFabricReplicator **replicator,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStateReplicator **stateReplicator);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, ReportLoad)
         HRESULT ( STDMETHODCALLTYPE *ReportLoad )( 
-            IFabricStatefulServicePartition * This,
+            __RPC__in IFabricStatefulServicePartition * This,
             /* [in] */ ULONG metricCount,
-            /* [size_is][in] */ const FABRIC_LOAD_METRIC *metrics);
+            /* [size_is][in] */ __RPC__in_ecount_full(metricCount) const FABRIC_LOAD_METRIC *metrics);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, ReportFault)
         HRESULT ( STDMETHODCALLTYPE *ReportFault )( 
-            IFabricStatefulServicePartition * This,
+            __RPC__in IFabricStatefulServicePartition * This,
             /* [in] */ FABRIC_FAULT_TYPE faultType);
         
         END_INTERFACE
@@ -2628,56 +2633,56 @@ EXTERN_C const IID IID_IFabricStatefulServicePartition1;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricStatefulServicePartition1 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricStatefulServicePartition1 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricStatefulServicePartition1 * This);
+            __RPC__in IFabricStatefulServicePartition1 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricStatefulServicePartition1 * This);
+            __RPC__in IFabricStatefulServicePartition1 * This);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, GetPartitionInfo)
         HRESULT ( STDMETHODCALLTYPE *GetPartitionInfo )( 
-            IFabricStatefulServicePartition1 * This,
-            /* [retval][out] */ const FABRIC_SERVICE_PARTITION_INFORMATION **bufferedValue);
+            __RPC__in IFabricStatefulServicePartition1 * This,
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_SERVICE_PARTITION_INFORMATION **bufferedValue);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, GetReadStatus)
         HRESULT ( STDMETHODCALLTYPE *GetReadStatus )( 
-            IFabricStatefulServicePartition1 * This,
-            /* [retval][out] */ FABRIC_SERVICE_PARTITION_ACCESS_STATUS *readStatus);
+            __RPC__in IFabricStatefulServicePartition1 * This,
+            /* [retval][out] */ __RPC__out FABRIC_SERVICE_PARTITION_ACCESS_STATUS *readStatus);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, GetWriteStatus)
         HRESULT ( STDMETHODCALLTYPE *GetWriteStatus )( 
-            IFabricStatefulServicePartition1 * This,
-            /* [retval][out] */ FABRIC_SERVICE_PARTITION_ACCESS_STATUS *writeStatus);
+            __RPC__in IFabricStatefulServicePartition1 * This,
+            /* [retval][out] */ __RPC__out FABRIC_SERVICE_PARTITION_ACCESS_STATUS *writeStatus);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, CreateReplicator)
         HRESULT ( STDMETHODCALLTYPE *CreateReplicator )( 
-            IFabricStatefulServicePartition1 * This,
-            /* [in] */ IFabricStateProvider *stateProvider,
-            /* [in] */ const FABRIC_REPLICATOR_SETTINGS *replicatorSettings,
-            /* [out] */ IFabricReplicator **replicator,
-            /* [retval][out] */ IFabricStateReplicator **stateReplicator);
+            __RPC__in IFabricStatefulServicePartition1 * This,
+            /* [in] */ __RPC__in_opt IFabricStateProvider *stateProvider,
+            /* [in] */ __RPC__in const FABRIC_REPLICATOR_SETTINGS *replicatorSettings,
+            /* [out] */ __RPC__deref_out_opt IFabricReplicator **replicator,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStateReplicator **stateReplicator);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, ReportLoad)
         HRESULT ( STDMETHODCALLTYPE *ReportLoad )( 
-            IFabricStatefulServicePartition1 * This,
+            __RPC__in IFabricStatefulServicePartition1 * This,
             /* [in] */ ULONG metricCount,
-            /* [size_is][in] */ const FABRIC_LOAD_METRIC *metrics);
+            /* [size_is][in] */ __RPC__in_ecount_full(metricCount) const FABRIC_LOAD_METRIC *metrics);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, ReportFault)
         HRESULT ( STDMETHODCALLTYPE *ReportFault )( 
-            IFabricStatefulServicePartition1 * This,
+            __RPC__in IFabricStatefulServicePartition1 * This,
             /* [in] */ FABRIC_FAULT_TYPE faultType);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition1, ReportMoveCost)
         HRESULT ( STDMETHODCALLTYPE *ReportMoveCost )( 
-            IFabricStatefulServicePartition1 * This,
+            __RPC__in IFabricStatefulServicePartition1 * This,
             /* [in] */ FABRIC_MOVE_COST moveCost);
         
         END_INTERFACE
@@ -2752,10 +2757,10 @@ EXTERN_C const IID IID_IFabricStatefulServicePartition2;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE ReportReplicaHealth( 
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo) = 0;
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE ReportPartitionHealth( 
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo) = 0;
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo) = 0;
         
     };
     
@@ -2768,67 +2773,67 @@ EXTERN_C const IID IID_IFabricStatefulServicePartition2;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricStatefulServicePartition2 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricStatefulServicePartition2 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricStatefulServicePartition2 * This);
+            __RPC__in IFabricStatefulServicePartition2 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricStatefulServicePartition2 * This);
+            __RPC__in IFabricStatefulServicePartition2 * This);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, GetPartitionInfo)
         HRESULT ( STDMETHODCALLTYPE *GetPartitionInfo )( 
-            IFabricStatefulServicePartition2 * This,
-            /* [retval][out] */ const FABRIC_SERVICE_PARTITION_INFORMATION **bufferedValue);
+            __RPC__in IFabricStatefulServicePartition2 * This,
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_SERVICE_PARTITION_INFORMATION **bufferedValue);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, GetReadStatus)
         HRESULT ( STDMETHODCALLTYPE *GetReadStatus )( 
-            IFabricStatefulServicePartition2 * This,
-            /* [retval][out] */ FABRIC_SERVICE_PARTITION_ACCESS_STATUS *readStatus);
+            __RPC__in IFabricStatefulServicePartition2 * This,
+            /* [retval][out] */ __RPC__out FABRIC_SERVICE_PARTITION_ACCESS_STATUS *readStatus);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, GetWriteStatus)
         HRESULT ( STDMETHODCALLTYPE *GetWriteStatus )( 
-            IFabricStatefulServicePartition2 * This,
-            /* [retval][out] */ FABRIC_SERVICE_PARTITION_ACCESS_STATUS *writeStatus);
+            __RPC__in IFabricStatefulServicePartition2 * This,
+            /* [retval][out] */ __RPC__out FABRIC_SERVICE_PARTITION_ACCESS_STATUS *writeStatus);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, CreateReplicator)
         HRESULT ( STDMETHODCALLTYPE *CreateReplicator )( 
-            IFabricStatefulServicePartition2 * This,
-            /* [in] */ IFabricStateProvider *stateProvider,
-            /* [in] */ const FABRIC_REPLICATOR_SETTINGS *replicatorSettings,
-            /* [out] */ IFabricReplicator **replicator,
-            /* [retval][out] */ IFabricStateReplicator **stateReplicator);
+            __RPC__in IFabricStatefulServicePartition2 * This,
+            /* [in] */ __RPC__in_opt IFabricStateProvider *stateProvider,
+            /* [in] */ __RPC__in const FABRIC_REPLICATOR_SETTINGS *replicatorSettings,
+            /* [out] */ __RPC__deref_out_opt IFabricReplicator **replicator,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStateReplicator **stateReplicator);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, ReportLoad)
         HRESULT ( STDMETHODCALLTYPE *ReportLoad )( 
-            IFabricStatefulServicePartition2 * This,
+            __RPC__in IFabricStatefulServicePartition2 * This,
             /* [in] */ ULONG metricCount,
-            /* [size_is][in] */ const FABRIC_LOAD_METRIC *metrics);
+            /* [size_is][in] */ __RPC__in_ecount_full(metricCount) const FABRIC_LOAD_METRIC *metrics);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, ReportFault)
         HRESULT ( STDMETHODCALLTYPE *ReportFault )( 
-            IFabricStatefulServicePartition2 * This,
+            __RPC__in IFabricStatefulServicePartition2 * This,
             /* [in] */ FABRIC_FAULT_TYPE faultType);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition1, ReportMoveCost)
         HRESULT ( STDMETHODCALLTYPE *ReportMoveCost )( 
-            IFabricStatefulServicePartition2 * This,
+            __RPC__in IFabricStatefulServicePartition2 * This,
             /* [in] */ FABRIC_MOVE_COST moveCost);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition2, ReportReplicaHealth)
         HRESULT ( STDMETHODCALLTYPE *ReportReplicaHealth )( 
-            IFabricStatefulServicePartition2 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo);
+            __RPC__in IFabricStatefulServicePartition2 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition2, ReportPartitionHealth)
         HRESULT ( STDMETHODCALLTYPE *ReportPartitionHealth )( 
-            IFabricStatefulServicePartition2 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo);
+            __RPC__in IFabricStatefulServicePartition2 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo);
         
         END_INTERFACE
     } IFabricStatefulServicePartition2Vtbl;
@@ -2909,12 +2914,12 @@ EXTERN_C const IID IID_IFabricStatefulServicePartition3;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE ReportReplicaHealth2( 
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo,
-            /* [in] */ const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions) = 0;
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE ReportPartitionHealth2( 
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo,
-            /* [in] */ const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions) = 0;
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions) = 0;
         
     };
     
@@ -2927,79 +2932,79 @@ EXTERN_C const IID IID_IFabricStatefulServicePartition3;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricStatefulServicePartition3 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricStatefulServicePartition3 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricStatefulServicePartition3 * This);
+            __RPC__in IFabricStatefulServicePartition3 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricStatefulServicePartition3 * This);
+            __RPC__in IFabricStatefulServicePartition3 * This);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, GetPartitionInfo)
         HRESULT ( STDMETHODCALLTYPE *GetPartitionInfo )( 
-            IFabricStatefulServicePartition3 * This,
-            /* [retval][out] */ const FABRIC_SERVICE_PARTITION_INFORMATION **bufferedValue);
+            __RPC__in IFabricStatefulServicePartition3 * This,
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_SERVICE_PARTITION_INFORMATION **bufferedValue);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, GetReadStatus)
         HRESULT ( STDMETHODCALLTYPE *GetReadStatus )( 
-            IFabricStatefulServicePartition3 * This,
-            /* [retval][out] */ FABRIC_SERVICE_PARTITION_ACCESS_STATUS *readStatus);
+            __RPC__in IFabricStatefulServicePartition3 * This,
+            /* [retval][out] */ __RPC__out FABRIC_SERVICE_PARTITION_ACCESS_STATUS *readStatus);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, GetWriteStatus)
         HRESULT ( STDMETHODCALLTYPE *GetWriteStatus )( 
-            IFabricStatefulServicePartition3 * This,
-            /* [retval][out] */ FABRIC_SERVICE_PARTITION_ACCESS_STATUS *writeStatus);
+            __RPC__in IFabricStatefulServicePartition3 * This,
+            /* [retval][out] */ __RPC__out FABRIC_SERVICE_PARTITION_ACCESS_STATUS *writeStatus);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, CreateReplicator)
         HRESULT ( STDMETHODCALLTYPE *CreateReplicator )( 
-            IFabricStatefulServicePartition3 * This,
-            /* [in] */ IFabricStateProvider *stateProvider,
-            /* [in] */ const FABRIC_REPLICATOR_SETTINGS *replicatorSettings,
-            /* [out] */ IFabricReplicator **replicator,
-            /* [retval][out] */ IFabricStateReplicator **stateReplicator);
+            __RPC__in IFabricStatefulServicePartition3 * This,
+            /* [in] */ __RPC__in_opt IFabricStateProvider *stateProvider,
+            /* [in] */ __RPC__in const FABRIC_REPLICATOR_SETTINGS *replicatorSettings,
+            /* [out] */ __RPC__deref_out_opt IFabricReplicator **replicator,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStateReplicator **stateReplicator);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, ReportLoad)
         HRESULT ( STDMETHODCALLTYPE *ReportLoad )( 
-            IFabricStatefulServicePartition3 * This,
+            __RPC__in IFabricStatefulServicePartition3 * This,
             /* [in] */ ULONG metricCount,
-            /* [size_is][in] */ const FABRIC_LOAD_METRIC *metrics);
+            /* [size_is][in] */ __RPC__in_ecount_full(metricCount) const FABRIC_LOAD_METRIC *metrics);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition, ReportFault)
         HRESULT ( STDMETHODCALLTYPE *ReportFault )( 
-            IFabricStatefulServicePartition3 * This,
+            __RPC__in IFabricStatefulServicePartition3 * This,
             /* [in] */ FABRIC_FAULT_TYPE faultType);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition1, ReportMoveCost)
         HRESULT ( STDMETHODCALLTYPE *ReportMoveCost )( 
-            IFabricStatefulServicePartition3 * This,
+            __RPC__in IFabricStatefulServicePartition3 * This,
             /* [in] */ FABRIC_MOVE_COST moveCost);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition2, ReportReplicaHealth)
         HRESULT ( STDMETHODCALLTYPE *ReportReplicaHealth )( 
-            IFabricStatefulServicePartition3 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo);
+            __RPC__in IFabricStatefulServicePartition3 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition2, ReportPartitionHealth)
         HRESULT ( STDMETHODCALLTYPE *ReportPartitionHealth )( 
-            IFabricStatefulServicePartition3 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo);
+            __RPC__in IFabricStatefulServicePartition3 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition3, ReportReplicaHealth2)
         HRESULT ( STDMETHODCALLTYPE *ReportReplicaHealth2 )( 
-            IFabricStatefulServicePartition3 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo,
-            /* [in] */ const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
+            __RPC__in IFabricStatefulServicePartition3 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServicePartition3, ReportPartitionHealth2)
         HRESULT ( STDMETHODCALLTYPE *ReportPartitionHealth2 )( 
-            IFabricStatefulServicePartition3 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo,
-            /* [in] */ const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
+            __RPC__in IFabricStatefulServicePartition3 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
         
         END_INTERFACE
     } IFabricStatefulServicePartition3Vtbl;
@@ -3087,32 +3092,32 @@ EXTERN_C const IID IID_IFabricStateProvider;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE BeginUpdateEpoch( 
-            /* [in] */ const FABRIC_EPOCH *epoch,
+            /* [in] */ __RPC__in const FABRIC_EPOCH *epoch,
             /* [in] */ FABRIC_SEQUENCE_NUMBER previousEpochLastSequenceNumber,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndUpdateEpoch( 
-            /* [in] */ IFabricAsyncOperationContext *context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetLastCommittedSequenceNumber( 
-            /* [retval][out] */ FABRIC_SEQUENCE_NUMBER *sequenceNumber) = 0;
+            /* [retval][out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *sequenceNumber) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE BeginOnDataLoss( 
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndOnDataLoss( 
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ BOOLEAN *isStateChanged) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__out BOOLEAN *isStateChanged) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetCopyContext( 
-            /* [retval][out] */ IFabricOperationDataStream **copyContextStream) = 0;
+            /* [retval][out] */ __RPC__deref_out_opt IFabricOperationDataStream **copyContextStream) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetCopyState( 
             /* [in] */ FABRIC_SEQUENCE_NUMBER uptoSequenceNumber,
-            /* [in] */ IFabricOperationDataStream *copyContextStream,
-            /* [retval][out] */ IFabricOperationDataStream **copyStateStream) = 0;
+            /* [in] */ __RPC__in_opt IFabricOperationDataStream *copyContextStream,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricOperationDataStream **copyStateStream) = 0;
         
     };
     
@@ -3125,60 +3130,60 @@ EXTERN_C const IID IID_IFabricStateProvider;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricStateProvider * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricStateProvider * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricStateProvider * This);
+            __RPC__in IFabricStateProvider * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricStateProvider * This);
+            __RPC__in IFabricStateProvider * This);
         
         DECLSPEC_XFGVIRT(IFabricStateProvider, BeginUpdateEpoch)
         HRESULT ( STDMETHODCALLTYPE *BeginUpdateEpoch )( 
-            IFabricStateProvider * This,
-            /* [in] */ const FABRIC_EPOCH *epoch,
+            __RPC__in IFabricStateProvider * This,
+            /* [in] */ __RPC__in const FABRIC_EPOCH *epoch,
             /* [in] */ FABRIC_SEQUENCE_NUMBER previousEpochLastSequenceNumber,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStateProvider, EndUpdateEpoch)
         HRESULT ( STDMETHODCALLTYPE *EndUpdateEpoch )( 
-            IFabricStateProvider * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricStateProvider * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricStateProvider, GetLastCommittedSequenceNumber)
         HRESULT ( STDMETHODCALLTYPE *GetLastCommittedSequenceNumber )( 
-            IFabricStateProvider * This,
-            /* [retval][out] */ FABRIC_SEQUENCE_NUMBER *sequenceNumber);
+            __RPC__in IFabricStateProvider * This,
+            /* [retval][out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *sequenceNumber);
         
         DECLSPEC_XFGVIRT(IFabricStateProvider, BeginOnDataLoss)
         HRESULT ( STDMETHODCALLTYPE *BeginOnDataLoss )( 
-            IFabricStateProvider * This,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricStateProvider * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStateProvider, EndOnDataLoss)
         HRESULT ( STDMETHODCALLTYPE *EndOnDataLoss )( 
-            IFabricStateProvider * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ BOOLEAN *isStateChanged);
+            __RPC__in IFabricStateProvider * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__out BOOLEAN *isStateChanged);
         
         DECLSPEC_XFGVIRT(IFabricStateProvider, GetCopyContext)
         HRESULT ( STDMETHODCALLTYPE *GetCopyContext )( 
-            IFabricStateProvider * This,
-            /* [retval][out] */ IFabricOperationDataStream **copyContextStream);
+            __RPC__in IFabricStateProvider * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricOperationDataStream **copyContextStream);
         
         DECLSPEC_XFGVIRT(IFabricStateProvider, GetCopyState)
         HRESULT ( STDMETHODCALLTYPE *GetCopyState )( 
-            IFabricStateProvider * This,
+            __RPC__in IFabricStateProvider * This,
             /* [in] */ FABRIC_SEQUENCE_NUMBER uptoSequenceNumber,
-            /* [in] */ IFabricOperationDataStream *copyContextStream,
-            /* [retval][out] */ IFabricOperationDataStream **copyStateStream);
+            /* [in] */ __RPC__in_opt IFabricOperationDataStream *copyContextStream,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricOperationDataStream **copyStateStream);
         
         END_INTERFACE
     } IFabricStateProviderVtbl;
@@ -3251,23 +3256,23 @@ EXTERN_C const IID IID_IFabricStateReplicator;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE BeginReplicate( 
-            /* [in] */ IFabricOperationData *operationData,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [out] */ FABRIC_SEQUENCE_NUMBER *sequenceNumber,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricOperationData *operationData,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *sequenceNumber,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndReplicate( 
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ FABRIC_SEQUENCE_NUMBER *sequenceNumber) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *sequenceNumber) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetReplicationStream( 
-            /* [retval][out] */ IFabricOperationStream **stream) = 0;
+            /* [retval][out] */ __RPC__deref_out_opt IFabricOperationStream **stream) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetCopyStream( 
-            /* [retval][out] */ IFabricOperationStream **stream) = 0;
+            /* [retval][out] */ __RPC__deref_out_opt IFabricOperationStream **stream) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE UpdateReplicatorSettings( 
-            /* [in] */ const FABRIC_REPLICATOR_SETTINGS *replicatorSettings) = 0;
+            /* [in] */ __RPC__in const FABRIC_REPLICATOR_SETTINGS *replicatorSettings) = 0;
         
     };
     
@@ -3280,47 +3285,47 @@ EXTERN_C const IID IID_IFabricStateReplicator;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricStateReplicator * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricStateReplicator * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricStateReplicator * This);
+            __RPC__in IFabricStateReplicator * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricStateReplicator * This);
+            __RPC__in IFabricStateReplicator * This);
         
         DECLSPEC_XFGVIRT(IFabricStateReplicator, BeginReplicate)
         HRESULT ( STDMETHODCALLTYPE *BeginReplicate )( 
-            IFabricStateReplicator * This,
-            /* [in] */ IFabricOperationData *operationData,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [out] */ FABRIC_SEQUENCE_NUMBER *sequenceNumber,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricStateReplicator * This,
+            /* [in] */ __RPC__in_opt IFabricOperationData *operationData,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *sequenceNumber,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStateReplicator, EndReplicate)
         HRESULT ( STDMETHODCALLTYPE *EndReplicate )( 
-            IFabricStateReplicator * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ FABRIC_SEQUENCE_NUMBER *sequenceNumber);
+            __RPC__in IFabricStateReplicator * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *sequenceNumber);
         
         DECLSPEC_XFGVIRT(IFabricStateReplicator, GetReplicationStream)
         HRESULT ( STDMETHODCALLTYPE *GetReplicationStream )( 
-            IFabricStateReplicator * This,
-            /* [retval][out] */ IFabricOperationStream **stream);
+            __RPC__in IFabricStateReplicator * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricOperationStream **stream);
         
         DECLSPEC_XFGVIRT(IFabricStateReplicator, GetCopyStream)
         HRESULT ( STDMETHODCALLTYPE *GetCopyStream )( 
-            IFabricStateReplicator * This,
-            /* [retval][out] */ IFabricOperationStream **stream);
+            __RPC__in IFabricStateReplicator * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricOperationStream **stream);
         
         DECLSPEC_XFGVIRT(IFabricStateReplicator, UpdateReplicatorSettings)
         HRESULT ( STDMETHODCALLTYPE *UpdateReplicatorSettings )( 
-            IFabricStateReplicator * This,
-            /* [in] */ const FABRIC_REPLICATOR_SETTINGS *replicatorSettings);
+            __RPC__in IFabricStateReplicator * This,
+            /* [in] */ __RPC__in const FABRIC_REPLICATOR_SETTINGS *replicatorSettings);
         
         END_INTERFACE
     } IFabricStateReplicatorVtbl;
@@ -3387,44 +3392,44 @@ EXTERN_C const IID IID_IFabricReplicator;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE BeginOpen( 
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndOpen( 
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricStringResult **replicationAddress) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **replicationAddress) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE BeginChangeRole( 
-            /* [in] */ const FABRIC_EPOCH *epoch,
+            /* [in] */ __RPC__in const FABRIC_EPOCH *epoch,
             /* [in] */ FABRIC_REPLICA_ROLE role,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndChangeRole( 
-            /* [in] */ IFabricAsyncOperationContext *context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE BeginUpdateEpoch( 
-            /* [in] */ const FABRIC_EPOCH *epoch,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in const FABRIC_EPOCH *epoch,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndUpdateEpoch( 
-            /* [in] */ IFabricAsyncOperationContext *context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE BeginClose( 
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndClose( 
-            /* [in] */ IFabricAsyncOperationContext *context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context) = 0;
         
         virtual void STDMETHODCALLTYPE Abort( void) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetCurrentProgress( 
-            /* [out] */ FABRIC_SEQUENCE_NUMBER *lastSequenceNumber) = 0;
+            /* [out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *lastSequenceNumber) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetCatchUpCapability( 
-            /* [out] */ FABRIC_SEQUENCE_NUMBER *fromSequenceNumber) = 0;
+            /* [out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *fromSequenceNumber) = 0;
         
     };
     
@@ -3437,80 +3442,80 @@ EXTERN_C const IID IID_IFabricReplicator;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricReplicator * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricReplicator * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricReplicator * This);
+            __RPC__in IFabricReplicator * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricReplicator * This);
+            __RPC__in IFabricReplicator * This);
         
         DECLSPEC_XFGVIRT(IFabricReplicator, BeginOpen)
         HRESULT ( STDMETHODCALLTYPE *BeginOpen )( 
-            IFabricReplicator * This,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricReplicator * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricReplicator, EndOpen)
         HRESULT ( STDMETHODCALLTYPE *EndOpen )( 
-            IFabricReplicator * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricStringResult **replicationAddress);
+            __RPC__in IFabricReplicator * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **replicationAddress);
         
         DECLSPEC_XFGVIRT(IFabricReplicator, BeginChangeRole)
         HRESULT ( STDMETHODCALLTYPE *BeginChangeRole )( 
-            IFabricReplicator * This,
-            /* [in] */ const FABRIC_EPOCH *epoch,
+            __RPC__in IFabricReplicator * This,
+            /* [in] */ __RPC__in const FABRIC_EPOCH *epoch,
             /* [in] */ FABRIC_REPLICA_ROLE role,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricReplicator, EndChangeRole)
         HRESULT ( STDMETHODCALLTYPE *EndChangeRole )( 
-            IFabricReplicator * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricReplicator * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricReplicator, BeginUpdateEpoch)
         HRESULT ( STDMETHODCALLTYPE *BeginUpdateEpoch )( 
-            IFabricReplicator * This,
-            /* [in] */ const FABRIC_EPOCH *epoch,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricReplicator * This,
+            /* [in] */ __RPC__in const FABRIC_EPOCH *epoch,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricReplicator, EndUpdateEpoch)
         HRESULT ( STDMETHODCALLTYPE *EndUpdateEpoch )( 
-            IFabricReplicator * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricReplicator * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricReplicator, BeginClose)
         HRESULT ( STDMETHODCALLTYPE *BeginClose )( 
-            IFabricReplicator * This,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricReplicator * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricReplicator, EndClose)
         HRESULT ( STDMETHODCALLTYPE *EndClose )( 
-            IFabricReplicator * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricReplicator * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricReplicator, Abort)
         void ( STDMETHODCALLTYPE *Abort )( 
-            IFabricReplicator * This);
+            __RPC__in IFabricReplicator * This);
         
         DECLSPEC_XFGVIRT(IFabricReplicator, GetCurrentProgress)
         HRESULT ( STDMETHODCALLTYPE *GetCurrentProgress )( 
-            IFabricReplicator * This,
-            /* [out] */ FABRIC_SEQUENCE_NUMBER *lastSequenceNumber);
+            __RPC__in IFabricReplicator * This,
+            /* [out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *lastSequenceNumber);
         
         DECLSPEC_XFGVIRT(IFabricReplicator, GetCatchUpCapability)
         HRESULT ( STDMETHODCALLTYPE *GetCatchUpCapability )( 
-            IFabricReplicator * This,
-            /* [out] */ FABRIC_SEQUENCE_NUMBER *fromSequenceNumber);
+            __RPC__in IFabricReplicator * This,
+            /* [out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *fromSequenceNumber);
         
         END_INTERFACE
     } IFabricReplicatorVtbl;
@@ -3595,35 +3600,35 @@ EXTERN_C const IID IID_IFabricPrimaryReplicator;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE BeginOnDataLoss( 
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndOnDataLoss( 
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ BOOLEAN *isStateChanged) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__out BOOLEAN *isStateChanged) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE UpdateCatchUpReplicaSetConfiguration( 
-            /* [in] */ const FABRIC_REPLICA_SET_CONFIGURATION *currentConfiguration,
-            /* [in] */ const FABRIC_REPLICA_SET_CONFIGURATION *previousConfiguration) = 0;
+            /* [in] */ __RPC__in const FABRIC_REPLICA_SET_CONFIGURATION *currentConfiguration,
+            /* [in] */ __RPC__in const FABRIC_REPLICA_SET_CONFIGURATION *previousConfiguration) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE BeginWaitForCatchUpQuorum( 
             /* [in] */ FABRIC_REPLICA_SET_QUORUM_MODE catchUpMode,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndWaitForCatchUpQuorum( 
-            /* [in] */ IFabricAsyncOperationContext *context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE UpdateCurrentReplicaSetConfiguration( 
-            /* [in] */ const FABRIC_REPLICA_SET_CONFIGURATION *currentConfiguration) = 0;
+            /* [in] */ __RPC__in const FABRIC_REPLICA_SET_CONFIGURATION *currentConfiguration) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE BeginBuildReplica( 
-            /* [in] */ const FABRIC_REPLICA_INFORMATION *replica,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in const FABRIC_REPLICA_INFORMATION *replica,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndBuildReplica( 
-            /* [in] */ IFabricAsyncOperationContext *context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE RemoveReplica( 
             /* [in] */ FABRIC_REPLICA_ID replicaId) = 0;
@@ -3639,131 +3644,131 @@ EXTERN_C const IID IID_IFabricPrimaryReplicator;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricPrimaryReplicator * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricPrimaryReplicator * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricPrimaryReplicator * This);
+            __RPC__in IFabricPrimaryReplicator * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricPrimaryReplicator * This);
+            __RPC__in IFabricPrimaryReplicator * This);
         
         DECLSPEC_XFGVIRT(IFabricReplicator, BeginOpen)
         HRESULT ( STDMETHODCALLTYPE *BeginOpen )( 
-            IFabricPrimaryReplicator * This,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricPrimaryReplicator * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricReplicator, EndOpen)
         HRESULT ( STDMETHODCALLTYPE *EndOpen )( 
-            IFabricPrimaryReplicator * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricStringResult **replicationAddress);
+            __RPC__in IFabricPrimaryReplicator * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **replicationAddress);
         
         DECLSPEC_XFGVIRT(IFabricReplicator, BeginChangeRole)
         HRESULT ( STDMETHODCALLTYPE *BeginChangeRole )( 
-            IFabricPrimaryReplicator * This,
-            /* [in] */ const FABRIC_EPOCH *epoch,
+            __RPC__in IFabricPrimaryReplicator * This,
+            /* [in] */ __RPC__in const FABRIC_EPOCH *epoch,
             /* [in] */ FABRIC_REPLICA_ROLE role,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricReplicator, EndChangeRole)
         HRESULT ( STDMETHODCALLTYPE *EndChangeRole )( 
-            IFabricPrimaryReplicator * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricPrimaryReplicator * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricReplicator, BeginUpdateEpoch)
         HRESULT ( STDMETHODCALLTYPE *BeginUpdateEpoch )( 
-            IFabricPrimaryReplicator * This,
-            /* [in] */ const FABRIC_EPOCH *epoch,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricPrimaryReplicator * This,
+            /* [in] */ __RPC__in const FABRIC_EPOCH *epoch,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricReplicator, EndUpdateEpoch)
         HRESULT ( STDMETHODCALLTYPE *EndUpdateEpoch )( 
-            IFabricPrimaryReplicator * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricPrimaryReplicator * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricReplicator, BeginClose)
         HRESULT ( STDMETHODCALLTYPE *BeginClose )( 
-            IFabricPrimaryReplicator * This,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricPrimaryReplicator * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricReplicator, EndClose)
         HRESULT ( STDMETHODCALLTYPE *EndClose )( 
-            IFabricPrimaryReplicator * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricPrimaryReplicator * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricReplicator, Abort)
         void ( STDMETHODCALLTYPE *Abort )( 
-            IFabricPrimaryReplicator * This);
+            __RPC__in IFabricPrimaryReplicator * This);
         
         DECLSPEC_XFGVIRT(IFabricReplicator, GetCurrentProgress)
         HRESULT ( STDMETHODCALLTYPE *GetCurrentProgress )( 
-            IFabricPrimaryReplicator * This,
-            /* [out] */ FABRIC_SEQUENCE_NUMBER *lastSequenceNumber);
+            __RPC__in IFabricPrimaryReplicator * This,
+            /* [out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *lastSequenceNumber);
         
         DECLSPEC_XFGVIRT(IFabricReplicator, GetCatchUpCapability)
         HRESULT ( STDMETHODCALLTYPE *GetCatchUpCapability )( 
-            IFabricPrimaryReplicator * This,
-            /* [out] */ FABRIC_SEQUENCE_NUMBER *fromSequenceNumber);
+            __RPC__in IFabricPrimaryReplicator * This,
+            /* [out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *fromSequenceNumber);
         
         DECLSPEC_XFGVIRT(IFabricPrimaryReplicator, BeginOnDataLoss)
         HRESULT ( STDMETHODCALLTYPE *BeginOnDataLoss )( 
-            IFabricPrimaryReplicator * This,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricPrimaryReplicator * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricPrimaryReplicator, EndOnDataLoss)
         HRESULT ( STDMETHODCALLTYPE *EndOnDataLoss )( 
-            IFabricPrimaryReplicator * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ BOOLEAN *isStateChanged);
+            __RPC__in IFabricPrimaryReplicator * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__out BOOLEAN *isStateChanged);
         
         DECLSPEC_XFGVIRT(IFabricPrimaryReplicator, UpdateCatchUpReplicaSetConfiguration)
         HRESULT ( STDMETHODCALLTYPE *UpdateCatchUpReplicaSetConfiguration )( 
-            IFabricPrimaryReplicator * This,
-            /* [in] */ const FABRIC_REPLICA_SET_CONFIGURATION *currentConfiguration,
-            /* [in] */ const FABRIC_REPLICA_SET_CONFIGURATION *previousConfiguration);
+            __RPC__in IFabricPrimaryReplicator * This,
+            /* [in] */ __RPC__in const FABRIC_REPLICA_SET_CONFIGURATION *currentConfiguration,
+            /* [in] */ __RPC__in const FABRIC_REPLICA_SET_CONFIGURATION *previousConfiguration);
         
         DECLSPEC_XFGVIRT(IFabricPrimaryReplicator, BeginWaitForCatchUpQuorum)
         HRESULT ( STDMETHODCALLTYPE *BeginWaitForCatchUpQuorum )( 
-            IFabricPrimaryReplicator * This,
+            __RPC__in IFabricPrimaryReplicator * This,
             /* [in] */ FABRIC_REPLICA_SET_QUORUM_MODE catchUpMode,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricPrimaryReplicator, EndWaitForCatchUpQuorum)
         HRESULT ( STDMETHODCALLTYPE *EndWaitForCatchUpQuorum )( 
-            IFabricPrimaryReplicator * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricPrimaryReplicator * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricPrimaryReplicator, UpdateCurrentReplicaSetConfiguration)
         HRESULT ( STDMETHODCALLTYPE *UpdateCurrentReplicaSetConfiguration )( 
-            IFabricPrimaryReplicator * This,
-            /* [in] */ const FABRIC_REPLICA_SET_CONFIGURATION *currentConfiguration);
+            __RPC__in IFabricPrimaryReplicator * This,
+            /* [in] */ __RPC__in const FABRIC_REPLICA_SET_CONFIGURATION *currentConfiguration);
         
         DECLSPEC_XFGVIRT(IFabricPrimaryReplicator, BeginBuildReplica)
         HRESULT ( STDMETHODCALLTYPE *BeginBuildReplica )( 
-            IFabricPrimaryReplicator * This,
-            /* [in] */ const FABRIC_REPLICA_INFORMATION *replica,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricPrimaryReplicator * This,
+            /* [in] */ __RPC__in const FABRIC_REPLICA_INFORMATION *replica,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricPrimaryReplicator, EndBuildReplica)
         HRESULT ( STDMETHODCALLTYPE *EndBuildReplica )( 
-            IFabricPrimaryReplicator * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricPrimaryReplicator * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricPrimaryReplicator, RemoveReplica)
         HRESULT ( STDMETHODCALLTYPE *RemoveReplica )( 
-            IFabricPrimaryReplicator * This,
+            __RPC__in IFabricPrimaryReplicator * This,
             /* [in] */ FABRIC_REPLICA_ID replicaId);
         
         END_INTERFACE
@@ -3887,18 +3892,18 @@ EXTERN_C const IID IID_IFabricReplicatorCatchupSpecificQuorum;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricReplicatorCatchupSpecificQuorum * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricReplicatorCatchupSpecificQuorum * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricReplicatorCatchupSpecificQuorum * This);
+            __RPC__in IFabricReplicatorCatchupSpecificQuorum * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricReplicatorCatchupSpecificQuorum * This);
+            __RPC__in IFabricReplicatorCatchupSpecificQuorum * This);
         
         END_INTERFACE
     } IFabricReplicatorCatchupSpecificQuorumVtbl;
@@ -3952,8 +3957,8 @@ EXTERN_C const IID IID_IFabricOperation;
         virtual const FABRIC_OPERATION_METADATA *STDMETHODCALLTYPE get_Metadata( void) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetData( 
-            /* [out] */ ULONG *count,
-            /* [retval][out] */ const FABRIC_OPERATION_DATA_BUFFER **buffers) = 0;
+            /* [out] */ __RPC__out ULONG *count,
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_OPERATION_DATA_BUFFER **buffers) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE Acknowledge( void) = 0;
         
@@ -3968,32 +3973,32 @@ EXTERN_C const IID IID_IFabricOperation;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricOperation * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricOperation * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricOperation * This);
+            __RPC__in IFabricOperation * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricOperation * This);
+            __RPC__in IFabricOperation * This);
         
         DECLSPEC_XFGVIRT(IFabricOperation, get_Metadata)
         const FABRIC_OPERATION_METADATA *( STDMETHODCALLTYPE *get_Metadata )( 
-            IFabricOperation * This);
+            __RPC__in IFabricOperation * This);
         
         DECLSPEC_XFGVIRT(IFabricOperation, GetData)
         HRESULT ( STDMETHODCALLTYPE *GetData )( 
-            IFabricOperation * This,
-            /* [out] */ ULONG *count,
-            /* [retval][out] */ const FABRIC_OPERATION_DATA_BUFFER **buffers);
+            __RPC__in IFabricOperation * This,
+            /* [out] */ __RPC__out ULONG *count,
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_OPERATION_DATA_BUFFER **buffers);
         
         DECLSPEC_XFGVIRT(IFabricOperation, Acknowledge)
         HRESULT ( STDMETHODCALLTYPE *Acknowledge )( 
-            IFabricOperation * This);
+            __RPC__in IFabricOperation * This);
         
         END_INTERFACE
     } IFabricOperationVtbl;
@@ -4054,8 +4059,8 @@ EXTERN_C const IID IID_IFabricOperationData;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE GetData( 
-            /* [out] */ ULONG *count,
-            /* [retval][out] */ const FABRIC_OPERATION_DATA_BUFFER **buffers) = 0;
+            /* [out] */ __RPC__out ULONG *count,
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_OPERATION_DATA_BUFFER **buffers) = 0;
         
     };
     
@@ -4068,24 +4073,24 @@ EXTERN_C const IID IID_IFabricOperationData;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricOperationData * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricOperationData * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricOperationData * This);
+            __RPC__in IFabricOperationData * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricOperationData * This);
+            __RPC__in IFabricOperationData * This);
         
         DECLSPEC_XFGVIRT(IFabricOperationData, GetData)
         HRESULT ( STDMETHODCALLTYPE *GetData )( 
-            IFabricOperationData * This,
-            /* [out] */ ULONG *count,
-            /* [retval][out] */ const FABRIC_OPERATION_DATA_BUFFER **buffers);
+            __RPC__in IFabricOperationData * This,
+            /* [out] */ __RPC__out ULONG *count,
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_OPERATION_DATA_BUFFER **buffers);
         
         END_INTERFACE
     } IFabricOperationDataVtbl;
@@ -4140,12 +4145,12 @@ EXTERN_C const IID IID_IFabricOperationStream;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE BeginGetOperation( 
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndGetOperation( 
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricOperation **operation) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricOperation **operation) = 0;
         
     };
     
@@ -4158,30 +4163,30 @@ EXTERN_C const IID IID_IFabricOperationStream;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricOperationStream * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricOperationStream * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricOperationStream * This);
+            __RPC__in IFabricOperationStream * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricOperationStream * This);
+            __RPC__in IFabricOperationStream * This);
         
         DECLSPEC_XFGVIRT(IFabricOperationStream, BeginGetOperation)
         HRESULT ( STDMETHODCALLTYPE *BeginGetOperation )( 
-            IFabricOperationStream * This,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricOperationStream * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricOperationStream, EndGetOperation)
         HRESULT ( STDMETHODCALLTYPE *EndGetOperation )( 
-            IFabricOperationStream * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricOperation **operation);
+            __RPC__in IFabricOperationStream * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricOperation **operation);
         
         END_INTERFACE
     } IFabricOperationStreamVtbl;
@@ -4252,34 +4257,34 @@ EXTERN_C const IID IID_IFabricOperationStream2;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricOperationStream2 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricOperationStream2 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricOperationStream2 * This);
+            __RPC__in IFabricOperationStream2 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricOperationStream2 * This);
+            __RPC__in IFabricOperationStream2 * This);
         
         DECLSPEC_XFGVIRT(IFabricOperationStream, BeginGetOperation)
         HRESULT ( STDMETHODCALLTYPE *BeginGetOperation )( 
-            IFabricOperationStream2 * This,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricOperationStream2 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricOperationStream, EndGetOperation)
         HRESULT ( STDMETHODCALLTYPE *EndGetOperation )( 
-            IFabricOperationStream2 * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricOperation **operation);
+            __RPC__in IFabricOperationStream2 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricOperation **operation);
         
         DECLSPEC_XFGVIRT(IFabricOperationStream2, ReportFault)
         HRESULT ( STDMETHODCALLTYPE *ReportFault )( 
-            IFabricOperationStream2 * This,
+            __RPC__in IFabricOperationStream2 * This,
             /* [in] */ FABRIC_FAULT_TYPE faultType);
         
         END_INTERFACE
@@ -4342,12 +4347,12 @@ EXTERN_C const IID IID_IFabricOperationDataStream;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE BeginGetNext( 
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndGetNext( 
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricOperationData **operationData) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricOperationData **operationData) = 0;
         
     };
     
@@ -4360,30 +4365,30 @@ EXTERN_C const IID IID_IFabricOperationDataStream;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricOperationDataStream * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricOperationDataStream * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricOperationDataStream * This);
+            __RPC__in IFabricOperationDataStream * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricOperationDataStream * This);
+            __RPC__in IFabricOperationDataStream * This);
         
         DECLSPEC_XFGVIRT(IFabricOperationDataStream, BeginGetNext)
         HRESULT ( STDMETHODCALLTYPE *BeginGetNext )( 
-            IFabricOperationDataStream * This,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricOperationDataStream * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricOperationDataStream, EndGetNext)
         HRESULT ( STDMETHODCALLTYPE *EndGetNext )( 
-            IFabricOperationDataStream * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricOperationData **operationData);
+            __RPC__in IFabricOperationDataStream * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricOperationData **operationData);
         
         END_INTERFACE
     } IFabricOperationDataStreamVtbl;
@@ -4443,28 +4448,28 @@ EXTERN_C const IID IID_IFabricAtomicGroupStateProvider;
         virtual HRESULT STDMETHODCALLTYPE BeginAtomicGroupCommit( 
             /* [in] */ FABRIC_ATOMIC_GROUP_ID atomicGroupId,
             /* [in] */ FABRIC_SEQUENCE_NUMBER commitSequenceNumber,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndAtomicGroupCommit( 
-            /* [in] */ IFabricAsyncOperationContext *context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE BeginAtomicGroupRollback( 
             /* [in] */ FABRIC_ATOMIC_GROUP_ID atomicGroupId,
             /* [in] */ FABRIC_SEQUENCE_NUMBER rollbackequenceNumber,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndAtomicGroupRollback( 
-            /* [in] */ IFabricAsyncOperationContext *context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE BeginUndoProgress( 
             /* [in] */ FABRIC_SEQUENCE_NUMBER fromCommitSequenceNumber,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndUndoProgress( 
-            /* [in] */ IFabricAsyncOperationContext *context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context) = 0;
         
     };
     
@@ -4477,56 +4482,56 @@ EXTERN_C const IID IID_IFabricAtomicGroupStateProvider;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricAtomicGroupStateProvider * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricAtomicGroupStateProvider * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricAtomicGroupStateProvider * This);
+            __RPC__in IFabricAtomicGroupStateProvider * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricAtomicGroupStateProvider * This);
+            __RPC__in IFabricAtomicGroupStateProvider * This);
         
         DECLSPEC_XFGVIRT(IFabricAtomicGroupStateProvider, BeginAtomicGroupCommit)
         HRESULT ( STDMETHODCALLTYPE *BeginAtomicGroupCommit )( 
-            IFabricAtomicGroupStateProvider * This,
+            __RPC__in IFabricAtomicGroupStateProvider * This,
             /* [in] */ FABRIC_ATOMIC_GROUP_ID atomicGroupId,
             /* [in] */ FABRIC_SEQUENCE_NUMBER commitSequenceNumber,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricAtomicGroupStateProvider, EndAtomicGroupCommit)
         HRESULT ( STDMETHODCALLTYPE *EndAtomicGroupCommit )( 
-            IFabricAtomicGroupStateProvider * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricAtomicGroupStateProvider * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricAtomicGroupStateProvider, BeginAtomicGroupRollback)
         HRESULT ( STDMETHODCALLTYPE *BeginAtomicGroupRollback )( 
-            IFabricAtomicGroupStateProvider * This,
+            __RPC__in IFabricAtomicGroupStateProvider * This,
             /* [in] */ FABRIC_ATOMIC_GROUP_ID atomicGroupId,
             /* [in] */ FABRIC_SEQUENCE_NUMBER rollbackequenceNumber,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricAtomicGroupStateProvider, EndAtomicGroupRollback)
         HRESULT ( STDMETHODCALLTYPE *EndAtomicGroupRollback )( 
-            IFabricAtomicGroupStateProvider * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricAtomicGroupStateProvider * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricAtomicGroupStateProvider, BeginUndoProgress)
         HRESULT ( STDMETHODCALLTYPE *BeginUndoProgress )( 
-            IFabricAtomicGroupStateProvider * This,
+            __RPC__in IFabricAtomicGroupStateProvider * This,
             /* [in] */ FABRIC_SEQUENCE_NUMBER fromCommitSequenceNumber,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricAtomicGroupStateProvider, EndUndoProgress)
         HRESULT ( STDMETHODCALLTYPE *EndUndoProgress )( 
-            IFabricAtomicGroupStateProvider * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricAtomicGroupStateProvider * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         END_INTERFACE
     } IFabricAtomicGroupStateProviderVtbl;
@@ -4596,38 +4601,38 @@ EXTERN_C const IID IID_IFabricAtomicGroupStateReplicator;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE CreateAtomicGroup( 
-            /* [retval][out] */ FABRIC_ATOMIC_GROUP_ID *AtomicGroupId) = 0;
+            /* [retval][out] */ __RPC__out FABRIC_ATOMIC_GROUP_ID *AtomicGroupId) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE BeginReplicateAtomicGroupOperation( 
             /* [in] */ FABRIC_ATOMIC_GROUP_ID atomicGroupId,
-            /* [in] */ IFabricOperationData *operationData,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [out] */ FABRIC_SEQUENCE_NUMBER *operationSequenceNumber,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricOperationData *operationData,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *operationSequenceNumber,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndReplicateAtomicGroupOperation( 
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ FABRIC_SEQUENCE_NUMBER *operationSequenceNumber) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *operationSequenceNumber) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE BeginReplicateAtomicGroupCommit( 
             /* [in] */ FABRIC_ATOMIC_GROUP_ID atomicGroupId,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [out] */ FABRIC_SEQUENCE_NUMBER *commitSequenceNumber,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *commitSequenceNumber,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndReplicateAtomicGroupCommit( 
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ FABRIC_SEQUENCE_NUMBER *commitSequenceNumber) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *commitSequenceNumber) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE BeginReplicateAtomicGroupRollback( 
             /* [in] */ FABRIC_ATOMIC_GROUP_ID atomicGroupId,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [out] */ FABRIC_SEQUENCE_NUMBER *rollbackSequenceNumber,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *rollbackSequenceNumber,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndReplicateAtomicGroupRollback( 
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ FABRIC_SEQUENCE_NUMBER *rollbackSequenceNumber) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *rollbackSequenceNumber) = 0;
         
     };
     
@@ -4640,66 +4645,66 @@ EXTERN_C const IID IID_IFabricAtomicGroupStateReplicator;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricAtomicGroupStateReplicator * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricAtomicGroupStateReplicator * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricAtomicGroupStateReplicator * This);
+            __RPC__in IFabricAtomicGroupStateReplicator * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricAtomicGroupStateReplicator * This);
+            __RPC__in IFabricAtomicGroupStateReplicator * This);
         
         DECLSPEC_XFGVIRT(IFabricAtomicGroupStateReplicator, CreateAtomicGroup)
         HRESULT ( STDMETHODCALLTYPE *CreateAtomicGroup )( 
-            IFabricAtomicGroupStateReplicator * This,
-            /* [retval][out] */ FABRIC_ATOMIC_GROUP_ID *AtomicGroupId);
+            __RPC__in IFabricAtomicGroupStateReplicator * This,
+            /* [retval][out] */ __RPC__out FABRIC_ATOMIC_GROUP_ID *AtomicGroupId);
         
         DECLSPEC_XFGVIRT(IFabricAtomicGroupStateReplicator, BeginReplicateAtomicGroupOperation)
         HRESULT ( STDMETHODCALLTYPE *BeginReplicateAtomicGroupOperation )( 
-            IFabricAtomicGroupStateReplicator * This,
+            __RPC__in IFabricAtomicGroupStateReplicator * This,
             /* [in] */ FABRIC_ATOMIC_GROUP_ID atomicGroupId,
-            /* [in] */ IFabricOperationData *operationData,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [out] */ FABRIC_SEQUENCE_NUMBER *operationSequenceNumber,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricOperationData *operationData,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *operationSequenceNumber,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricAtomicGroupStateReplicator, EndReplicateAtomicGroupOperation)
         HRESULT ( STDMETHODCALLTYPE *EndReplicateAtomicGroupOperation )( 
-            IFabricAtomicGroupStateReplicator * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ FABRIC_SEQUENCE_NUMBER *operationSequenceNumber);
+            __RPC__in IFabricAtomicGroupStateReplicator * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *operationSequenceNumber);
         
         DECLSPEC_XFGVIRT(IFabricAtomicGroupStateReplicator, BeginReplicateAtomicGroupCommit)
         HRESULT ( STDMETHODCALLTYPE *BeginReplicateAtomicGroupCommit )( 
-            IFabricAtomicGroupStateReplicator * This,
+            __RPC__in IFabricAtomicGroupStateReplicator * This,
             /* [in] */ FABRIC_ATOMIC_GROUP_ID atomicGroupId,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [out] */ FABRIC_SEQUENCE_NUMBER *commitSequenceNumber,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *commitSequenceNumber,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricAtomicGroupStateReplicator, EndReplicateAtomicGroupCommit)
         HRESULT ( STDMETHODCALLTYPE *EndReplicateAtomicGroupCommit )( 
-            IFabricAtomicGroupStateReplicator * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ FABRIC_SEQUENCE_NUMBER *commitSequenceNumber);
+            __RPC__in IFabricAtomicGroupStateReplicator * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *commitSequenceNumber);
         
         DECLSPEC_XFGVIRT(IFabricAtomicGroupStateReplicator, BeginReplicateAtomicGroupRollback)
         HRESULT ( STDMETHODCALLTYPE *BeginReplicateAtomicGroupRollback )( 
-            IFabricAtomicGroupStateReplicator * This,
+            __RPC__in IFabricAtomicGroupStateReplicator * This,
             /* [in] */ FABRIC_ATOMIC_GROUP_ID atomicGroupId,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [out] */ FABRIC_SEQUENCE_NUMBER *rollbackSequenceNumber,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *rollbackSequenceNumber,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricAtomicGroupStateReplicator, EndReplicateAtomicGroupRollback)
         HRESULT ( STDMETHODCALLTYPE *EndReplicateAtomicGroupRollback )( 
-            IFabricAtomicGroupStateReplicator * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ FABRIC_SEQUENCE_NUMBER *rollbackSequenceNumber);
+            __RPC__in IFabricAtomicGroupStateReplicator * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *rollbackSequenceNumber);
         
         END_INTERFACE
     } IFabricAtomicGroupStateReplicatorVtbl;
@@ -4782,18 +4787,18 @@ EXTERN_C const IID IID_IFabricServiceGroupFactory;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricServiceGroupFactory * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricServiceGroupFactory * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricServiceGroupFactory * This);
+            __RPC__in IFabricServiceGroupFactory * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricServiceGroupFactory * This);
+            __RPC__in IFabricServiceGroupFactory * This);
         
         END_INTERFACE
     } IFabricServiceGroupFactoryVtbl;
@@ -4845,18 +4850,18 @@ EXTERN_C const IID IID_IFabricServiceGroupFactoryBuilder;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE AddStatelessServiceFactory( 
-            /* [in] */ LPCWSTR memberServiceType,
-            /* [in] */ IFabricStatelessServiceFactory *factory) = 0;
+            /* [in] */ __RPC__in LPCWSTR memberServiceType,
+            /* [in] */ __RPC__in_opt IFabricStatelessServiceFactory *factory) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE AddStatefulServiceFactory( 
-            /* [in] */ LPCWSTR memberServiceType,
-            /* [in] */ IFabricStatefulServiceFactory *factory) = 0;
+            /* [in] */ __RPC__in LPCWSTR memberServiceType,
+            /* [in] */ __RPC__in_opt IFabricStatefulServiceFactory *factory) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE RemoveServiceFactory( 
-            /* [in] */ LPCWSTR memberServiceType) = 0;
+            /* [in] */ __RPC__in LPCWSTR memberServiceType) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE ToServiceGroupFactory( 
-            /* [retval][out] */ IFabricServiceGroupFactory **factory) = 0;
+            /* [retval][out] */ __RPC__deref_out_opt IFabricServiceGroupFactory **factory) = 0;
         
     };
     
@@ -4869,40 +4874,40 @@ EXTERN_C const IID IID_IFabricServiceGroupFactoryBuilder;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricServiceGroupFactoryBuilder * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricServiceGroupFactoryBuilder * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricServiceGroupFactoryBuilder * This);
+            __RPC__in IFabricServiceGroupFactoryBuilder * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricServiceGroupFactoryBuilder * This);
+            __RPC__in IFabricServiceGroupFactoryBuilder * This);
         
         DECLSPEC_XFGVIRT(IFabricServiceGroupFactoryBuilder, AddStatelessServiceFactory)
         HRESULT ( STDMETHODCALLTYPE *AddStatelessServiceFactory )( 
-            IFabricServiceGroupFactoryBuilder * This,
-            /* [in] */ LPCWSTR memberServiceType,
-            /* [in] */ IFabricStatelessServiceFactory *factory);
+            __RPC__in IFabricServiceGroupFactoryBuilder * This,
+            /* [in] */ __RPC__in LPCWSTR memberServiceType,
+            /* [in] */ __RPC__in_opt IFabricStatelessServiceFactory *factory);
         
         DECLSPEC_XFGVIRT(IFabricServiceGroupFactoryBuilder, AddStatefulServiceFactory)
         HRESULT ( STDMETHODCALLTYPE *AddStatefulServiceFactory )( 
-            IFabricServiceGroupFactoryBuilder * This,
-            /* [in] */ LPCWSTR memberServiceType,
-            /* [in] */ IFabricStatefulServiceFactory *factory);
+            __RPC__in IFabricServiceGroupFactoryBuilder * This,
+            /* [in] */ __RPC__in LPCWSTR memberServiceType,
+            /* [in] */ __RPC__in_opt IFabricStatefulServiceFactory *factory);
         
         DECLSPEC_XFGVIRT(IFabricServiceGroupFactoryBuilder, RemoveServiceFactory)
         HRESULT ( STDMETHODCALLTYPE *RemoveServiceFactory )( 
-            IFabricServiceGroupFactoryBuilder * This,
-            /* [in] */ LPCWSTR memberServiceType);
+            __RPC__in IFabricServiceGroupFactoryBuilder * This,
+            /* [in] */ __RPC__in LPCWSTR memberServiceType);
         
         DECLSPEC_XFGVIRT(IFabricServiceGroupFactoryBuilder, ToServiceGroupFactory)
         HRESULT ( STDMETHODCALLTYPE *ToServiceGroupFactory )( 
-            IFabricServiceGroupFactoryBuilder * This,
-            /* [retval][out] */ IFabricServiceGroupFactory **factory);
+            __RPC__in IFabricServiceGroupFactoryBuilder * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricServiceGroupFactory **factory);
         
         END_INTERFACE
     } IFabricServiceGroupFactoryBuilderVtbl;
@@ -4966,9 +4971,9 @@ EXTERN_C const IID IID_IFabricServiceGroupPartition;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE ResolveMember( 
-            /* [in] */ FABRIC_URI name,
-            /* [in] */ REFIID riid,
-            /* [retval][out] */ void **member) = 0;
+            /* [in] */ __RPC__in FABRIC_URI name,
+            /* [in] */ __RPC__in REFIID riid,
+            /* [retval][out] */ __RPC__deref_out_opt void **member) = 0;
         
     };
     
@@ -4981,25 +4986,25 @@ EXTERN_C const IID IID_IFabricServiceGroupPartition;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricServiceGroupPartition * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricServiceGroupPartition * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricServiceGroupPartition * This);
+            __RPC__in IFabricServiceGroupPartition * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricServiceGroupPartition * This);
+            __RPC__in IFabricServiceGroupPartition * This);
         
         DECLSPEC_XFGVIRT(IFabricServiceGroupPartition, ResolveMember)
         HRESULT ( STDMETHODCALLTYPE *ResolveMember )( 
-            IFabricServiceGroupPartition * This,
-            /* [in] */ FABRIC_URI name,
-            /* [in] */ REFIID riid,
-            /* [retval][out] */ void **member);
+            __RPC__in IFabricServiceGroupPartition * This,
+            /* [in] */ __RPC__in FABRIC_URI name,
+            /* [in] */ __RPC__in REFIID riid,
+            /* [retval][out] */ __RPC__deref_out_opt void **member);
         
         END_INTERFACE
     } IFabricServiceGroupPartitionVtbl;
@@ -5074,47 +5079,47 @@ EXTERN_C const IID IID_IFabricCodePackageActivationContext;
         virtual const FABRIC_ENDPOINT_RESOURCE_DESCRIPTION_LIST *STDMETHODCALLTYPE get_ServiceEndpointResources( void) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetServiceEndpointResource( 
-            /* [in] */ LPCWSTR serviceEndpointResourceName,
-            /* [retval][out] */ const FABRIC_ENDPOINT_RESOURCE_DESCRIPTION **bufferedValue) = 0;
+            /* [in] */ __RPC__in LPCWSTR serviceEndpointResourceName,
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_ENDPOINT_RESOURCE_DESCRIPTION **bufferedValue) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetCodePackageNames( 
-            /* [retval][out] */ IFabricStringListResult **names) = 0;
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringListResult **names) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetConfigurationPackageNames( 
-            /* [retval][out] */ IFabricStringListResult **names) = 0;
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringListResult **names) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetDataPackageNames( 
-            /* [retval][out] */ IFabricStringListResult **names) = 0;
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringListResult **names) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetCodePackage( 
-            /* [in] */ LPCWSTR codePackageName,
-            /* [retval][out] */ IFabricCodePackage **codePackage) = 0;
+            /* [in] */ __RPC__in LPCWSTR codePackageName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricCodePackage **codePackage) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetConfigurationPackage( 
-            /* [in] */ LPCWSTR configPackageName,
-            /* [retval][out] */ IFabricConfigurationPackage **configPackage) = 0;
+            /* [in] */ __RPC__in LPCWSTR configPackageName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricConfigurationPackage **configPackage) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetDataPackage( 
-            /* [in] */ LPCWSTR dataPackageName,
-            /* [retval][out] */ IFabricDataPackage **dataPackage) = 0;
+            /* [in] */ __RPC__in LPCWSTR dataPackageName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricDataPackage **dataPackage) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE RegisterCodePackageChangeHandler( 
-            /* [in] */ IFabricCodePackageChangeHandler *callback,
-            /* [retval][out] */ LONGLONG *callbackHandle) = 0;
+            /* [in] */ __RPC__in_opt IFabricCodePackageChangeHandler *callback,
+            /* [retval][out] */ __RPC__out LONGLONG *callbackHandle) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE UnregisterCodePackageChangeHandler( 
             /* [in] */ LONGLONG callbackHandle) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE RegisterConfigurationPackageChangeHandler( 
-            /* [in] */ IFabricConfigurationPackageChangeHandler *callback,
-            /* [retval][out] */ LONGLONG *callbackHandle) = 0;
+            /* [in] */ __RPC__in_opt IFabricConfigurationPackageChangeHandler *callback,
+            /* [retval][out] */ __RPC__out LONGLONG *callbackHandle) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE UnregisterConfigurationPackageChangeHandler( 
             /* [in] */ LONGLONG callbackHandle) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE RegisterDataPackageChangeHandler( 
-            /* [in] */ IFabricDataPackageChangeHandler *callback,
-            /* [retval][out] */ LONGLONG *callbackHandle) = 0;
+            /* [in] */ __RPC__in_opt IFabricDataPackageChangeHandler *callback,
+            /* [retval][out] */ __RPC__out LONGLONG *callbackHandle) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE UnregisterDataPackageChangeHandler( 
             /* [in] */ LONGLONG callbackHandle) = 0;
@@ -5130,129 +5135,129 @@ EXTERN_C const IID IID_IFabricCodePackageActivationContext;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricCodePackageActivationContext * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricCodePackageActivationContext * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricCodePackageActivationContext * This);
+            __RPC__in IFabricCodePackageActivationContext * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricCodePackageActivationContext * This);
+            __RPC__in IFabricCodePackageActivationContext * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ContextId)
         LPCWSTR ( STDMETHODCALLTYPE *get_ContextId )( 
-            IFabricCodePackageActivationContext * This);
+            __RPC__in IFabricCodePackageActivationContext * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_CodePackageName)
         LPCWSTR ( STDMETHODCALLTYPE *get_CodePackageName )( 
-            IFabricCodePackageActivationContext * This);
+            __RPC__in IFabricCodePackageActivationContext * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_CodePackageVersion)
         LPCWSTR ( STDMETHODCALLTYPE *get_CodePackageVersion )( 
-            IFabricCodePackageActivationContext * This);
+            __RPC__in IFabricCodePackageActivationContext * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_WorkDirectory)
         LPCWSTR ( STDMETHODCALLTYPE *get_WorkDirectory )( 
-            IFabricCodePackageActivationContext * This);
+            __RPC__in IFabricCodePackageActivationContext * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_LogDirectory)
         LPCWSTR ( STDMETHODCALLTYPE *get_LogDirectory )( 
-            IFabricCodePackageActivationContext * This);
+            __RPC__in IFabricCodePackageActivationContext * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_TempDirectory)
         LPCWSTR ( STDMETHODCALLTYPE *get_TempDirectory )( 
-            IFabricCodePackageActivationContext * This);
+            __RPC__in IFabricCodePackageActivationContext * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ServiceTypes)
         const FABRIC_SERVICE_TYPE_DESCRIPTION_LIST *( STDMETHODCALLTYPE *get_ServiceTypes )( 
-            IFabricCodePackageActivationContext * This);
+            __RPC__in IFabricCodePackageActivationContext * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ServiceGroupTypes)
         const FABRIC_SERVICE_GROUP_TYPE_DESCRIPTION_LIST *( STDMETHODCALLTYPE *get_ServiceGroupTypes )( 
-            IFabricCodePackageActivationContext * This);
+            __RPC__in IFabricCodePackageActivationContext * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ApplicationPrincipals)
         const FABRIC_APPLICATION_PRINCIPALS_DESCRIPTION *( STDMETHODCALLTYPE *get_ApplicationPrincipals )( 
-            IFabricCodePackageActivationContext * This);
+            __RPC__in IFabricCodePackageActivationContext * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ServiceEndpointResources)
         const FABRIC_ENDPOINT_RESOURCE_DESCRIPTION_LIST *( STDMETHODCALLTYPE *get_ServiceEndpointResources )( 
-            IFabricCodePackageActivationContext * This);
+            __RPC__in IFabricCodePackageActivationContext * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetServiceEndpointResource)
         HRESULT ( STDMETHODCALLTYPE *GetServiceEndpointResource )( 
-            IFabricCodePackageActivationContext * This,
-            /* [in] */ LPCWSTR serviceEndpointResourceName,
-            /* [retval][out] */ const FABRIC_ENDPOINT_RESOURCE_DESCRIPTION **bufferedValue);
+            __RPC__in IFabricCodePackageActivationContext * This,
+            /* [in] */ __RPC__in LPCWSTR serviceEndpointResourceName,
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_ENDPOINT_RESOURCE_DESCRIPTION **bufferedValue);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetCodePackageNames)
         HRESULT ( STDMETHODCALLTYPE *GetCodePackageNames )( 
-            IFabricCodePackageActivationContext * This,
-            /* [retval][out] */ IFabricStringListResult **names);
+            __RPC__in IFabricCodePackageActivationContext * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringListResult **names);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetConfigurationPackageNames)
         HRESULT ( STDMETHODCALLTYPE *GetConfigurationPackageNames )( 
-            IFabricCodePackageActivationContext * This,
-            /* [retval][out] */ IFabricStringListResult **names);
+            __RPC__in IFabricCodePackageActivationContext * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringListResult **names);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetDataPackageNames)
         HRESULT ( STDMETHODCALLTYPE *GetDataPackageNames )( 
-            IFabricCodePackageActivationContext * This,
-            /* [retval][out] */ IFabricStringListResult **names);
+            __RPC__in IFabricCodePackageActivationContext * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringListResult **names);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetCodePackage)
         HRESULT ( STDMETHODCALLTYPE *GetCodePackage )( 
-            IFabricCodePackageActivationContext * This,
-            /* [in] */ LPCWSTR codePackageName,
-            /* [retval][out] */ IFabricCodePackage **codePackage);
+            __RPC__in IFabricCodePackageActivationContext * This,
+            /* [in] */ __RPC__in LPCWSTR codePackageName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricCodePackage **codePackage);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetConfigurationPackage)
         HRESULT ( STDMETHODCALLTYPE *GetConfigurationPackage )( 
-            IFabricCodePackageActivationContext * This,
-            /* [in] */ LPCWSTR configPackageName,
-            /* [retval][out] */ IFabricConfigurationPackage **configPackage);
+            __RPC__in IFabricCodePackageActivationContext * This,
+            /* [in] */ __RPC__in LPCWSTR configPackageName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricConfigurationPackage **configPackage);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetDataPackage)
         HRESULT ( STDMETHODCALLTYPE *GetDataPackage )( 
-            IFabricCodePackageActivationContext * This,
-            /* [in] */ LPCWSTR dataPackageName,
-            /* [retval][out] */ IFabricDataPackage **dataPackage);
+            __RPC__in IFabricCodePackageActivationContext * This,
+            /* [in] */ __RPC__in LPCWSTR dataPackageName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricDataPackage **dataPackage);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, RegisterCodePackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *RegisterCodePackageChangeHandler )( 
-            IFabricCodePackageActivationContext * This,
-            /* [in] */ IFabricCodePackageChangeHandler *callback,
-            /* [retval][out] */ LONGLONG *callbackHandle);
+            __RPC__in IFabricCodePackageActivationContext * This,
+            /* [in] */ __RPC__in_opt IFabricCodePackageChangeHandler *callback,
+            /* [retval][out] */ __RPC__out LONGLONG *callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, UnregisterCodePackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *UnregisterCodePackageChangeHandler )( 
-            IFabricCodePackageActivationContext * This,
+            __RPC__in IFabricCodePackageActivationContext * This,
             /* [in] */ LONGLONG callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, RegisterConfigurationPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *RegisterConfigurationPackageChangeHandler )( 
-            IFabricCodePackageActivationContext * This,
-            /* [in] */ IFabricConfigurationPackageChangeHandler *callback,
-            /* [retval][out] */ LONGLONG *callbackHandle);
+            __RPC__in IFabricCodePackageActivationContext * This,
+            /* [in] */ __RPC__in_opt IFabricConfigurationPackageChangeHandler *callback,
+            /* [retval][out] */ __RPC__out LONGLONG *callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, UnregisterConfigurationPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *UnregisterConfigurationPackageChangeHandler )( 
-            IFabricCodePackageActivationContext * This,
+            __RPC__in IFabricCodePackageActivationContext * This,
             /* [in] */ LONGLONG callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, RegisterDataPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *RegisterDataPackageChangeHandler )( 
-            IFabricCodePackageActivationContext * This,
-            /* [in] */ IFabricDataPackageChangeHandler *callback,
-            /* [retval][out] */ LONGLONG *callbackHandle);
+            __RPC__in IFabricCodePackageActivationContext * This,
+            /* [in] */ __RPC__in_opt IFabricDataPackageChangeHandler *callback,
+            /* [retval][out] */ __RPC__out LONGLONG *callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, UnregisterDataPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *UnregisterDataPackageChangeHandler )( 
-            IFabricCodePackageActivationContext * This,
+            __RPC__in IFabricCodePackageActivationContext * This,
             /* [in] */ LONGLONG callbackHandle);
         
         END_INTERFACE
@@ -5378,10 +5383,10 @@ EXTERN_C const IID IID_IFabricCodePackageActivationContext2;
         virtual LPCWSTR STDMETHODCALLTYPE get_ApplicationTypeName( void) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetServiceManifestName( 
-            /* [retval][out] */ IFabricStringResult **serviceManifestName) = 0;
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **serviceManifestName) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetServiceManifestVersion( 
-            /* [retval][out] */ IFabricStringResult **serviceManifestVersion) = 0;
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **serviceManifestVersion) = 0;
         
     };
     
@@ -5394,148 +5399,148 @@ EXTERN_C const IID IID_IFabricCodePackageActivationContext2;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricCodePackageActivationContext2 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricCodePackageActivationContext2 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricCodePackageActivationContext2 * This);
+            __RPC__in IFabricCodePackageActivationContext2 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricCodePackageActivationContext2 * This);
+            __RPC__in IFabricCodePackageActivationContext2 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ContextId)
         LPCWSTR ( STDMETHODCALLTYPE *get_ContextId )( 
-            IFabricCodePackageActivationContext2 * This);
+            __RPC__in IFabricCodePackageActivationContext2 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_CodePackageName)
         LPCWSTR ( STDMETHODCALLTYPE *get_CodePackageName )( 
-            IFabricCodePackageActivationContext2 * This);
+            __RPC__in IFabricCodePackageActivationContext2 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_CodePackageVersion)
         LPCWSTR ( STDMETHODCALLTYPE *get_CodePackageVersion )( 
-            IFabricCodePackageActivationContext2 * This);
+            __RPC__in IFabricCodePackageActivationContext2 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_WorkDirectory)
         LPCWSTR ( STDMETHODCALLTYPE *get_WorkDirectory )( 
-            IFabricCodePackageActivationContext2 * This);
+            __RPC__in IFabricCodePackageActivationContext2 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_LogDirectory)
         LPCWSTR ( STDMETHODCALLTYPE *get_LogDirectory )( 
-            IFabricCodePackageActivationContext2 * This);
+            __RPC__in IFabricCodePackageActivationContext2 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_TempDirectory)
         LPCWSTR ( STDMETHODCALLTYPE *get_TempDirectory )( 
-            IFabricCodePackageActivationContext2 * This);
+            __RPC__in IFabricCodePackageActivationContext2 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ServiceTypes)
         const FABRIC_SERVICE_TYPE_DESCRIPTION_LIST *( STDMETHODCALLTYPE *get_ServiceTypes )( 
-            IFabricCodePackageActivationContext2 * This);
+            __RPC__in IFabricCodePackageActivationContext2 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ServiceGroupTypes)
         const FABRIC_SERVICE_GROUP_TYPE_DESCRIPTION_LIST *( STDMETHODCALLTYPE *get_ServiceGroupTypes )( 
-            IFabricCodePackageActivationContext2 * This);
+            __RPC__in IFabricCodePackageActivationContext2 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ApplicationPrincipals)
         const FABRIC_APPLICATION_PRINCIPALS_DESCRIPTION *( STDMETHODCALLTYPE *get_ApplicationPrincipals )( 
-            IFabricCodePackageActivationContext2 * This);
+            __RPC__in IFabricCodePackageActivationContext2 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ServiceEndpointResources)
         const FABRIC_ENDPOINT_RESOURCE_DESCRIPTION_LIST *( STDMETHODCALLTYPE *get_ServiceEndpointResources )( 
-            IFabricCodePackageActivationContext2 * This);
+            __RPC__in IFabricCodePackageActivationContext2 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetServiceEndpointResource)
         HRESULT ( STDMETHODCALLTYPE *GetServiceEndpointResource )( 
-            IFabricCodePackageActivationContext2 * This,
-            /* [in] */ LPCWSTR serviceEndpointResourceName,
-            /* [retval][out] */ const FABRIC_ENDPOINT_RESOURCE_DESCRIPTION **bufferedValue);
+            __RPC__in IFabricCodePackageActivationContext2 * This,
+            /* [in] */ __RPC__in LPCWSTR serviceEndpointResourceName,
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_ENDPOINT_RESOURCE_DESCRIPTION **bufferedValue);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetCodePackageNames)
         HRESULT ( STDMETHODCALLTYPE *GetCodePackageNames )( 
-            IFabricCodePackageActivationContext2 * This,
-            /* [retval][out] */ IFabricStringListResult **names);
+            __RPC__in IFabricCodePackageActivationContext2 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringListResult **names);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetConfigurationPackageNames)
         HRESULT ( STDMETHODCALLTYPE *GetConfigurationPackageNames )( 
-            IFabricCodePackageActivationContext2 * This,
-            /* [retval][out] */ IFabricStringListResult **names);
+            __RPC__in IFabricCodePackageActivationContext2 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringListResult **names);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetDataPackageNames)
         HRESULT ( STDMETHODCALLTYPE *GetDataPackageNames )( 
-            IFabricCodePackageActivationContext2 * This,
-            /* [retval][out] */ IFabricStringListResult **names);
+            __RPC__in IFabricCodePackageActivationContext2 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringListResult **names);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetCodePackage)
         HRESULT ( STDMETHODCALLTYPE *GetCodePackage )( 
-            IFabricCodePackageActivationContext2 * This,
-            /* [in] */ LPCWSTR codePackageName,
-            /* [retval][out] */ IFabricCodePackage **codePackage);
+            __RPC__in IFabricCodePackageActivationContext2 * This,
+            /* [in] */ __RPC__in LPCWSTR codePackageName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricCodePackage **codePackage);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetConfigurationPackage)
         HRESULT ( STDMETHODCALLTYPE *GetConfigurationPackage )( 
-            IFabricCodePackageActivationContext2 * This,
-            /* [in] */ LPCWSTR configPackageName,
-            /* [retval][out] */ IFabricConfigurationPackage **configPackage);
+            __RPC__in IFabricCodePackageActivationContext2 * This,
+            /* [in] */ __RPC__in LPCWSTR configPackageName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricConfigurationPackage **configPackage);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetDataPackage)
         HRESULT ( STDMETHODCALLTYPE *GetDataPackage )( 
-            IFabricCodePackageActivationContext2 * This,
-            /* [in] */ LPCWSTR dataPackageName,
-            /* [retval][out] */ IFabricDataPackage **dataPackage);
+            __RPC__in IFabricCodePackageActivationContext2 * This,
+            /* [in] */ __RPC__in LPCWSTR dataPackageName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricDataPackage **dataPackage);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, RegisterCodePackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *RegisterCodePackageChangeHandler )( 
-            IFabricCodePackageActivationContext2 * This,
-            /* [in] */ IFabricCodePackageChangeHandler *callback,
-            /* [retval][out] */ LONGLONG *callbackHandle);
+            __RPC__in IFabricCodePackageActivationContext2 * This,
+            /* [in] */ __RPC__in_opt IFabricCodePackageChangeHandler *callback,
+            /* [retval][out] */ __RPC__out LONGLONG *callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, UnregisterCodePackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *UnregisterCodePackageChangeHandler )( 
-            IFabricCodePackageActivationContext2 * This,
+            __RPC__in IFabricCodePackageActivationContext2 * This,
             /* [in] */ LONGLONG callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, RegisterConfigurationPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *RegisterConfigurationPackageChangeHandler )( 
-            IFabricCodePackageActivationContext2 * This,
-            /* [in] */ IFabricConfigurationPackageChangeHandler *callback,
-            /* [retval][out] */ LONGLONG *callbackHandle);
+            __RPC__in IFabricCodePackageActivationContext2 * This,
+            /* [in] */ __RPC__in_opt IFabricConfigurationPackageChangeHandler *callback,
+            /* [retval][out] */ __RPC__out LONGLONG *callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, UnregisterConfigurationPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *UnregisterConfigurationPackageChangeHandler )( 
-            IFabricCodePackageActivationContext2 * This,
+            __RPC__in IFabricCodePackageActivationContext2 * This,
             /* [in] */ LONGLONG callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, RegisterDataPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *RegisterDataPackageChangeHandler )( 
-            IFabricCodePackageActivationContext2 * This,
-            /* [in] */ IFabricDataPackageChangeHandler *callback,
-            /* [retval][out] */ LONGLONG *callbackHandle);
+            __RPC__in IFabricCodePackageActivationContext2 * This,
+            /* [in] */ __RPC__in_opt IFabricDataPackageChangeHandler *callback,
+            /* [retval][out] */ __RPC__out LONGLONG *callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, UnregisterDataPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *UnregisterDataPackageChangeHandler )( 
-            IFabricCodePackageActivationContext2 * This,
+            __RPC__in IFabricCodePackageActivationContext2 * This,
             /* [in] */ LONGLONG callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext2, get_ApplicationName)
         FABRIC_URI ( STDMETHODCALLTYPE *get_ApplicationName )( 
-            IFabricCodePackageActivationContext2 * This);
+            __RPC__in IFabricCodePackageActivationContext2 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext2, get_ApplicationTypeName)
         LPCWSTR ( STDMETHODCALLTYPE *get_ApplicationTypeName )( 
-            IFabricCodePackageActivationContext2 * This);
+            __RPC__in IFabricCodePackageActivationContext2 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext2, GetServiceManifestName)
         HRESULT ( STDMETHODCALLTYPE *GetServiceManifestName )( 
-            IFabricCodePackageActivationContext2 * This,
-            /* [retval][out] */ IFabricStringResult **serviceManifestName);
+            __RPC__in IFabricCodePackageActivationContext2 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **serviceManifestName);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext2, GetServiceManifestVersion)
         HRESULT ( STDMETHODCALLTYPE *GetServiceManifestVersion )( 
-            IFabricCodePackageActivationContext2 * This,
-            /* [retval][out] */ IFabricStringResult **serviceManifestVersion);
+            __RPC__in IFabricCodePackageActivationContext2 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **serviceManifestVersion);
         
         END_INTERFACE
     } IFabricCodePackageActivationContext2Vtbl;
@@ -5669,13 +5674,13 @@ EXTERN_C const IID IID_IFabricCodePackageActivationContext3;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE ReportApplicationHealth( 
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo) = 0;
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE ReportDeployedApplicationHealth( 
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo) = 0;
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE ReportDeployedServicePackageHealth( 
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo) = 0;
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo) = 0;
         
     };
     
@@ -5688,163 +5693,163 @@ EXTERN_C const IID IID_IFabricCodePackageActivationContext3;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricCodePackageActivationContext3 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricCodePackageActivationContext3 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricCodePackageActivationContext3 * This);
+            __RPC__in IFabricCodePackageActivationContext3 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricCodePackageActivationContext3 * This);
+            __RPC__in IFabricCodePackageActivationContext3 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ContextId)
         LPCWSTR ( STDMETHODCALLTYPE *get_ContextId )( 
-            IFabricCodePackageActivationContext3 * This);
+            __RPC__in IFabricCodePackageActivationContext3 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_CodePackageName)
         LPCWSTR ( STDMETHODCALLTYPE *get_CodePackageName )( 
-            IFabricCodePackageActivationContext3 * This);
+            __RPC__in IFabricCodePackageActivationContext3 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_CodePackageVersion)
         LPCWSTR ( STDMETHODCALLTYPE *get_CodePackageVersion )( 
-            IFabricCodePackageActivationContext3 * This);
+            __RPC__in IFabricCodePackageActivationContext3 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_WorkDirectory)
         LPCWSTR ( STDMETHODCALLTYPE *get_WorkDirectory )( 
-            IFabricCodePackageActivationContext3 * This);
+            __RPC__in IFabricCodePackageActivationContext3 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_LogDirectory)
         LPCWSTR ( STDMETHODCALLTYPE *get_LogDirectory )( 
-            IFabricCodePackageActivationContext3 * This);
+            __RPC__in IFabricCodePackageActivationContext3 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_TempDirectory)
         LPCWSTR ( STDMETHODCALLTYPE *get_TempDirectory )( 
-            IFabricCodePackageActivationContext3 * This);
+            __RPC__in IFabricCodePackageActivationContext3 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ServiceTypes)
         const FABRIC_SERVICE_TYPE_DESCRIPTION_LIST *( STDMETHODCALLTYPE *get_ServiceTypes )( 
-            IFabricCodePackageActivationContext3 * This);
+            __RPC__in IFabricCodePackageActivationContext3 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ServiceGroupTypes)
         const FABRIC_SERVICE_GROUP_TYPE_DESCRIPTION_LIST *( STDMETHODCALLTYPE *get_ServiceGroupTypes )( 
-            IFabricCodePackageActivationContext3 * This);
+            __RPC__in IFabricCodePackageActivationContext3 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ApplicationPrincipals)
         const FABRIC_APPLICATION_PRINCIPALS_DESCRIPTION *( STDMETHODCALLTYPE *get_ApplicationPrincipals )( 
-            IFabricCodePackageActivationContext3 * This);
+            __RPC__in IFabricCodePackageActivationContext3 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ServiceEndpointResources)
         const FABRIC_ENDPOINT_RESOURCE_DESCRIPTION_LIST *( STDMETHODCALLTYPE *get_ServiceEndpointResources )( 
-            IFabricCodePackageActivationContext3 * This);
+            __RPC__in IFabricCodePackageActivationContext3 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetServiceEndpointResource)
         HRESULT ( STDMETHODCALLTYPE *GetServiceEndpointResource )( 
-            IFabricCodePackageActivationContext3 * This,
-            /* [in] */ LPCWSTR serviceEndpointResourceName,
-            /* [retval][out] */ const FABRIC_ENDPOINT_RESOURCE_DESCRIPTION **bufferedValue);
+            __RPC__in IFabricCodePackageActivationContext3 * This,
+            /* [in] */ __RPC__in LPCWSTR serviceEndpointResourceName,
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_ENDPOINT_RESOURCE_DESCRIPTION **bufferedValue);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetCodePackageNames)
         HRESULT ( STDMETHODCALLTYPE *GetCodePackageNames )( 
-            IFabricCodePackageActivationContext3 * This,
-            /* [retval][out] */ IFabricStringListResult **names);
+            __RPC__in IFabricCodePackageActivationContext3 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringListResult **names);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetConfigurationPackageNames)
         HRESULT ( STDMETHODCALLTYPE *GetConfigurationPackageNames )( 
-            IFabricCodePackageActivationContext3 * This,
-            /* [retval][out] */ IFabricStringListResult **names);
+            __RPC__in IFabricCodePackageActivationContext3 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringListResult **names);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetDataPackageNames)
         HRESULT ( STDMETHODCALLTYPE *GetDataPackageNames )( 
-            IFabricCodePackageActivationContext3 * This,
-            /* [retval][out] */ IFabricStringListResult **names);
+            __RPC__in IFabricCodePackageActivationContext3 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringListResult **names);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetCodePackage)
         HRESULT ( STDMETHODCALLTYPE *GetCodePackage )( 
-            IFabricCodePackageActivationContext3 * This,
-            /* [in] */ LPCWSTR codePackageName,
-            /* [retval][out] */ IFabricCodePackage **codePackage);
+            __RPC__in IFabricCodePackageActivationContext3 * This,
+            /* [in] */ __RPC__in LPCWSTR codePackageName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricCodePackage **codePackage);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetConfigurationPackage)
         HRESULT ( STDMETHODCALLTYPE *GetConfigurationPackage )( 
-            IFabricCodePackageActivationContext3 * This,
-            /* [in] */ LPCWSTR configPackageName,
-            /* [retval][out] */ IFabricConfigurationPackage **configPackage);
+            __RPC__in IFabricCodePackageActivationContext3 * This,
+            /* [in] */ __RPC__in LPCWSTR configPackageName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricConfigurationPackage **configPackage);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetDataPackage)
         HRESULT ( STDMETHODCALLTYPE *GetDataPackage )( 
-            IFabricCodePackageActivationContext3 * This,
-            /* [in] */ LPCWSTR dataPackageName,
-            /* [retval][out] */ IFabricDataPackage **dataPackage);
+            __RPC__in IFabricCodePackageActivationContext3 * This,
+            /* [in] */ __RPC__in LPCWSTR dataPackageName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricDataPackage **dataPackage);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, RegisterCodePackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *RegisterCodePackageChangeHandler )( 
-            IFabricCodePackageActivationContext3 * This,
-            /* [in] */ IFabricCodePackageChangeHandler *callback,
-            /* [retval][out] */ LONGLONG *callbackHandle);
+            __RPC__in IFabricCodePackageActivationContext3 * This,
+            /* [in] */ __RPC__in_opt IFabricCodePackageChangeHandler *callback,
+            /* [retval][out] */ __RPC__out LONGLONG *callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, UnregisterCodePackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *UnregisterCodePackageChangeHandler )( 
-            IFabricCodePackageActivationContext3 * This,
+            __RPC__in IFabricCodePackageActivationContext3 * This,
             /* [in] */ LONGLONG callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, RegisterConfigurationPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *RegisterConfigurationPackageChangeHandler )( 
-            IFabricCodePackageActivationContext3 * This,
-            /* [in] */ IFabricConfigurationPackageChangeHandler *callback,
-            /* [retval][out] */ LONGLONG *callbackHandle);
+            __RPC__in IFabricCodePackageActivationContext3 * This,
+            /* [in] */ __RPC__in_opt IFabricConfigurationPackageChangeHandler *callback,
+            /* [retval][out] */ __RPC__out LONGLONG *callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, UnregisterConfigurationPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *UnregisterConfigurationPackageChangeHandler )( 
-            IFabricCodePackageActivationContext3 * This,
+            __RPC__in IFabricCodePackageActivationContext3 * This,
             /* [in] */ LONGLONG callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, RegisterDataPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *RegisterDataPackageChangeHandler )( 
-            IFabricCodePackageActivationContext3 * This,
-            /* [in] */ IFabricDataPackageChangeHandler *callback,
-            /* [retval][out] */ LONGLONG *callbackHandle);
+            __RPC__in IFabricCodePackageActivationContext3 * This,
+            /* [in] */ __RPC__in_opt IFabricDataPackageChangeHandler *callback,
+            /* [retval][out] */ __RPC__out LONGLONG *callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, UnregisterDataPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *UnregisterDataPackageChangeHandler )( 
-            IFabricCodePackageActivationContext3 * This,
+            __RPC__in IFabricCodePackageActivationContext3 * This,
             /* [in] */ LONGLONG callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext2, get_ApplicationName)
         FABRIC_URI ( STDMETHODCALLTYPE *get_ApplicationName )( 
-            IFabricCodePackageActivationContext3 * This);
+            __RPC__in IFabricCodePackageActivationContext3 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext2, get_ApplicationTypeName)
         LPCWSTR ( STDMETHODCALLTYPE *get_ApplicationTypeName )( 
-            IFabricCodePackageActivationContext3 * This);
+            __RPC__in IFabricCodePackageActivationContext3 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext2, GetServiceManifestName)
         HRESULT ( STDMETHODCALLTYPE *GetServiceManifestName )( 
-            IFabricCodePackageActivationContext3 * This,
-            /* [retval][out] */ IFabricStringResult **serviceManifestName);
+            __RPC__in IFabricCodePackageActivationContext3 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **serviceManifestName);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext2, GetServiceManifestVersion)
         HRESULT ( STDMETHODCALLTYPE *GetServiceManifestVersion )( 
-            IFabricCodePackageActivationContext3 * This,
-            /* [retval][out] */ IFabricStringResult **serviceManifestVersion);
+            __RPC__in IFabricCodePackageActivationContext3 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **serviceManifestVersion);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext3, ReportApplicationHealth)
         HRESULT ( STDMETHODCALLTYPE *ReportApplicationHealth )( 
-            IFabricCodePackageActivationContext3 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo);
+            __RPC__in IFabricCodePackageActivationContext3 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext3, ReportDeployedApplicationHealth)
         HRESULT ( STDMETHODCALLTYPE *ReportDeployedApplicationHealth )( 
-            IFabricCodePackageActivationContext3 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo);
+            __RPC__in IFabricCodePackageActivationContext3 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext3, ReportDeployedServicePackageHealth)
         HRESULT ( STDMETHODCALLTYPE *ReportDeployedServicePackageHealth )( 
-            IFabricCodePackageActivationContext3 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo);
+            __RPC__in IFabricCodePackageActivationContext3 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo);
         
         END_INTERFACE
     } IFabricCodePackageActivationContext3Vtbl;
@@ -5988,16 +5993,16 @@ EXTERN_C const IID IID_IFabricCodePackageActivationContext4;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE ReportApplicationHealth2( 
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo,
-            /* [in] */ const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions) = 0;
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE ReportDeployedApplicationHealth2( 
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo,
-            /* [in] */ const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions) = 0;
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE ReportDeployedServicePackageHealth2( 
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo,
-            /* [in] */ const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions) = 0;
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions) = 0;
         
     };
     
@@ -6010,181 +6015,181 @@ EXTERN_C const IID IID_IFabricCodePackageActivationContext4;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricCodePackageActivationContext4 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricCodePackageActivationContext4 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricCodePackageActivationContext4 * This);
+            __RPC__in IFabricCodePackageActivationContext4 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricCodePackageActivationContext4 * This);
+            __RPC__in IFabricCodePackageActivationContext4 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ContextId)
         LPCWSTR ( STDMETHODCALLTYPE *get_ContextId )( 
-            IFabricCodePackageActivationContext4 * This);
+            __RPC__in IFabricCodePackageActivationContext4 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_CodePackageName)
         LPCWSTR ( STDMETHODCALLTYPE *get_CodePackageName )( 
-            IFabricCodePackageActivationContext4 * This);
+            __RPC__in IFabricCodePackageActivationContext4 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_CodePackageVersion)
         LPCWSTR ( STDMETHODCALLTYPE *get_CodePackageVersion )( 
-            IFabricCodePackageActivationContext4 * This);
+            __RPC__in IFabricCodePackageActivationContext4 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_WorkDirectory)
         LPCWSTR ( STDMETHODCALLTYPE *get_WorkDirectory )( 
-            IFabricCodePackageActivationContext4 * This);
+            __RPC__in IFabricCodePackageActivationContext4 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_LogDirectory)
         LPCWSTR ( STDMETHODCALLTYPE *get_LogDirectory )( 
-            IFabricCodePackageActivationContext4 * This);
+            __RPC__in IFabricCodePackageActivationContext4 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_TempDirectory)
         LPCWSTR ( STDMETHODCALLTYPE *get_TempDirectory )( 
-            IFabricCodePackageActivationContext4 * This);
+            __RPC__in IFabricCodePackageActivationContext4 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ServiceTypes)
         const FABRIC_SERVICE_TYPE_DESCRIPTION_LIST *( STDMETHODCALLTYPE *get_ServiceTypes )( 
-            IFabricCodePackageActivationContext4 * This);
+            __RPC__in IFabricCodePackageActivationContext4 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ServiceGroupTypes)
         const FABRIC_SERVICE_GROUP_TYPE_DESCRIPTION_LIST *( STDMETHODCALLTYPE *get_ServiceGroupTypes )( 
-            IFabricCodePackageActivationContext4 * This);
+            __RPC__in IFabricCodePackageActivationContext4 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ApplicationPrincipals)
         const FABRIC_APPLICATION_PRINCIPALS_DESCRIPTION *( STDMETHODCALLTYPE *get_ApplicationPrincipals )( 
-            IFabricCodePackageActivationContext4 * This);
+            __RPC__in IFabricCodePackageActivationContext4 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ServiceEndpointResources)
         const FABRIC_ENDPOINT_RESOURCE_DESCRIPTION_LIST *( STDMETHODCALLTYPE *get_ServiceEndpointResources )( 
-            IFabricCodePackageActivationContext4 * This);
+            __RPC__in IFabricCodePackageActivationContext4 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetServiceEndpointResource)
         HRESULT ( STDMETHODCALLTYPE *GetServiceEndpointResource )( 
-            IFabricCodePackageActivationContext4 * This,
-            /* [in] */ LPCWSTR serviceEndpointResourceName,
-            /* [retval][out] */ const FABRIC_ENDPOINT_RESOURCE_DESCRIPTION **bufferedValue);
+            __RPC__in IFabricCodePackageActivationContext4 * This,
+            /* [in] */ __RPC__in LPCWSTR serviceEndpointResourceName,
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_ENDPOINT_RESOURCE_DESCRIPTION **bufferedValue);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetCodePackageNames)
         HRESULT ( STDMETHODCALLTYPE *GetCodePackageNames )( 
-            IFabricCodePackageActivationContext4 * This,
-            /* [retval][out] */ IFabricStringListResult **names);
+            __RPC__in IFabricCodePackageActivationContext4 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringListResult **names);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetConfigurationPackageNames)
         HRESULT ( STDMETHODCALLTYPE *GetConfigurationPackageNames )( 
-            IFabricCodePackageActivationContext4 * This,
-            /* [retval][out] */ IFabricStringListResult **names);
+            __RPC__in IFabricCodePackageActivationContext4 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringListResult **names);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetDataPackageNames)
         HRESULT ( STDMETHODCALLTYPE *GetDataPackageNames )( 
-            IFabricCodePackageActivationContext4 * This,
-            /* [retval][out] */ IFabricStringListResult **names);
+            __RPC__in IFabricCodePackageActivationContext4 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringListResult **names);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetCodePackage)
         HRESULT ( STDMETHODCALLTYPE *GetCodePackage )( 
-            IFabricCodePackageActivationContext4 * This,
-            /* [in] */ LPCWSTR codePackageName,
-            /* [retval][out] */ IFabricCodePackage **codePackage);
+            __RPC__in IFabricCodePackageActivationContext4 * This,
+            /* [in] */ __RPC__in LPCWSTR codePackageName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricCodePackage **codePackage);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetConfigurationPackage)
         HRESULT ( STDMETHODCALLTYPE *GetConfigurationPackage )( 
-            IFabricCodePackageActivationContext4 * This,
-            /* [in] */ LPCWSTR configPackageName,
-            /* [retval][out] */ IFabricConfigurationPackage **configPackage);
+            __RPC__in IFabricCodePackageActivationContext4 * This,
+            /* [in] */ __RPC__in LPCWSTR configPackageName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricConfigurationPackage **configPackage);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetDataPackage)
         HRESULT ( STDMETHODCALLTYPE *GetDataPackage )( 
-            IFabricCodePackageActivationContext4 * This,
-            /* [in] */ LPCWSTR dataPackageName,
-            /* [retval][out] */ IFabricDataPackage **dataPackage);
+            __RPC__in IFabricCodePackageActivationContext4 * This,
+            /* [in] */ __RPC__in LPCWSTR dataPackageName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricDataPackage **dataPackage);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, RegisterCodePackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *RegisterCodePackageChangeHandler )( 
-            IFabricCodePackageActivationContext4 * This,
-            /* [in] */ IFabricCodePackageChangeHandler *callback,
-            /* [retval][out] */ LONGLONG *callbackHandle);
+            __RPC__in IFabricCodePackageActivationContext4 * This,
+            /* [in] */ __RPC__in_opt IFabricCodePackageChangeHandler *callback,
+            /* [retval][out] */ __RPC__out LONGLONG *callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, UnregisterCodePackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *UnregisterCodePackageChangeHandler )( 
-            IFabricCodePackageActivationContext4 * This,
+            __RPC__in IFabricCodePackageActivationContext4 * This,
             /* [in] */ LONGLONG callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, RegisterConfigurationPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *RegisterConfigurationPackageChangeHandler )( 
-            IFabricCodePackageActivationContext4 * This,
-            /* [in] */ IFabricConfigurationPackageChangeHandler *callback,
-            /* [retval][out] */ LONGLONG *callbackHandle);
+            __RPC__in IFabricCodePackageActivationContext4 * This,
+            /* [in] */ __RPC__in_opt IFabricConfigurationPackageChangeHandler *callback,
+            /* [retval][out] */ __RPC__out LONGLONG *callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, UnregisterConfigurationPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *UnregisterConfigurationPackageChangeHandler )( 
-            IFabricCodePackageActivationContext4 * This,
+            __RPC__in IFabricCodePackageActivationContext4 * This,
             /* [in] */ LONGLONG callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, RegisterDataPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *RegisterDataPackageChangeHandler )( 
-            IFabricCodePackageActivationContext4 * This,
-            /* [in] */ IFabricDataPackageChangeHandler *callback,
-            /* [retval][out] */ LONGLONG *callbackHandle);
+            __RPC__in IFabricCodePackageActivationContext4 * This,
+            /* [in] */ __RPC__in_opt IFabricDataPackageChangeHandler *callback,
+            /* [retval][out] */ __RPC__out LONGLONG *callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, UnregisterDataPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *UnregisterDataPackageChangeHandler )( 
-            IFabricCodePackageActivationContext4 * This,
+            __RPC__in IFabricCodePackageActivationContext4 * This,
             /* [in] */ LONGLONG callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext2, get_ApplicationName)
         FABRIC_URI ( STDMETHODCALLTYPE *get_ApplicationName )( 
-            IFabricCodePackageActivationContext4 * This);
+            __RPC__in IFabricCodePackageActivationContext4 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext2, get_ApplicationTypeName)
         LPCWSTR ( STDMETHODCALLTYPE *get_ApplicationTypeName )( 
-            IFabricCodePackageActivationContext4 * This);
+            __RPC__in IFabricCodePackageActivationContext4 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext2, GetServiceManifestName)
         HRESULT ( STDMETHODCALLTYPE *GetServiceManifestName )( 
-            IFabricCodePackageActivationContext4 * This,
-            /* [retval][out] */ IFabricStringResult **serviceManifestName);
+            __RPC__in IFabricCodePackageActivationContext4 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **serviceManifestName);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext2, GetServiceManifestVersion)
         HRESULT ( STDMETHODCALLTYPE *GetServiceManifestVersion )( 
-            IFabricCodePackageActivationContext4 * This,
-            /* [retval][out] */ IFabricStringResult **serviceManifestVersion);
+            __RPC__in IFabricCodePackageActivationContext4 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **serviceManifestVersion);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext3, ReportApplicationHealth)
         HRESULT ( STDMETHODCALLTYPE *ReportApplicationHealth )( 
-            IFabricCodePackageActivationContext4 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo);
+            __RPC__in IFabricCodePackageActivationContext4 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext3, ReportDeployedApplicationHealth)
         HRESULT ( STDMETHODCALLTYPE *ReportDeployedApplicationHealth )( 
-            IFabricCodePackageActivationContext4 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo);
+            __RPC__in IFabricCodePackageActivationContext4 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext3, ReportDeployedServicePackageHealth)
         HRESULT ( STDMETHODCALLTYPE *ReportDeployedServicePackageHealth )( 
-            IFabricCodePackageActivationContext4 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo);
+            __RPC__in IFabricCodePackageActivationContext4 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext4, ReportApplicationHealth2)
         HRESULT ( STDMETHODCALLTYPE *ReportApplicationHealth2 )( 
-            IFabricCodePackageActivationContext4 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo,
-            /* [in] */ const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
+            __RPC__in IFabricCodePackageActivationContext4 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext4, ReportDeployedApplicationHealth2)
         HRESULT ( STDMETHODCALLTYPE *ReportDeployedApplicationHealth2 )( 
-            IFabricCodePackageActivationContext4 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo,
-            /* [in] */ const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
+            __RPC__in IFabricCodePackageActivationContext4 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext4, ReportDeployedServicePackageHealth2)
         HRESULT ( STDMETHODCALLTYPE *ReportDeployedServicePackageHealth2 )( 
-            IFabricCodePackageActivationContext4 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo,
-            /* [in] */ const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
+            __RPC__in IFabricCodePackageActivationContext4 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
         
         END_INTERFACE
     } IFabricCodePackageActivationContext4Vtbl;
@@ -6352,189 +6357,189 @@ EXTERN_C const IID IID_IFabricCodePackageActivationContext5;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricCodePackageActivationContext5 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricCodePackageActivationContext5 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricCodePackageActivationContext5 * This);
+            __RPC__in IFabricCodePackageActivationContext5 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricCodePackageActivationContext5 * This);
+            __RPC__in IFabricCodePackageActivationContext5 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ContextId)
         LPCWSTR ( STDMETHODCALLTYPE *get_ContextId )( 
-            IFabricCodePackageActivationContext5 * This);
+            __RPC__in IFabricCodePackageActivationContext5 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_CodePackageName)
         LPCWSTR ( STDMETHODCALLTYPE *get_CodePackageName )( 
-            IFabricCodePackageActivationContext5 * This);
+            __RPC__in IFabricCodePackageActivationContext5 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_CodePackageVersion)
         LPCWSTR ( STDMETHODCALLTYPE *get_CodePackageVersion )( 
-            IFabricCodePackageActivationContext5 * This);
+            __RPC__in IFabricCodePackageActivationContext5 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_WorkDirectory)
         LPCWSTR ( STDMETHODCALLTYPE *get_WorkDirectory )( 
-            IFabricCodePackageActivationContext5 * This);
+            __RPC__in IFabricCodePackageActivationContext5 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_LogDirectory)
         LPCWSTR ( STDMETHODCALLTYPE *get_LogDirectory )( 
-            IFabricCodePackageActivationContext5 * This);
+            __RPC__in IFabricCodePackageActivationContext5 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_TempDirectory)
         LPCWSTR ( STDMETHODCALLTYPE *get_TempDirectory )( 
-            IFabricCodePackageActivationContext5 * This);
+            __RPC__in IFabricCodePackageActivationContext5 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ServiceTypes)
         const FABRIC_SERVICE_TYPE_DESCRIPTION_LIST *( STDMETHODCALLTYPE *get_ServiceTypes )( 
-            IFabricCodePackageActivationContext5 * This);
+            __RPC__in IFabricCodePackageActivationContext5 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ServiceGroupTypes)
         const FABRIC_SERVICE_GROUP_TYPE_DESCRIPTION_LIST *( STDMETHODCALLTYPE *get_ServiceGroupTypes )( 
-            IFabricCodePackageActivationContext5 * This);
+            __RPC__in IFabricCodePackageActivationContext5 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ApplicationPrincipals)
         const FABRIC_APPLICATION_PRINCIPALS_DESCRIPTION *( STDMETHODCALLTYPE *get_ApplicationPrincipals )( 
-            IFabricCodePackageActivationContext5 * This);
+            __RPC__in IFabricCodePackageActivationContext5 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ServiceEndpointResources)
         const FABRIC_ENDPOINT_RESOURCE_DESCRIPTION_LIST *( STDMETHODCALLTYPE *get_ServiceEndpointResources )( 
-            IFabricCodePackageActivationContext5 * This);
+            __RPC__in IFabricCodePackageActivationContext5 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetServiceEndpointResource)
         HRESULT ( STDMETHODCALLTYPE *GetServiceEndpointResource )( 
-            IFabricCodePackageActivationContext5 * This,
-            /* [in] */ LPCWSTR serviceEndpointResourceName,
-            /* [retval][out] */ const FABRIC_ENDPOINT_RESOURCE_DESCRIPTION **bufferedValue);
+            __RPC__in IFabricCodePackageActivationContext5 * This,
+            /* [in] */ __RPC__in LPCWSTR serviceEndpointResourceName,
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_ENDPOINT_RESOURCE_DESCRIPTION **bufferedValue);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetCodePackageNames)
         HRESULT ( STDMETHODCALLTYPE *GetCodePackageNames )( 
-            IFabricCodePackageActivationContext5 * This,
-            /* [retval][out] */ IFabricStringListResult **names);
+            __RPC__in IFabricCodePackageActivationContext5 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringListResult **names);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetConfigurationPackageNames)
         HRESULT ( STDMETHODCALLTYPE *GetConfigurationPackageNames )( 
-            IFabricCodePackageActivationContext5 * This,
-            /* [retval][out] */ IFabricStringListResult **names);
+            __RPC__in IFabricCodePackageActivationContext5 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringListResult **names);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetDataPackageNames)
         HRESULT ( STDMETHODCALLTYPE *GetDataPackageNames )( 
-            IFabricCodePackageActivationContext5 * This,
-            /* [retval][out] */ IFabricStringListResult **names);
+            __RPC__in IFabricCodePackageActivationContext5 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringListResult **names);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetCodePackage)
         HRESULT ( STDMETHODCALLTYPE *GetCodePackage )( 
-            IFabricCodePackageActivationContext5 * This,
-            /* [in] */ LPCWSTR codePackageName,
-            /* [retval][out] */ IFabricCodePackage **codePackage);
+            __RPC__in IFabricCodePackageActivationContext5 * This,
+            /* [in] */ __RPC__in LPCWSTR codePackageName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricCodePackage **codePackage);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetConfigurationPackage)
         HRESULT ( STDMETHODCALLTYPE *GetConfigurationPackage )( 
-            IFabricCodePackageActivationContext5 * This,
-            /* [in] */ LPCWSTR configPackageName,
-            /* [retval][out] */ IFabricConfigurationPackage **configPackage);
+            __RPC__in IFabricCodePackageActivationContext5 * This,
+            /* [in] */ __RPC__in LPCWSTR configPackageName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricConfigurationPackage **configPackage);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetDataPackage)
         HRESULT ( STDMETHODCALLTYPE *GetDataPackage )( 
-            IFabricCodePackageActivationContext5 * This,
-            /* [in] */ LPCWSTR dataPackageName,
-            /* [retval][out] */ IFabricDataPackage **dataPackage);
+            __RPC__in IFabricCodePackageActivationContext5 * This,
+            /* [in] */ __RPC__in LPCWSTR dataPackageName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricDataPackage **dataPackage);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, RegisterCodePackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *RegisterCodePackageChangeHandler )( 
-            IFabricCodePackageActivationContext5 * This,
-            /* [in] */ IFabricCodePackageChangeHandler *callback,
-            /* [retval][out] */ LONGLONG *callbackHandle);
+            __RPC__in IFabricCodePackageActivationContext5 * This,
+            /* [in] */ __RPC__in_opt IFabricCodePackageChangeHandler *callback,
+            /* [retval][out] */ __RPC__out LONGLONG *callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, UnregisterCodePackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *UnregisterCodePackageChangeHandler )( 
-            IFabricCodePackageActivationContext5 * This,
+            __RPC__in IFabricCodePackageActivationContext5 * This,
             /* [in] */ LONGLONG callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, RegisterConfigurationPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *RegisterConfigurationPackageChangeHandler )( 
-            IFabricCodePackageActivationContext5 * This,
-            /* [in] */ IFabricConfigurationPackageChangeHandler *callback,
-            /* [retval][out] */ LONGLONG *callbackHandle);
+            __RPC__in IFabricCodePackageActivationContext5 * This,
+            /* [in] */ __RPC__in_opt IFabricConfigurationPackageChangeHandler *callback,
+            /* [retval][out] */ __RPC__out LONGLONG *callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, UnregisterConfigurationPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *UnregisterConfigurationPackageChangeHandler )( 
-            IFabricCodePackageActivationContext5 * This,
+            __RPC__in IFabricCodePackageActivationContext5 * This,
             /* [in] */ LONGLONG callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, RegisterDataPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *RegisterDataPackageChangeHandler )( 
-            IFabricCodePackageActivationContext5 * This,
-            /* [in] */ IFabricDataPackageChangeHandler *callback,
-            /* [retval][out] */ LONGLONG *callbackHandle);
+            __RPC__in IFabricCodePackageActivationContext5 * This,
+            /* [in] */ __RPC__in_opt IFabricDataPackageChangeHandler *callback,
+            /* [retval][out] */ __RPC__out LONGLONG *callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, UnregisterDataPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *UnregisterDataPackageChangeHandler )( 
-            IFabricCodePackageActivationContext5 * This,
+            __RPC__in IFabricCodePackageActivationContext5 * This,
             /* [in] */ LONGLONG callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext2, get_ApplicationName)
         FABRIC_URI ( STDMETHODCALLTYPE *get_ApplicationName )( 
-            IFabricCodePackageActivationContext5 * This);
+            __RPC__in IFabricCodePackageActivationContext5 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext2, get_ApplicationTypeName)
         LPCWSTR ( STDMETHODCALLTYPE *get_ApplicationTypeName )( 
-            IFabricCodePackageActivationContext5 * This);
+            __RPC__in IFabricCodePackageActivationContext5 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext2, GetServiceManifestName)
         HRESULT ( STDMETHODCALLTYPE *GetServiceManifestName )( 
-            IFabricCodePackageActivationContext5 * This,
-            /* [retval][out] */ IFabricStringResult **serviceManifestName);
+            __RPC__in IFabricCodePackageActivationContext5 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **serviceManifestName);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext2, GetServiceManifestVersion)
         HRESULT ( STDMETHODCALLTYPE *GetServiceManifestVersion )( 
-            IFabricCodePackageActivationContext5 * This,
-            /* [retval][out] */ IFabricStringResult **serviceManifestVersion);
+            __RPC__in IFabricCodePackageActivationContext5 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **serviceManifestVersion);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext3, ReportApplicationHealth)
         HRESULT ( STDMETHODCALLTYPE *ReportApplicationHealth )( 
-            IFabricCodePackageActivationContext5 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo);
+            __RPC__in IFabricCodePackageActivationContext5 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext3, ReportDeployedApplicationHealth)
         HRESULT ( STDMETHODCALLTYPE *ReportDeployedApplicationHealth )( 
-            IFabricCodePackageActivationContext5 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo);
+            __RPC__in IFabricCodePackageActivationContext5 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext3, ReportDeployedServicePackageHealth)
         HRESULT ( STDMETHODCALLTYPE *ReportDeployedServicePackageHealth )( 
-            IFabricCodePackageActivationContext5 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo);
+            __RPC__in IFabricCodePackageActivationContext5 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext4, ReportApplicationHealth2)
         HRESULT ( STDMETHODCALLTYPE *ReportApplicationHealth2 )( 
-            IFabricCodePackageActivationContext5 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo,
-            /* [in] */ const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
+            __RPC__in IFabricCodePackageActivationContext5 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext4, ReportDeployedApplicationHealth2)
         HRESULT ( STDMETHODCALLTYPE *ReportDeployedApplicationHealth2 )( 
-            IFabricCodePackageActivationContext5 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo,
-            /* [in] */ const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
+            __RPC__in IFabricCodePackageActivationContext5 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext4, ReportDeployedServicePackageHealth2)
         HRESULT ( STDMETHODCALLTYPE *ReportDeployedServicePackageHealth2 )( 
-            IFabricCodePackageActivationContext5 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo,
-            /* [in] */ const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
+            __RPC__in IFabricCodePackageActivationContext5 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext5, get_ServiceListenAddress)
         LPCWSTR ( STDMETHODCALLTYPE *get_ServiceListenAddress )( 
-            IFabricCodePackageActivationContext5 * This);
+            __RPC__in IFabricCodePackageActivationContext5 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext5, get_ServicePublishAddress)
         LPCWSTR ( STDMETHODCALLTYPE *get_ServicePublishAddress )( 
-            IFabricCodePackageActivationContext5 * This);
+            __RPC__in IFabricCodePackageActivationContext5 * This);
         
         END_INTERFACE
     } IFabricCodePackageActivationContext5Vtbl;
@@ -6695,8 +6700,8 @@ EXTERN_C const IID IID_IFabricCodePackageActivationContext6;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE GetDirectory( 
-            /* [in] */ LPCWSTR logicalDirectoryName,
-            /* [retval][out] */ IFabricStringResult **directoryPath) = 0;
+            /* [in] */ __RPC__in LPCWSTR logicalDirectoryName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **directoryPath) = 0;
         
     };
     
@@ -6709,195 +6714,195 @@ EXTERN_C const IID IID_IFabricCodePackageActivationContext6;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricCodePackageActivationContext6 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricCodePackageActivationContext6 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricCodePackageActivationContext6 * This);
+            __RPC__in IFabricCodePackageActivationContext6 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricCodePackageActivationContext6 * This);
+            __RPC__in IFabricCodePackageActivationContext6 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ContextId)
         LPCWSTR ( STDMETHODCALLTYPE *get_ContextId )( 
-            IFabricCodePackageActivationContext6 * This);
+            __RPC__in IFabricCodePackageActivationContext6 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_CodePackageName)
         LPCWSTR ( STDMETHODCALLTYPE *get_CodePackageName )( 
-            IFabricCodePackageActivationContext6 * This);
+            __RPC__in IFabricCodePackageActivationContext6 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_CodePackageVersion)
         LPCWSTR ( STDMETHODCALLTYPE *get_CodePackageVersion )( 
-            IFabricCodePackageActivationContext6 * This);
+            __RPC__in IFabricCodePackageActivationContext6 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_WorkDirectory)
         LPCWSTR ( STDMETHODCALLTYPE *get_WorkDirectory )( 
-            IFabricCodePackageActivationContext6 * This);
+            __RPC__in IFabricCodePackageActivationContext6 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_LogDirectory)
         LPCWSTR ( STDMETHODCALLTYPE *get_LogDirectory )( 
-            IFabricCodePackageActivationContext6 * This);
+            __RPC__in IFabricCodePackageActivationContext6 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_TempDirectory)
         LPCWSTR ( STDMETHODCALLTYPE *get_TempDirectory )( 
-            IFabricCodePackageActivationContext6 * This);
+            __RPC__in IFabricCodePackageActivationContext6 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ServiceTypes)
         const FABRIC_SERVICE_TYPE_DESCRIPTION_LIST *( STDMETHODCALLTYPE *get_ServiceTypes )( 
-            IFabricCodePackageActivationContext6 * This);
+            __RPC__in IFabricCodePackageActivationContext6 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ServiceGroupTypes)
         const FABRIC_SERVICE_GROUP_TYPE_DESCRIPTION_LIST *( STDMETHODCALLTYPE *get_ServiceGroupTypes )( 
-            IFabricCodePackageActivationContext6 * This);
+            __RPC__in IFabricCodePackageActivationContext6 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ApplicationPrincipals)
         const FABRIC_APPLICATION_PRINCIPALS_DESCRIPTION *( STDMETHODCALLTYPE *get_ApplicationPrincipals )( 
-            IFabricCodePackageActivationContext6 * This);
+            __RPC__in IFabricCodePackageActivationContext6 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, get_ServiceEndpointResources)
         const FABRIC_ENDPOINT_RESOURCE_DESCRIPTION_LIST *( STDMETHODCALLTYPE *get_ServiceEndpointResources )( 
-            IFabricCodePackageActivationContext6 * This);
+            __RPC__in IFabricCodePackageActivationContext6 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetServiceEndpointResource)
         HRESULT ( STDMETHODCALLTYPE *GetServiceEndpointResource )( 
-            IFabricCodePackageActivationContext6 * This,
-            /* [in] */ LPCWSTR serviceEndpointResourceName,
-            /* [retval][out] */ const FABRIC_ENDPOINT_RESOURCE_DESCRIPTION **bufferedValue);
+            __RPC__in IFabricCodePackageActivationContext6 * This,
+            /* [in] */ __RPC__in LPCWSTR serviceEndpointResourceName,
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_ENDPOINT_RESOURCE_DESCRIPTION **bufferedValue);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetCodePackageNames)
         HRESULT ( STDMETHODCALLTYPE *GetCodePackageNames )( 
-            IFabricCodePackageActivationContext6 * This,
-            /* [retval][out] */ IFabricStringListResult **names);
+            __RPC__in IFabricCodePackageActivationContext6 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringListResult **names);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetConfigurationPackageNames)
         HRESULT ( STDMETHODCALLTYPE *GetConfigurationPackageNames )( 
-            IFabricCodePackageActivationContext6 * This,
-            /* [retval][out] */ IFabricStringListResult **names);
+            __RPC__in IFabricCodePackageActivationContext6 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringListResult **names);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetDataPackageNames)
         HRESULT ( STDMETHODCALLTYPE *GetDataPackageNames )( 
-            IFabricCodePackageActivationContext6 * This,
-            /* [retval][out] */ IFabricStringListResult **names);
+            __RPC__in IFabricCodePackageActivationContext6 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringListResult **names);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetCodePackage)
         HRESULT ( STDMETHODCALLTYPE *GetCodePackage )( 
-            IFabricCodePackageActivationContext6 * This,
-            /* [in] */ LPCWSTR codePackageName,
-            /* [retval][out] */ IFabricCodePackage **codePackage);
+            __RPC__in IFabricCodePackageActivationContext6 * This,
+            /* [in] */ __RPC__in LPCWSTR codePackageName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricCodePackage **codePackage);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetConfigurationPackage)
         HRESULT ( STDMETHODCALLTYPE *GetConfigurationPackage )( 
-            IFabricCodePackageActivationContext6 * This,
-            /* [in] */ LPCWSTR configPackageName,
-            /* [retval][out] */ IFabricConfigurationPackage **configPackage);
+            __RPC__in IFabricCodePackageActivationContext6 * This,
+            /* [in] */ __RPC__in LPCWSTR configPackageName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricConfigurationPackage **configPackage);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, GetDataPackage)
         HRESULT ( STDMETHODCALLTYPE *GetDataPackage )( 
-            IFabricCodePackageActivationContext6 * This,
-            /* [in] */ LPCWSTR dataPackageName,
-            /* [retval][out] */ IFabricDataPackage **dataPackage);
+            __RPC__in IFabricCodePackageActivationContext6 * This,
+            /* [in] */ __RPC__in LPCWSTR dataPackageName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricDataPackage **dataPackage);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, RegisterCodePackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *RegisterCodePackageChangeHandler )( 
-            IFabricCodePackageActivationContext6 * This,
-            /* [in] */ IFabricCodePackageChangeHandler *callback,
-            /* [retval][out] */ LONGLONG *callbackHandle);
+            __RPC__in IFabricCodePackageActivationContext6 * This,
+            /* [in] */ __RPC__in_opt IFabricCodePackageChangeHandler *callback,
+            /* [retval][out] */ __RPC__out LONGLONG *callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, UnregisterCodePackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *UnregisterCodePackageChangeHandler )( 
-            IFabricCodePackageActivationContext6 * This,
+            __RPC__in IFabricCodePackageActivationContext6 * This,
             /* [in] */ LONGLONG callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, RegisterConfigurationPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *RegisterConfigurationPackageChangeHandler )( 
-            IFabricCodePackageActivationContext6 * This,
-            /* [in] */ IFabricConfigurationPackageChangeHandler *callback,
-            /* [retval][out] */ LONGLONG *callbackHandle);
+            __RPC__in IFabricCodePackageActivationContext6 * This,
+            /* [in] */ __RPC__in_opt IFabricConfigurationPackageChangeHandler *callback,
+            /* [retval][out] */ __RPC__out LONGLONG *callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, UnregisterConfigurationPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *UnregisterConfigurationPackageChangeHandler )( 
-            IFabricCodePackageActivationContext6 * This,
+            __RPC__in IFabricCodePackageActivationContext6 * This,
             /* [in] */ LONGLONG callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, RegisterDataPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *RegisterDataPackageChangeHandler )( 
-            IFabricCodePackageActivationContext6 * This,
-            /* [in] */ IFabricDataPackageChangeHandler *callback,
-            /* [retval][out] */ LONGLONG *callbackHandle);
+            __RPC__in IFabricCodePackageActivationContext6 * This,
+            /* [in] */ __RPC__in_opt IFabricDataPackageChangeHandler *callback,
+            /* [retval][out] */ __RPC__out LONGLONG *callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext, UnregisterDataPackageChangeHandler)
         HRESULT ( STDMETHODCALLTYPE *UnregisterDataPackageChangeHandler )( 
-            IFabricCodePackageActivationContext6 * This,
+            __RPC__in IFabricCodePackageActivationContext6 * This,
             /* [in] */ LONGLONG callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext2, get_ApplicationName)
         FABRIC_URI ( STDMETHODCALLTYPE *get_ApplicationName )( 
-            IFabricCodePackageActivationContext6 * This);
+            __RPC__in IFabricCodePackageActivationContext6 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext2, get_ApplicationTypeName)
         LPCWSTR ( STDMETHODCALLTYPE *get_ApplicationTypeName )( 
-            IFabricCodePackageActivationContext6 * This);
+            __RPC__in IFabricCodePackageActivationContext6 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext2, GetServiceManifestName)
         HRESULT ( STDMETHODCALLTYPE *GetServiceManifestName )( 
-            IFabricCodePackageActivationContext6 * This,
-            /* [retval][out] */ IFabricStringResult **serviceManifestName);
+            __RPC__in IFabricCodePackageActivationContext6 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **serviceManifestName);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext2, GetServiceManifestVersion)
         HRESULT ( STDMETHODCALLTYPE *GetServiceManifestVersion )( 
-            IFabricCodePackageActivationContext6 * This,
-            /* [retval][out] */ IFabricStringResult **serviceManifestVersion);
+            __RPC__in IFabricCodePackageActivationContext6 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **serviceManifestVersion);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext3, ReportApplicationHealth)
         HRESULT ( STDMETHODCALLTYPE *ReportApplicationHealth )( 
-            IFabricCodePackageActivationContext6 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo);
+            __RPC__in IFabricCodePackageActivationContext6 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext3, ReportDeployedApplicationHealth)
         HRESULT ( STDMETHODCALLTYPE *ReportDeployedApplicationHealth )( 
-            IFabricCodePackageActivationContext6 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo);
+            __RPC__in IFabricCodePackageActivationContext6 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext3, ReportDeployedServicePackageHealth)
         HRESULT ( STDMETHODCALLTYPE *ReportDeployedServicePackageHealth )( 
-            IFabricCodePackageActivationContext6 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo);
+            __RPC__in IFabricCodePackageActivationContext6 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext4, ReportApplicationHealth2)
         HRESULT ( STDMETHODCALLTYPE *ReportApplicationHealth2 )( 
-            IFabricCodePackageActivationContext6 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo,
-            /* [in] */ const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
+            __RPC__in IFabricCodePackageActivationContext6 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext4, ReportDeployedApplicationHealth2)
         HRESULT ( STDMETHODCALLTYPE *ReportDeployedApplicationHealth2 )( 
-            IFabricCodePackageActivationContext6 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo,
-            /* [in] */ const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
+            __RPC__in IFabricCodePackageActivationContext6 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext4, ReportDeployedServicePackageHealth2)
         HRESULT ( STDMETHODCALLTYPE *ReportDeployedServicePackageHealth2 )( 
-            IFabricCodePackageActivationContext6 * This,
-            /* [in] */ const FABRIC_HEALTH_INFORMATION *healthInfo,
-            /* [in] */ const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
+            __RPC__in IFabricCodePackageActivationContext6 * This,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_INFORMATION *healthInfo,
+            /* [in] */ __RPC__in const FABRIC_HEALTH_REPORT_SEND_OPTIONS *sendOptions);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext5, get_ServiceListenAddress)
         LPCWSTR ( STDMETHODCALLTYPE *get_ServiceListenAddress )( 
-            IFabricCodePackageActivationContext6 * This);
+            __RPC__in IFabricCodePackageActivationContext6 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext5, get_ServicePublishAddress)
         LPCWSTR ( STDMETHODCALLTYPE *get_ServicePublishAddress )( 
-            IFabricCodePackageActivationContext6 * This);
+            __RPC__in IFabricCodePackageActivationContext6 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivationContext6, GetDirectory)
         HRESULT ( STDMETHODCALLTYPE *GetDirectory )( 
-            IFabricCodePackageActivationContext6 * This,
-            /* [in] */ LPCWSTR logicalDirectoryName,
-            /* [retval][out] */ IFabricStringResult **directoryPath);
+            __RPC__in IFabricCodePackageActivationContext6 * This,
+            /* [in] */ __RPC__in LPCWSTR logicalDirectoryName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **directoryPath);
         
         END_INTERFACE
     } IFabricCodePackageActivationContext6Vtbl;
@@ -7076,26 +7081,26 @@ EXTERN_C const IID IID_IFabricCodePackage;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricCodePackage * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricCodePackage * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricCodePackage * This);
+            __RPC__in IFabricCodePackage * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricCodePackage * This);
+            __RPC__in IFabricCodePackage * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackage, get_Description)
         const FABRIC_CODE_PACKAGE_DESCRIPTION *( STDMETHODCALLTYPE *get_Description )( 
-            IFabricCodePackage * This);
+            __RPC__in IFabricCodePackage * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackage, get_Path)
         LPCWSTR ( STDMETHODCALLTYPE *get_Path )( 
-            IFabricCodePackage * This);
+            __RPC__in IFabricCodePackage * This);
         
         END_INTERFACE
     } IFabricCodePackageVtbl;
@@ -7167,34 +7172,34 @@ EXTERN_C const IID IID_IFabricCodePackage2;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricCodePackage2 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricCodePackage2 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricCodePackage2 * This);
+            __RPC__in IFabricCodePackage2 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricCodePackage2 * This);
+            __RPC__in IFabricCodePackage2 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackage, get_Description)
         const FABRIC_CODE_PACKAGE_DESCRIPTION *( STDMETHODCALLTYPE *get_Description )( 
-            IFabricCodePackage2 * This);
+            __RPC__in IFabricCodePackage2 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackage, get_Path)
         LPCWSTR ( STDMETHODCALLTYPE *get_Path )( 
-            IFabricCodePackage2 * This);
+            __RPC__in IFabricCodePackage2 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackage2, get_SetupEntryPointRunAsPolicy)
         const FABRIC_RUNAS_POLICY_DESCRIPTION *( STDMETHODCALLTYPE *get_SetupEntryPointRunAsPolicy )( 
-            IFabricCodePackage2 * This);
+            __RPC__in IFabricCodePackage2 * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackage2, get_EntryPointRunAsPolicy)
         const FABRIC_RUNAS_POLICY_DESCRIPTION *( STDMETHODCALLTYPE *get_EntryPointRunAsPolicy )( 
-            IFabricCodePackage2 * This);
+            __RPC__in IFabricCodePackage2 * This);
         
         END_INTERFACE
     } IFabricCodePackage2Vtbl;
@@ -7265,18 +7270,18 @@ EXTERN_C const IID IID_IFabricConfigurationPackage;
         virtual const FABRIC_CONFIGURATION_SETTINGS *STDMETHODCALLTYPE get_Settings( void) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetSection( 
-            /* [in] */ LPCWSTR sectionName,
-            /* [retval][out] */ const FABRIC_CONFIGURATION_SECTION **bufferedValue) = 0;
+            /* [in] */ __RPC__in LPCWSTR sectionName,
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_CONFIGURATION_SECTION **bufferedValue) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetValue( 
-            /* [in] */ LPCWSTR sectionName,
-            /* [in] */ LPCWSTR parameterName,
-            /* [out] */ BOOLEAN *isEncrypted,
-            /* [retval][out] */ LPCWSTR *bufferedValue) = 0;
+            /* [in] */ __RPC__in LPCWSTR sectionName,
+            /* [in] */ __RPC__in LPCWSTR parameterName,
+            /* [out] */ __RPC__out BOOLEAN *isEncrypted,
+            /* [retval][out] */ __RPC__deref_out_opt LPCWSTR *bufferedValue) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE DecryptValue( 
-            /* [in] */ LPCWSTR encryptedValue,
-            /* [retval][out] */ IFabricStringResult **decryptedValue) = 0;
+            /* [in] */ __RPC__in LPCWSTR encryptedValue,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **decryptedValue) = 0;
         
     };
     
@@ -7289,50 +7294,50 @@ EXTERN_C const IID IID_IFabricConfigurationPackage;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricConfigurationPackage * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricConfigurationPackage * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricConfigurationPackage * This);
+            __RPC__in IFabricConfigurationPackage * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricConfigurationPackage * This);
+            __RPC__in IFabricConfigurationPackage * This);
         
         DECLSPEC_XFGVIRT(IFabricConfigurationPackage, get_Description)
         const FABRIC_CONFIGURATION_PACKAGE_DESCRIPTION *( STDMETHODCALLTYPE *get_Description )( 
-            IFabricConfigurationPackage * This);
+            __RPC__in IFabricConfigurationPackage * This);
         
         DECLSPEC_XFGVIRT(IFabricConfigurationPackage, get_Path)
         LPCWSTR ( STDMETHODCALLTYPE *get_Path )( 
-            IFabricConfigurationPackage * This);
+            __RPC__in IFabricConfigurationPackage * This);
         
         DECLSPEC_XFGVIRT(IFabricConfigurationPackage, get_Settings)
         const FABRIC_CONFIGURATION_SETTINGS *( STDMETHODCALLTYPE *get_Settings )( 
-            IFabricConfigurationPackage * This);
+            __RPC__in IFabricConfigurationPackage * This);
         
         DECLSPEC_XFGVIRT(IFabricConfigurationPackage, GetSection)
         HRESULT ( STDMETHODCALLTYPE *GetSection )( 
-            IFabricConfigurationPackage * This,
-            /* [in] */ LPCWSTR sectionName,
-            /* [retval][out] */ const FABRIC_CONFIGURATION_SECTION **bufferedValue);
+            __RPC__in IFabricConfigurationPackage * This,
+            /* [in] */ __RPC__in LPCWSTR sectionName,
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_CONFIGURATION_SECTION **bufferedValue);
         
         DECLSPEC_XFGVIRT(IFabricConfigurationPackage, GetValue)
         HRESULT ( STDMETHODCALLTYPE *GetValue )( 
-            IFabricConfigurationPackage * This,
-            /* [in] */ LPCWSTR sectionName,
-            /* [in] */ LPCWSTR parameterName,
-            /* [out] */ BOOLEAN *isEncrypted,
-            /* [retval][out] */ LPCWSTR *bufferedValue);
+            __RPC__in IFabricConfigurationPackage * This,
+            /* [in] */ __RPC__in LPCWSTR sectionName,
+            /* [in] */ __RPC__in LPCWSTR parameterName,
+            /* [out] */ __RPC__out BOOLEAN *isEncrypted,
+            /* [retval][out] */ __RPC__deref_out_opt LPCWSTR *bufferedValue);
         
         DECLSPEC_XFGVIRT(IFabricConfigurationPackage, DecryptValue)
         HRESULT ( STDMETHODCALLTYPE *DecryptValue )( 
-            IFabricConfigurationPackage * This,
-            /* [in] */ LPCWSTR encryptedValue,
-            /* [retval][out] */ IFabricStringResult **decryptedValue);
+            __RPC__in IFabricConfigurationPackage * This,
+            /* [in] */ __RPC__in LPCWSTR encryptedValue,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **decryptedValue);
         
         END_INTERFACE
     } IFabricConfigurationPackageVtbl;
@@ -7402,9 +7407,9 @@ EXTERN_C const IID IID_IFabricConfigurationPackage2;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE GetValues( 
-            /* [in] */ LPCWSTR sectionName,
-            /* [in] */ LPCWSTR parameterPrefix,
-            /* [retval][out] */ FABRIC_CONFIGURATION_PARAMETER_LIST **bufferedValue) = 0;
+            /* [in] */ __RPC__in LPCWSTR sectionName,
+            /* [in] */ __RPC__in LPCWSTR parameterPrefix,
+            /* [retval][out] */ __RPC__deref_out_opt FABRIC_CONFIGURATION_PARAMETER_LIST **bufferedValue) = 0;
         
     };
     
@@ -7417,57 +7422,57 @@ EXTERN_C const IID IID_IFabricConfigurationPackage2;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricConfigurationPackage2 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricConfigurationPackage2 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricConfigurationPackage2 * This);
+            __RPC__in IFabricConfigurationPackage2 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricConfigurationPackage2 * This);
+            __RPC__in IFabricConfigurationPackage2 * This);
         
         DECLSPEC_XFGVIRT(IFabricConfigurationPackage, get_Description)
         const FABRIC_CONFIGURATION_PACKAGE_DESCRIPTION *( STDMETHODCALLTYPE *get_Description )( 
-            IFabricConfigurationPackage2 * This);
+            __RPC__in IFabricConfigurationPackage2 * This);
         
         DECLSPEC_XFGVIRT(IFabricConfigurationPackage, get_Path)
         LPCWSTR ( STDMETHODCALLTYPE *get_Path )( 
-            IFabricConfigurationPackage2 * This);
+            __RPC__in IFabricConfigurationPackage2 * This);
         
         DECLSPEC_XFGVIRT(IFabricConfigurationPackage, get_Settings)
         const FABRIC_CONFIGURATION_SETTINGS *( STDMETHODCALLTYPE *get_Settings )( 
-            IFabricConfigurationPackage2 * This);
+            __RPC__in IFabricConfigurationPackage2 * This);
         
         DECLSPEC_XFGVIRT(IFabricConfigurationPackage, GetSection)
         HRESULT ( STDMETHODCALLTYPE *GetSection )( 
-            IFabricConfigurationPackage2 * This,
-            /* [in] */ LPCWSTR sectionName,
-            /* [retval][out] */ const FABRIC_CONFIGURATION_SECTION **bufferedValue);
+            __RPC__in IFabricConfigurationPackage2 * This,
+            /* [in] */ __RPC__in LPCWSTR sectionName,
+            /* [retval][out] */ __RPC__deref_out_opt const FABRIC_CONFIGURATION_SECTION **bufferedValue);
         
         DECLSPEC_XFGVIRT(IFabricConfigurationPackage, GetValue)
         HRESULT ( STDMETHODCALLTYPE *GetValue )( 
-            IFabricConfigurationPackage2 * This,
-            /* [in] */ LPCWSTR sectionName,
-            /* [in] */ LPCWSTR parameterName,
-            /* [out] */ BOOLEAN *isEncrypted,
-            /* [retval][out] */ LPCWSTR *bufferedValue);
+            __RPC__in IFabricConfigurationPackage2 * This,
+            /* [in] */ __RPC__in LPCWSTR sectionName,
+            /* [in] */ __RPC__in LPCWSTR parameterName,
+            /* [out] */ __RPC__out BOOLEAN *isEncrypted,
+            /* [retval][out] */ __RPC__deref_out_opt LPCWSTR *bufferedValue);
         
         DECLSPEC_XFGVIRT(IFabricConfigurationPackage, DecryptValue)
         HRESULT ( STDMETHODCALLTYPE *DecryptValue )( 
-            IFabricConfigurationPackage2 * This,
-            /* [in] */ LPCWSTR encryptedValue,
-            /* [retval][out] */ IFabricStringResult **decryptedValue);
+            __RPC__in IFabricConfigurationPackage2 * This,
+            /* [in] */ __RPC__in LPCWSTR encryptedValue,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **decryptedValue);
         
         DECLSPEC_XFGVIRT(IFabricConfigurationPackage2, GetValues)
         HRESULT ( STDMETHODCALLTYPE *GetValues )( 
-            IFabricConfigurationPackage2 * This,
-            /* [in] */ LPCWSTR sectionName,
-            /* [in] */ LPCWSTR parameterPrefix,
-            /* [retval][out] */ FABRIC_CONFIGURATION_PARAMETER_LIST **bufferedValue);
+            __RPC__in IFabricConfigurationPackage2 * This,
+            /* [in] */ __RPC__in LPCWSTR sectionName,
+            /* [in] */ __RPC__in LPCWSTR parameterPrefix,
+            /* [retval][out] */ __RPC__deref_out_opt FABRIC_CONFIGURATION_PARAMETER_LIST **bufferedValue);
         
         END_INTERFACE
     } IFabricConfigurationPackage2Vtbl;
@@ -7555,26 +7560,26 @@ EXTERN_C const IID IID_IFabricDataPackage;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricDataPackage * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricDataPackage * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricDataPackage * This);
+            __RPC__in IFabricDataPackage * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricDataPackage * This);
+            __RPC__in IFabricDataPackage * This);
         
         DECLSPEC_XFGVIRT(IFabricDataPackage, get_Description)
         const FABRIC_DATA_PACKAGE_DESCRIPTION *( STDMETHODCALLTYPE *get_Description )( 
-            IFabricDataPackage * This);
+            __RPC__in IFabricDataPackage * This);
         
         DECLSPEC_XFGVIRT(IFabricDataPackage, get_Path)
         LPCWSTR ( STDMETHODCALLTYPE *get_Path )( 
-            IFabricDataPackage * This);
+            __RPC__in IFabricDataPackage * This);
         
         END_INTERFACE
     } IFabricDataPackageVtbl;
@@ -7632,17 +7637,17 @@ EXTERN_C const IID IID_IFabricConfigurationPackageChangeHandler;
     {
     public:
         virtual void STDMETHODCALLTYPE OnPackageAdded( 
-            /* [in] */ IFabricCodePackageActivationContext *source,
-            /* [in] */ IFabricConfigurationPackage *configPackage) = 0;
+            /* [in] */ __RPC__in_opt IFabricCodePackageActivationContext *source,
+            /* [in] */ __RPC__in_opt IFabricConfigurationPackage *configPackage) = 0;
         
         virtual void STDMETHODCALLTYPE OnPackageRemoved( 
-            /* [in] */ IFabricCodePackageActivationContext *source,
-            /* [in] */ IFabricConfigurationPackage *configPackage) = 0;
+            /* [in] */ __RPC__in_opt IFabricCodePackageActivationContext *source,
+            /* [in] */ __RPC__in_opt IFabricConfigurationPackage *configPackage) = 0;
         
         virtual void STDMETHODCALLTYPE OnPackageModified( 
-            /* [in] */ IFabricCodePackageActivationContext *source,
-            /* [in] */ IFabricConfigurationPackage *previousConfigPackage,
-            /* [in] */ IFabricConfigurationPackage *configPackage) = 0;
+            /* [in] */ __RPC__in_opt IFabricCodePackageActivationContext *source,
+            /* [in] */ __RPC__in_opt IFabricConfigurationPackage *previousConfigPackage,
+            /* [in] */ __RPC__in_opt IFabricConfigurationPackage *configPackage) = 0;
         
     };
     
@@ -7655,37 +7660,37 @@ EXTERN_C const IID IID_IFabricConfigurationPackageChangeHandler;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricConfigurationPackageChangeHandler * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricConfigurationPackageChangeHandler * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricConfigurationPackageChangeHandler * This);
+            __RPC__in IFabricConfigurationPackageChangeHandler * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricConfigurationPackageChangeHandler * This);
+            __RPC__in IFabricConfigurationPackageChangeHandler * This);
         
         DECLSPEC_XFGVIRT(IFabricConfigurationPackageChangeHandler, OnPackageAdded)
         void ( STDMETHODCALLTYPE *OnPackageAdded )( 
-            IFabricConfigurationPackageChangeHandler * This,
-            /* [in] */ IFabricCodePackageActivationContext *source,
-            /* [in] */ IFabricConfigurationPackage *configPackage);
+            __RPC__in IFabricConfigurationPackageChangeHandler * This,
+            /* [in] */ __RPC__in_opt IFabricCodePackageActivationContext *source,
+            /* [in] */ __RPC__in_opt IFabricConfigurationPackage *configPackage);
         
         DECLSPEC_XFGVIRT(IFabricConfigurationPackageChangeHandler, OnPackageRemoved)
         void ( STDMETHODCALLTYPE *OnPackageRemoved )( 
-            IFabricConfigurationPackageChangeHandler * This,
-            /* [in] */ IFabricCodePackageActivationContext *source,
-            /* [in] */ IFabricConfigurationPackage *configPackage);
+            __RPC__in IFabricConfigurationPackageChangeHandler * This,
+            /* [in] */ __RPC__in_opt IFabricCodePackageActivationContext *source,
+            /* [in] */ __RPC__in_opt IFabricConfigurationPackage *configPackage);
         
         DECLSPEC_XFGVIRT(IFabricConfigurationPackageChangeHandler, OnPackageModified)
         void ( STDMETHODCALLTYPE *OnPackageModified )( 
-            IFabricConfigurationPackageChangeHandler * This,
-            /* [in] */ IFabricCodePackageActivationContext *source,
-            /* [in] */ IFabricConfigurationPackage *previousConfigPackage,
-            /* [in] */ IFabricConfigurationPackage *configPackage);
+            __RPC__in IFabricConfigurationPackageChangeHandler * This,
+            /* [in] */ __RPC__in_opt IFabricCodePackageActivationContext *source,
+            /* [in] */ __RPC__in_opt IFabricConfigurationPackage *previousConfigPackage,
+            /* [in] */ __RPC__in_opt IFabricConfigurationPackage *configPackage);
         
         END_INTERFACE
     } IFabricConfigurationPackageChangeHandlerVtbl;
@@ -7746,17 +7751,17 @@ EXTERN_C const IID IID_IFabricDataPackageChangeHandler;
     {
     public:
         virtual void STDMETHODCALLTYPE OnPackageAdded( 
-            /* [in] */ IFabricCodePackageActivationContext *source,
-            /* [in] */ IFabricDataPackage *dataPackage) = 0;
+            /* [in] */ __RPC__in_opt IFabricCodePackageActivationContext *source,
+            /* [in] */ __RPC__in_opt IFabricDataPackage *dataPackage) = 0;
         
         virtual void STDMETHODCALLTYPE OnPackageRemoved( 
-            /* [in] */ IFabricCodePackageActivationContext *source,
-            /* [in] */ IFabricDataPackage *dataPackage) = 0;
+            /* [in] */ __RPC__in_opt IFabricCodePackageActivationContext *source,
+            /* [in] */ __RPC__in_opt IFabricDataPackage *dataPackage) = 0;
         
         virtual void STDMETHODCALLTYPE OnPackageModified( 
-            /* [in] */ IFabricCodePackageActivationContext *source,
-            /* [in] */ IFabricDataPackage *previousDataPackage,
-            /* [in] */ IFabricDataPackage *dataPackage) = 0;
+            /* [in] */ __RPC__in_opt IFabricCodePackageActivationContext *source,
+            /* [in] */ __RPC__in_opt IFabricDataPackage *previousDataPackage,
+            /* [in] */ __RPC__in_opt IFabricDataPackage *dataPackage) = 0;
         
     };
     
@@ -7769,37 +7774,37 @@ EXTERN_C const IID IID_IFabricDataPackageChangeHandler;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricDataPackageChangeHandler * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricDataPackageChangeHandler * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricDataPackageChangeHandler * This);
+            __RPC__in IFabricDataPackageChangeHandler * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricDataPackageChangeHandler * This);
+            __RPC__in IFabricDataPackageChangeHandler * This);
         
         DECLSPEC_XFGVIRT(IFabricDataPackageChangeHandler, OnPackageAdded)
         void ( STDMETHODCALLTYPE *OnPackageAdded )( 
-            IFabricDataPackageChangeHandler * This,
-            /* [in] */ IFabricCodePackageActivationContext *source,
-            /* [in] */ IFabricDataPackage *dataPackage);
+            __RPC__in IFabricDataPackageChangeHandler * This,
+            /* [in] */ __RPC__in_opt IFabricCodePackageActivationContext *source,
+            /* [in] */ __RPC__in_opt IFabricDataPackage *dataPackage);
         
         DECLSPEC_XFGVIRT(IFabricDataPackageChangeHandler, OnPackageRemoved)
         void ( STDMETHODCALLTYPE *OnPackageRemoved )( 
-            IFabricDataPackageChangeHandler * This,
-            /* [in] */ IFabricCodePackageActivationContext *source,
-            /* [in] */ IFabricDataPackage *dataPackage);
+            __RPC__in IFabricDataPackageChangeHandler * This,
+            /* [in] */ __RPC__in_opt IFabricCodePackageActivationContext *source,
+            /* [in] */ __RPC__in_opt IFabricDataPackage *dataPackage);
         
         DECLSPEC_XFGVIRT(IFabricDataPackageChangeHandler, OnPackageModified)
         void ( STDMETHODCALLTYPE *OnPackageModified )( 
-            IFabricDataPackageChangeHandler * This,
-            /* [in] */ IFabricCodePackageActivationContext *source,
-            /* [in] */ IFabricDataPackage *previousDataPackage,
-            /* [in] */ IFabricDataPackage *dataPackage);
+            __RPC__in IFabricDataPackageChangeHandler * This,
+            /* [in] */ __RPC__in_opt IFabricCodePackageActivationContext *source,
+            /* [in] */ __RPC__in_opt IFabricDataPackage *previousDataPackage,
+            /* [in] */ __RPC__in_opt IFabricDataPackage *dataPackage);
         
         END_INTERFACE
     } IFabricDataPackageChangeHandlerVtbl;
@@ -7874,26 +7879,26 @@ EXTERN_C const IID IID_IFabricTransactionBase;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricTransactionBase * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricTransactionBase * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricTransactionBase * This);
+            __RPC__in IFabricTransactionBase * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricTransactionBase * This);
+            __RPC__in IFabricTransactionBase * This);
         
         DECLSPEC_XFGVIRT(IFabricTransactionBase, get_Id)
         const FABRIC_TRANSACTION_ID *( STDMETHODCALLTYPE *get_Id )( 
-            IFabricTransactionBase * This);
+            __RPC__in IFabricTransactionBase * This);
         
         DECLSPEC_XFGVIRT(IFabricTransactionBase, get_IsolationLevel)
         FABRIC_TRANSACTION_ISOLATION_LEVEL ( STDMETHODCALLTYPE *get_IsolationLevel )( 
-            IFabricTransactionBase * This);
+            __RPC__in IFabricTransactionBase * This);
         
         END_INTERFACE
     } IFabricTransactionBaseVtbl;
@@ -7952,12 +7957,12 @@ EXTERN_C const IID IID_IFabricTransaction;
     public:
         virtual HRESULT STDMETHODCALLTYPE BeginCommit( 
             /* [in] */ DWORD timeoutMilliseconds,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndCommit( 
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ FABRIC_SEQUENCE_NUMBER *commitSequenceNumber) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *commitSequenceNumber) = 0;
         
         virtual void STDMETHODCALLTYPE Rollback( void) = 0;
         
@@ -7972,43 +7977,43 @@ EXTERN_C const IID IID_IFabricTransaction;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricTransaction * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricTransaction * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricTransaction * This);
+            __RPC__in IFabricTransaction * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricTransaction * This);
+            __RPC__in IFabricTransaction * This);
         
         DECLSPEC_XFGVIRT(IFabricTransactionBase, get_Id)
         const FABRIC_TRANSACTION_ID *( STDMETHODCALLTYPE *get_Id )( 
-            IFabricTransaction * This);
+            __RPC__in IFabricTransaction * This);
         
         DECLSPEC_XFGVIRT(IFabricTransactionBase, get_IsolationLevel)
         FABRIC_TRANSACTION_ISOLATION_LEVEL ( STDMETHODCALLTYPE *get_IsolationLevel )( 
-            IFabricTransaction * This);
+            __RPC__in IFabricTransaction * This);
         
         DECLSPEC_XFGVIRT(IFabricTransaction, BeginCommit)
         HRESULT ( STDMETHODCALLTYPE *BeginCommit )( 
-            IFabricTransaction * This,
+            __RPC__in IFabricTransaction * This,
             /* [in] */ DWORD timeoutMilliseconds,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricTransaction, EndCommit)
         HRESULT ( STDMETHODCALLTYPE *EndCommit )( 
-            IFabricTransaction * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ FABRIC_SEQUENCE_NUMBER *commitSequenceNumber);
+            __RPC__in IFabricTransaction * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *commitSequenceNumber);
         
         DECLSPEC_XFGVIRT(IFabricTransaction, Rollback)
         void ( STDMETHODCALLTYPE *Rollback )( 
-            IFabricTransaction * This);
+            __RPC__in IFabricTransaction * This);
         
         END_INTERFACE
     } IFabricTransactionVtbl;
@@ -8076,64 +8081,64 @@ EXTERN_C const IID IID_IFabricKeyValueStoreReplica;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE GetCurrentEpoch( 
-            /* [out] */ FABRIC_EPOCH *currentEpoch) = 0;
+            /* [out] */ __RPC__out FABRIC_EPOCH *currentEpoch) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE UpdateReplicatorSettings( 
-            /* [in] */ const FABRIC_REPLICATOR_SETTINGS *replicatorSettings) = 0;
+            /* [in] */ __RPC__in const FABRIC_REPLICATOR_SETTINGS *replicatorSettings) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE CreateTransaction( 
-            /* [retval][out] */ IFabricTransaction **transaction) = 0;
+            /* [retval][out] */ __RPC__deref_out_opt IFabricTransaction **transaction) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE Add( 
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ LONG valueSizeInBytes,
-            /* [size_is][in] */ const BYTE *value) = 0;
+            /* [size_is][in] */ __RPC__in_ecount_full(valueSizeInBytes) const BYTE *value) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE Remove( 
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ FABRIC_SEQUENCE_NUMBER checkSequenceNumber) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE Update( 
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ LONG valueSizeInBytes,
-            /* [size_is][in] */ const BYTE *value,
+            /* [size_is][in] */ __RPC__in_ecount_full(valueSizeInBytes) const BYTE *value,
             /* [in] */ FABRIC_SEQUENCE_NUMBER checkSequenceNumber) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE Get( 
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ IFabricKeyValueStoreItemResult **result) = 0;
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemResult **result) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetMetadata( 
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataResult **result) = 0;
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataResult **result) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE Contains( 
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ BOOLEAN *result) = 0;
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__out BOOLEAN *result) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE Enumerate( 
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [retval][out] */ IFabricKeyValueStoreItemEnumerator **result) = 0;
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemEnumerator **result) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EnumerateByKey( 
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR keyPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemEnumerator **result) = 0;
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemEnumerator **result) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EnumerateMetadata( 
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataEnumerator **result) = 0;
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataEnumerator **result) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EnumerateMetadataByKey( 
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR keyPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataEnumerator **result) = 0;
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataEnumerator **result) = 0;
         
     };
     
@@ -8146,146 +8151,146 @@ EXTERN_C const IID IID_IFabricKeyValueStoreReplica;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricKeyValueStoreReplica * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricKeyValueStoreReplica * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricKeyValueStoreReplica * This);
+            __RPC__in IFabricKeyValueStoreReplica * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricKeyValueStoreReplica * This);
+            __RPC__in IFabricKeyValueStoreReplica * This);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, BeginOpen)
         HRESULT ( STDMETHODCALLTYPE *BeginOpen )( 
-            IFabricKeyValueStoreReplica * This,
+            __RPC__in IFabricKeyValueStoreReplica * This,
             /* [in] */ FABRIC_REPLICA_OPEN_MODE openMode,
-            /* [in] */ IFabricStatefulServicePartition *partition,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricStatefulServicePartition *partition,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, EndOpen)
         HRESULT ( STDMETHODCALLTYPE *EndOpen )( 
-            IFabricKeyValueStoreReplica * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricReplicator **replicator);
+            __RPC__in IFabricKeyValueStoreReplica * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricReplicator **replicator);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, BeginChangeRole)
         HRESULT ( STDMETHODCALLTYPE *BeginChangeRole )( 
-            IFabricKeyValueStoreReplica * This,
+            __RPC__in IFabricKeyValueStoreReplica * This,
             /* [in] */ FABRIC_REPLICA_ROLE newRole,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, EndChangeRole)
         HRESULT ( STDMETHODCALLTYPE *EndChangeRole )( 
-            IFabricKeyValueStoreReplica * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricStringResult **serviceAddress);
+            __RPC__in IFabricKeyValueStoreReplica * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **serviceAddress);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, BeginClose)
         HRESULT ( STDMETHODCALLTYPE *BeginClose )( 
-            IFabricKeyValueStoreReplica * This,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricKeyValueStoreReplica * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, EndClose)
         HRESULT ( STDMETHODCALLTYPE *EndClose )( 
-            IFabricKeyValueStoreReplica * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricKeyValueStoreReplica * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, Abort)
         void ( STDMETHODCALLTYPE *Abort )( 
-            IFabricKeyValueStoreReplica * This);
+            __RPC__in IFabricKeyValueStoreReplica * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, GetCurrentEpoch)
         HRESULT ( STDMETHODCALLTYPE *GetCurrentEpoch )( 
-            IFabricKeyValueStoreReplica * This,
-            /* [out] */ FABRIC_EPOCH *currentEpoch);
+            __RPC__in IFabricKeyValueStoreReplica * This,
+            /* [out] */ __RPC__out FABRIC_EPOCH *currentEpoch);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, UpdateReplicatorSettings)
         HRESULT ( STDMETHODCALLTYPE *UpdateReplicatorSettings )( 
-            IFabricKeyValueStoreReplica * This,
-            /* [in] */ const FABRIC_REPLICATOR_SETTINGS *replicatorSettings);
+            __RPC__in IFabricKeyValueStoreReplica * This,
+            /* [in] */ __RPC__in const FABRIC_REPLICATOR_SETTINGS *replicatorSettings);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, CreateTransaction)
         HRESULT ( STDMETHODCALLTYPE *CreateTransaction )( 
-            IFabricKeyValueStoreReplica * This,
-            /* [retval][out] */ IFabricTransaction **transaction);
+            __RPC__in IFabricKeyValueStoreReplica * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricTransaction **transaction);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Add)
         HRESULT ( STDMETHODCALLTYPE *Add )( 
-            IFabricKeyValueStoreReplica * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ LONG valueSizeInBytes,
-            /* [size_is][in] */ const BYTE *value);
+            /* [size_is][in] */ __RPC__in_ecount_full(valueSizeInBytes) const BYTE *value);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Remove)
         HRESULT ( STDMETHODCALLTYPE *Remove )( 
-            IFabricKeyValueStoreReplica * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ FABRIC_SEQUENCE_NUMBER checkSequenceNumber);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Update)
         HRESULT ( STDMETHODCALLTYPE *Update )( 
-            IFabricKeyValueStoreReplica * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ LONG valueSizeInBytes,
-            /* [size_is][in] */ const BYTE *value,
+            /* [size_is][in] */ __RPC__in_ecount_full(valueSizeInBytes) const BYTE *value,
             /* [in] */ FABRIC_SEQUENCE_NUMBER checkSequenceNumber);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Get)
         HRESULT ( STDMETHODCALLTYPE *Get )( 
-            IFabricKeyValueStoreReplica * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ IFabricKeyValueStoreItemResult **result);
+            __RPC__in IFabricKeyValueStoreReplica * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemResult **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, GetMetadata)
         HRESULT ( STDMETHODCALLTYPE *GetMetadata )( 
-            IFabricKeyValueStoreReplica * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataResult **result);
+            __RPC__in IFabricKeyValueStoreReplica * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataResult **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Contains)
         HRESULT ( STDMETHODCALLTYPE *Contains )( 
-            IFabricKeyValueStoreReplica * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ BOOLEAN *result);
+            __RPC__in IFabricKeyValueStoreReplica * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__out BOOLEAN *result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Enumerate)
         HRESULT ( STDMETHODCALLTYPE *Enumerate )( 
-            IFabricKeyValueStoreReplica * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [retval][out] */ IFabricKeyValueStoreItemEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, EnumerateByKey)
         HRESULT ( STDMETHODCALLTYPE *EnumerateByKey )( 
-            IFabricKeyValueStoreReplica * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR keyPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, EnumerateMetadata)
         HRESULT ( STDMETHODCALLTYPE *EnumerateMetadata )( 
-            IFabricKeyValueStoreReplica * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, EnumerateMetadataByKey)
         HRESULT ( STDMETHODCALLTYPE *EnumerateMetadataByKey )( 
-            IFabricKeyValueStoreReplica * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR keyPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataEnumerator **result);
         
         END_INTERFACE
     } IFabricKeyValueStoreReplicaVtbl;
@@ -8398,14 +8403,14 @@ EXTERN_C const IID IID_IFabricKeyValueStoreReplica2;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE Backup( 
-            /* [in] */ LPCWSTR backupDirectory) = 0;
+            /* [in] */ __RPC__in LPCWSTR backupDirectory) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE Restore( 
-            /* [in] */ LPCWSTR backupDirectory) = 0;
+            /* [in] */ __RPC__in LPCWSTR backupDirectory) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE CreateTransaction2( 
-            /* [in] */ const FABRIC_KEY_VALUE_STORE_TRANSACTION_SETTINGS *settings,
-            /* [retval][out] */ IFabricTransaction **transaction) = 0;
+            /* [in] */ __RPC__in const FABRIC_KEY_VALUE_STORE_TRANSACTION_SETTINGS *settings,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricTransaction **transaction) = 0;
         
     };
     
@@ -8418,162 +8423,162 @@ EXTERN_C const IID IID_IFabricKeyValueStoreReplica2;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricKeyValueStoreReplica2 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricKeyValueStoreReplica2 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricKeyValueStoreReplica2 * This);
+            __RPC__in IFabricKeyValueStoreReplica2 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricKeyValueStoreReplica2 * This);
+            __RPC__in IFabricKeyValueStoreReplica2 * This);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, BeginOpen)
         HRESULT ( STDMETHODCALLTYPE *BeginOpen )( 
-            IFabricKeyValueStoreReplica2 * This,
+            __RPC__in IFabricKeyValueStoreReplica2 * This,
             /* [in] */ FABRIC_REPLICA_OPEN_MODE openMode,
-            /* [in] */ IFabricStatefulServicePartition *partition,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricStatefulServicePartition *partition,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, EndOpen)
         HRESULT ( STDMETHODCALLTYPE *EndOpen )( 
-            IFabricKeyValueStoreReplica2 * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricReplicator **replicator);
+            __RPC__in IFabricKeyValueStoreReplica2 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricReplicator **replicator);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, BeginChangeRole)
         HRESULT ( STDMETHODCALLTYPE *BeginChangeRole )( 
-            IFabricKeyValueStoreReplica2 * This,
+            __RPC__in IFabricKeyValueStoreReplica2 * This,
             /* [in] */ FABRIC_REPLICA_ROLE newRole,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, EndChangeRole)
         HRESULT ( STDMETHODCALLTYPE *EndChangeRole )( 
-            IFabricKeyValueStoreReplica2 * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricStringResult **serviceAddress);
+            __RPC__in IFabricKeyValueStoreReplica2 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **serviceAddress);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, BeginClose)
         HRESULT ( STDMETHODCALLTYPE *BeginClose )( 
-            IFabricKeyValueStoreReplica2 * This,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricKeyValueStoreReplica2 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, EndClose)
         HRESULT ( STDMETHODCALLTYPE *EndClose )( 
-            IFabricKeyValueStoreReplica2 * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricKeyValueStoreReplica2 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, Abort)
         void ( STDMETHODCALLTYPE *Abort )( 
-            IFabricKeyValueStoreReplica2 * This);
+            __RPC__in IFabricKeyValueStoreReplica2 * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, GetCurrentEpoch)
         HRESULT ( STDMETHODCALLTYPE *GetCurrentEpoch )( 
-            IFabricKeyValueStoreReplica2 * This,
-            /* [out] */ FABRIC_EPOCH *currentEpoch);
+            __RPC__in IFabricKeyValueStoreReplica2 * This,
+            /* [out] */ __RPC__out FABRIC_EPOCH *currentEpoch);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, UpdateReplicatorSettings)
         HRESULT ( STDMETHODCALLTYPE *UpdateReplicatorSettings )( 
-            IFabricKeyValueStoreReplica2 * This,
-            /* [in] */ const FABRIC_REPLICATOR_SETTINGS *replicatorSettings);
+            __RPC__in IFabricKeyValueStoreReplica2 * This,
+            /* [in] */ __RPC__in const FABRIC_REPLICATOR_SETTINGS *replicatorSettings);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, CreateTransaction)
         HRESULT ( STDMETHODCALLTYPE *CreateTransaction )( 
-            IFabricKeyValueStoreReplica2 * This,
-            /* [retval][out] */ IFabricTransaction **transaction);
+            __RPC__in IFabricKeyValueStoreReplica2 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricTransaction **transaction);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Add)
         HRESULT ( STDMETHODCALLTYPE *Add )( 
-            IFabricKeyValueStoreReplica2 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica2 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ LONG valueSizeInBytes,
-            /* [size_is][in] */ const BYTE *value);
+            /* [size_is][in] */ __RPC__in_ecount_full(valueSizeInBytes) const BYTE *value);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Remove)
         HRESULT ( STDMETHODCALLTYPE *Remove )( 
-            IFabricKeyValueStoreReplica2 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica2 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ FABRIC_SEQUENCE_NUMBER checkSequenceNumber);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Update)
         HRESULT ( STDMETHODCALLTYPE *Update )( 
-            IFabricKeyValueStoreReplica2 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica2 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ LONG valueSizeInBytes,
-            /* [size_is][in] */ const BYTE *value,
+            /* [size_is][in] */ __RPC__in_ecount_full(valueSizeInBytes) const BYTE *value,
             /* [in] */ FABRIC_SEQUENCE_NUMBER checkSequenceNumber);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Get)
         HRESULT ( STDMETHODCALLTYPE *Get )( 
-            IFabricKeyValueStoreReplica2 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ IFabricKeyValueStoreItemResult **result);
+            __RPC__in IFabricKeyValueStoreReplica2 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemResult **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, GetMetadata)
         HRESULT ( STDMETHODCALLTYPE *GetMetadata )( 
-            IFabricKeyValueStoreReplica2 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataResult **result);
+            __RPC__in IFabricKeyValueStoreReplica2 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataResult **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Contains)
         HRESULT ( STDMETHODCALLTYPE *Contains )( 
-            IFabricKeyValueStoreReplica2 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ BOOLEAN *result);
+            __RPC__in IFabricKeyValueStoreReplica2 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__out BOOLEAN *result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Enumerate)
         HRESULT ( STDMETHODCALLTYPE *Enumerate )( 
-            IFabricKeyValueStoreReplica2 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [retval][out] */ IFabricKeyValueStoreItemEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica2 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, EnumerateByKey)
         HRESULT ( STDMETHODCALLTYPE *EnumerateByKey )( 
-            IFabricKeyValueStoreReplica2 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR keyPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica2 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, EnumerateMetadata)
         HRESULT ( STDMETHODCALLTYPE *EnumerateMetadata )( 
-            IFabricKeyValueStoreReplica2 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica2 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, EnumerateMetadataByKey)
         HRESULT ( STDMETHODCALLTYPE *EnumerateMetadataByKey )( 
-            IFabricKeyValueStoreReplica2 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR keyPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica2 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica2, Backup)
         HRESULT ( STDMETHODCALLTYPE *Backup )( 
-            IFabricKeyValueStoreReplica2 * This,
-            /* [in] */ LPCWSTR backupDirectory);
+            __RPC__in IFabricKeyValueStoreReplica2 * This,
+            /* [in] */ __RPC__in LPCWSTR backupDirectory);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica2, Restore)
         HRESULT ( STDMETHODCALLTYPE *Restore )( 
-            IFabricKeyValueStoreReplica2 * This,
-            /* [in] */ LPCWSTR backupDirectory);
+            __RPC__in IFabricKeyValueStoreReplica2 * This,
+            /* [in] */ __RPC__in LPCWSTR backupDirectory);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica2, CreateTransaction2)
         HRESULT ( STDMETHODCALLTYPE *CreateTransaction2 )( 
-            IFabricKeyValueStoreReplica2 * This,
-            /* [in] */ const FABRIC_KEY_VALUE_STORE_TRANSACTION_SETTINGS *settings,
-            /* [retval][out] */ IFabricTransaction **transaction);
+            __RPC__in IFabricKeyValueStoreReplica2 * This,
+            /* [in] */ __RPC__in const FABRIC_KEY_VALUE_STORE_TRANSACTION_SETTINGS *settings,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricTransaction **transaction);
         
         END_INTERFACE
     } IFabricKeyValueStoreReplica2Vtbl;
@@ -8696,14 +8701,14 @@ EXTERN_C const IID IID_IFabricKeyValueStoreReplica3;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE BeginBackup( 
-            /* [in] */ LPCWSTR backupDirectory,
+            /* [in] */ __RPC__in LPCWSTR backupDirectory,
             /* [in] */ FABRIC_STORE_BACKUP_OPTION backupOption,
-            /* [in] */ IFabricStorePostBackupHandler *postBackupHandler,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricStorePostBackupHandler *postBackupHandler,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndBackup( 
-            /* [in] */ IFabricAsyncOperationContext *context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context) = 0;
         
     };
     
@@ -8716,176 +8721,176 @@ EXTERN_C const IID IID_IFabricKeyValueStoreReplica3;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricKeyValueStoreReplica3 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricKeyValueStoreReplica3 * This);
+            __RPC__in IFabricKeyValueStoreReplica3 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricKeyValueStoreReplica3 * This);
+            __RPC__in IFabricKeyValueStoreReplica3 * This);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, BeginOpen)
         HRESULT ( STDMETHODCALLTYPE *BeginOpen )( 
-            IFabricKeyValueStoreReplica3 * This,
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
             /* [in] */ FABRIC_REPLICA_OPEN_MODE openMode,
-            /* [in] */ IFabricStatefulServicePartition *partition,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricStatefulServicePartition *partition,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, EndOpen)
         HRESULT ( STDMETHODCALLTYPE *EndOpen )( 
-            IFabricKeyValueStoreReplica3 * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricReplicator **replicator);
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricReplicator **replicator);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, BeginChangeRole)
         HRESULT ( STDMETHODCALLTYPE *BeginChangeRole )( 
-            IFabricKeyValueStoreReplica3 * This,
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
             /* [in] */ FABRIC_REPLICA_ROLE newRole,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, EndChangeRole)
         HRESULT ( STDMETHODCALLTYPE *EndChangeRole )( 
-            IFabricKeyValueStoreReplica3 * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricStringResult **serviceAddress);
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **serviceAddress);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, BeginClose)
         HRESULT ( STDMETHODCALLTYPE *BeginClose )( 
-            IFabricKeyValueStoreReplica3 * This,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, EndClose)
         HRESULT ( STDMETHODCALLTYPE *EndClose )( 
-            IFabricKeyValueStoreReplica3 * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, Abort)
         void ( STDMETHODCALLTYPE *Abort )( 
-            IFabricKeyValueStoreReplica3 * This);
+            __RPC__in IFabricKeyValueStoreReplica3 * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, GetCurrentEpoch)
         HRESULT ( STDMETHODCALLTYPE *GetCurrentEpoch )( 
-            IFabricKeyValueStoreReplica3 * This,
-            /* [out] */ FABRIC_EPOCH *currentEpoch);
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
+            /* [out] */ __RPC__out FABRIC_EPOCH *currentEpoch);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, UpdateReplicatorSettings)
         HRESULT ( STDMETHODCALLTYPE *UpdateReplicatorSettings )( 
-            IFabricKeyValueStoreReplica3 * This,
-            /* [in] */ const FABRIC_REPLICATOR_SETTINGS *replicatorSettings);
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
+            /* [in] */ __RPC__in const FABRIC_REPLICATOR_SETTINGS *replicatorSettings);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, CreateTransaction)
         HRESULT ( STDMETHODCALLTYPE *CreateTransaction )( 
-            IFabricKeyValueStoreReplica3 * This,
-            /* [retval][out] */ IFabricTransaction **transaction);
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricTransaction **transaction);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Add)
         HRESULT ( STDMETHODCALLTYPE *Add )( 
-            IFabricKeyValueStoreReplica3 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ LONG valueSizeInBytes,
-            /* [size_is][in] */ const BYTE *value);
+            /* [size_is][in] */ __RPC__in_ecount_full(valueSizeInBytes) const BYTE *value);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Remove)
         HRESULT ( STDMETHODCALLTYPE *Remove )( 
-            IFabricKeyValueStoreReplica3 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ FABRIC_SEQUENCE_NUMBER checkSequenceNumber);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Update)
         HRESULT ( STDMETHODCALLTYPE *Update )( 
-            IFabricKeyValueStoreReplica3 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ LONG valueSizeInBytes,
-            /* [size_is][in] */ const BYTE *value,
+            /* [size_is][in] */ __RPC__in_ecount_full(valueSizeInBytes) const BYTE *value,
             /* [in] */ FABRIC_SEQUENCE_NUMBER checkSequenceNumber);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Get)
         HRESULT ( STDMETHODCALLTYPE *Get )( 
-            IFabricKeyValueStoreReplica3 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ IFabricKeyValueStoreItemResult **result);
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemResult **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, GetMetadata)
         HRESULT ( STDMETHODCALLTYPE *GetMetadata )( 
-            IFabricKeyValueStoreReplica3 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataResult **result);
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataResult **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Contains)
         HRESULT ( STDMETHODCALLTYPE *Contains )( 
-            IFabricKeyValueStoreReplica3 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ BOOLEAN *result);
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__out BOOLEAN *result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Enumerate)
         HRESULT ( STDMETHODCALLTYPE *Enumerate )( 
-            IFabricKeyValueStoreReplica3 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [retval][out] */ IFabricKeyValueStoreItemEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, EnumerateByKey)
         HRESULT ( STDMETHODCALLTYPE *EnumerateByKey )( 
-            IFabricKeyValueStoreReplica3 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR keyPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, EnumerateMetadata)
         HRESULT ( STDMETHODCALLTYPE *EnumerateMetadata )( 
-            IFabricKeyValueStoreReplica3 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, EnumerateMetadataByKey)
         HRESULT ( STDMETHODCALLTYPE *EnumerateMetadataByKey )( 
-            IFabricKeyValueStoreReplica3 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR keyPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica2, Backup)
         HRESULT ( STDMETHODCALLTYPE *Backup )( 
-            IFabricKeyValueStoreReplica3 * This,
-            /* [in] */ LPCWSTR backupDirectory);
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
+            /* [in] */ __RPC__in LPCWSTR backupDirectory);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica2, Restore)
         HRESULT ( STDMETHODCALLTYPE *Restore )( 
-            IFabricKeyValueStoreReplica3 * This,
-            /* [in] */ LPCWSTR backupDirectory);
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
+            /* [in] */ __RPC__in LPCWSTR backupDirectory);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica2, CreateTransaction2)
         HRESULT ( STDMETHODCALLTYPE *CreateTransaction2 )( 
-            IFabricKeyValueStoreReplica3 * This,
-            /* [in] */ const FABRIC_KEY_VALUE_STORE_TRANSACTION_SETTINGS *settings,
-            /* [retval][out] */ IFabricTransaction **transaction);
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
+            /* [in] */ __RPC__in const FABRIC_KEY_VALUE_STORE_TRANSACTION_SETTINGS *settings,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricTransaction **transaction);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica3, BeginBackup)
         HRESULT ( STDMETHODCALLTYPE *BeginBackup )( 
-            IFabricKeyValueStoreReplica3 * This,
-            /* [in] */ LPCWSTR backupDirectory,
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
+            /* [in] */ __RPC__in LPCWSTR backupDirectory,
             /* [in] */ FABRIC_STORE_BACKUP_OPTION backupOption,
-            /* [in] */ IFabricStorePostBackupHandler *postBackupHandler,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricStorePostBackupHandler *postBackupHandler,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica3, EndBackup)
         HRESULT ( STDMETHODCALLTYPE *EndBackup )( 
-            IFabricKeyValueStoreReplica3 * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricKeyValueStoreReplica3 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         END_INTERFACE
     } IFabricKeyValueStoreReplica3Vtbl;
@@ -9029,26 +9034,26 @@ EXTERN_C const IID IID_IFabricKeyValueStoreItemEnumerator;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricKeyValueStoreItemEnumerator * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricKeyValueStoreItemEnumerator * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricKeyValueStoreItemEnumerator * This);
+            __RPC__in IFabricKeyValueStoreItemEnumerator * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricKeyValueStoreItemEnumerator * This);
+            __RPC__in IFabricKeyValueStoreItemEnumerator * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreItemEnumerator, MoveNext)
         HRESULT ( STDMETHODCALLTYPE *MoveNext )( 
-            IFabricKeyValueStoreItemEnumerator * This);
+            __RPC__in IFabricKeyValueStoreItemEnumerator * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreItemEnumerator, get_Current)
         IFabricKeyValueStoreItemResult *( STDMETHODCALLTYPE *get_Current )( 
-            IFabricKeyValueStoreItemEnumerator * This);
+            __RPC__in IFabricKeyValueStoreItemEnumerator * This);
         
         END_INTERFACE
     } IFabricKeyValueStoreItemEnumeratorVtbl;
@@ -9120,26 +9125,26 @@ EXTERN_C const IID IID_IFabricKeyValueStoreItemMetadataEnumerator;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricKeyValueStoreItemMetadataEnumerator * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricKeyValueStoreItemMetadataEnumerator * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricKeyValueStoreItemMetadataEnumerator * This);
+            __RPC__in IFabricKeyValueStoreItemMetadataEnumerator * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricKeyValueStoreItemMetadataEnumerator * This);
+            __RPC__in IFabricKeyValueStoreItemMetadataEnumerator * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreItemMetadataEnumerator, MoveNext)
         HRESULT ( STDMETHODCALLTYPE *MoveNext )( 
-            IFabricKeyValueStoreItemMetadataEnumerator * This);
+            __RPC__in IFabricKeyValueStoreItemMetadataEnumerator * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreItemMetadataEnumerator, get_Current)
         IFabricKeyValueStoreItemMetadataResult *( STDMETHODCALLTYPE *get_Current )( 
-            IFabricKeyValueStoreItemMetadataEnumerator * This);
+            __RPC__in IFabricKeyValueStoreItemMetadataEnumerator * This);
         
         END_INTERFACE
     } IFabricKeyValueStoreItemMetadataEnumeratorVtbl;
@@ -9209,22 +9214,22 @@ EXTERN_C const IID IID_IFabricKeyValueStoreItemResult;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricKeyValueStoreItemResult * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricKeyValueStoreItemResult * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricKeyValueStoreItemResult * This);
+            __RPC__in IFabricKeyValueStoreItemResult * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricKeyValueStoreItemResult * This);
+            __RPC__in IFabricKeyValueStoreItemResult * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreItemResult, get_Item)
         const FABRIC_KEY_VALUE_STORE_ITEM *( STDMETHODCALLTYPE *get_Item )( 
-            IFabricKeyValueStoreItemResult * This);
+            __RPC__in IFabricKeyValueStoreItemResult * This);
         
         END_INTERFACE
     } IFabricKeyValueStoreItemResultVtbl;
@@ -9291,22 +9296,22 @@ EXTERN_C const IID IID_IFabricKeyValueStoreItemMetadataResult;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricKeyValueStoreItemMetadataResult * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricKeyValueStoreItemMetadataResult * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricKeyValueStoreItemMetadataResult * This);
+            __RPC__in IFabricKeyValueStoreItemMetadataResult * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricKeyValueStoreItemMetadataResult * This);
+            __RPC__in IFabricKeyValueStoreItemMetadataResult * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreItemMetadataResult, get_Metadata)
         const FABRIC_KEY_VALUE_STORE_ITEM_METADATA *( STDMETHODCALLTYPE *get_Metadata )( 
-            IFabricKeyValueStoreItemMetadataResult * This);
+            __RPC__in IFabricKeyValueStoreItemMetadataResult * This);
         
         END_INTERFACE
     } IFabricKeyValueStoreItemMetadataResultVtbl;
@@ -9373,26 +9378,26 @@ EXTERN_C const IID IID_IFabricKeyValueStoreNotification;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricKeyValueStoreNotification * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricKeyValueStoreNotification * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricKeyValueStoreNotification * This);
+            __RPC__in IFabricKeyValueStoreNotification * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricKeyValueStoreNotification * This);
+            __RPC__in IFabricKeyValueStoreNotification * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreItemResult, get_Item)
         const FABRIC_KEY_VALUE_STORE_ITEM *( STDMETHODCALLTYPE *get_Item )( 
-            IFabricKeyValueStoreNotification * This);
+            __RPC__in IFabricKeyValueStoreNotification * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreNotification, IsDelete)
         BOOLEAN ( STDMETHODCALLTYPE *IsDelete )( 
-            IFabricKeyValueStoreNotification * This);
+            __RPC__in IFabricKeyValueStoreNotification * This);
         
         END_INTERFACE
     } IFabricKeyValueStoreNotificationVtbl;
@@ -9467,30 +9472,30 @@ EXTERN_C const IID IID_IFabricKeyValueStoreNotificationEnumerator;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricKeyValueStoreNotificationEnumerator * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricKeyValueStoreNotificationEnumerator * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricKeyValueStoreNotificationEnumerator * This);
+            __RPC__in IFabricKeyValueStoreNotificationEnumerator * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricKeyValueStoreNotificationEnumerator * This);
+            __RPC__in IFabricKeyValueStoreNotificationEnumerator * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreNotificationEnumerator, MoveNext)
         HRESULT ( STDMETHODCALLTYPE *MoveNext )( 
-            IFabricKeyValueStoreNotificationEnumerator * This);
+            __RPC__in IFabricKeyValueStoreNotificationEnumerator * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreNotificationEnumerator, get_Current)
         IFabricKeyValueStoreNotification *( STDMETHODCALLTYPE *get_Current )( 
-            IFabricKeyValueStoreNotificationEnumerator * This);
+            __RPC__in IFabricKeyValueStoreNotificationEnumerator * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreNotificationEnumerator, Reset)
         void ( STDMETHODCALLTYPE *Reset )( 
-            IFabricKeyValueStoreNotificationEnumerator * This);
+            __RPC__in IFabricKeyValueStoreNotificationEnumerator * This);
         
         END_INTERFACE
     } IFabricKeyValueStoreNotificationEnumeratorVtbl;
@@ -9563,22 +9568,22 @@ EXTERN_C const IID IID_IFabricNodeContextResult;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricNodeContextResult * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricNodeContextResult * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricNodeContextResult * This);
+            __RPC__in IFabricNodeContextResult * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricNodeContextResult * This);
+            __RPC__in IFabricNodeContextResult * This);
         
         DECLSPEC_XFGVIRT(IFabricNodeContextResult, get_NodeContext)
         const FABRIC_NODE_CONTEXT *( STDMETHODCALLTYPE *get_NodeContext )( 
-            IFabricNodeContextResult * This);
+            __RPC__in IFabricNodeContextResult * This);
         
         END_INTERFACE
     } IFabricNodeContextResultVtbl;
@@ -9633,8 +9638,8 @@ EXTERN_C const IID IID_IFabricNodeContextResult2;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE GetDirectory( 
-            /* [in] */ LPCWSTR logicalDirectoryName,
-            /* [retval][out] */ IFabricStringResult **directoryPath) = 0;
+            /* [in] */ __RPC__in LPCWSTR logicalDirectoryName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **directoryPath) = 0;
         
     };
     
@@ -9647,28 +9652,28 @@ EXTERN_C const IID IID_IFabricNodeContextResult2;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricNodeContextResult2 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricNodeContextResult2 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricNodeContextResult2 * This);
+            __RPC__in IFabricNodeContextResult2 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricNodeContextResult2 * This);
+            __RPC__in IFabricNodeContextResult2 * This);
         
         DECLSPEC_XFGVIRT(IFabricNodeContextResult, get_NodeContext)
         const FABRIC_NODE_CONTEXT *( STDMETHODCALLTYPE *get_NodeContext )( 
-            IFabricNodeContextResult2 * This);
+            __RPC__in IFabricNodeContextResult2 * This);
         
         DECLSPEC_XFGVIRT(IFabricNodeContextResult2, GetDirectory)
         HRESULT ( STDMETHODCALLTYPE *GetDirectory )( 
-            IFabricNodeContextResult2 * This,
-            /* [in] */ LPCWSTR logicalDirectoryName,
-            /* [retval][out] */ IFabricStringResult **directoryPath);
+            __RPC__in IFabricNodeContextResult2 * This,
+            /* [in] */ __RPC__in LPCWSTR logicalDirectoryName,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **directoryPath);
         
         END_INTERFACE
     } IFabricNodeContextResult2Vtbl;
@@ -9739,22 +9744,22 @@ EXTERN_C const IID IID_IFabricReplicatorSettingsResult;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricReplicatorSettingsResult * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricReplicatorSettingsResult * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricReplicatorSettingsResult * This);
+            __RPC__in IFabricReplicatorSettingsResult * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricReplicatorSettingsResult * This);
+            __RPC__in IFabricReplicatorSettingsResult * This);
         
         DECLSPEC_XFGVIRT(IFabricReplicatorSettingsResult, get_ReplicatorSettings)
         const FABRIC_REPLICATOR_SETTINGS *( STDMETHODCALLTYPE *get_ReplicatorSettings )( 
-            IFabricReplicatorSettingsResult * This);
+            __RPC__in IFabricReplicatorSettingsResult * This);
         
         END_INTERFACE
     } IFabricReplicatorSettingsResultVtbl;
@@ -9821,22 +9826,22 @@ EXTERN_C const IID IID_IFabricEseLocalStoreSettingsResult;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricEseLocalStoreSettingsResult * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricEseLocalStoreSettingsResult * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricEseLocalStoreSettingsResult * This);
+            __RPC__in IFabricEseLocalStoreSettingsResult * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricEseLocalStoreSettingsResult * This);
+            __RPC__in IFabricEseLocalStoreSettingsResult * This);
         
         DECLSPEC_XFGVIRT(IFabricEseLocalStoreSettingsResult, get_Settings)
         const FABRIC_ESE_LOCAL_STORE_SETTINGS *( STDMETHODCALLTYPE *get_Settings )( 
-            IFabricEseLocalStoreSettingsResult * This);
+            __RPC__in IFabricEseLocalStoreSettingsResult * This);
         
         END_INTERFACE
     } IFabricEseLocalStoreSettingsResultVtbl;
@@ -9903,22 +9908,22 @@ EXTERN_C const IID IID_IFabricSecurityCredentialsResult;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricSecurityCredentialsResult * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricSecurityCredentialsResult * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricSecurityCredentialsResult * This);
+            __RPC__in IFabricSecurityCredentialsResult * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricSecurityCredentialsResult * This);
+            __RPC__in IFabricSecurityCredentialsResult * This);
         
         DECLSPEC_XFGVIRT(IFabricSecurityCredentialsResult, get_SecurityCredentials)
         const FABRIC_SECURITY_CREDENTIALS *( STDMETHODCALLTYPE *get_SecurityCredentials )( 
-            IFabricSecurityCredentialsResult * This);
+            __RPC__in IFabricSecurityCredentialsResult * This);
         
         END_INTERFACE
     } IFabricSecurityCredentialsResultVtbl;
@@ -9973,30 +9978,30 @@ EXTERN_C const IID IID_IFabricCodePackageActivator;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE BeginActivateCodePackage( 
-            /* [in] */ FABRIC_STRING_LIST *codePackageNames,
-            /* [in] */ FABRIC_STRING_MAP *environment,
+            /* [in] */ __RPC__in FABRIC_STRING_LIST *codePackageNames,
+            /* [in] */ __RPC__in FABRIC_STRING_MAP *environment,
             /* [in] */ DWORD timeoutMilliseconds,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndActivateCodePackage( 
-            /* [in] */ IFabricAsyncOperationContext *context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE BeginDeactivateCodePackage( 
-            /* [in] */ FABRIC_STRING_LIST *codePackageNames,
+            /* [in] */ __RPC__in FABRIC_STRING_LIST *codePackageNames,
             /* [in] */ DWORD timeoutMilliseconds,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndDeactivateCodePackage( 
-            /* [in] */ IFabricAsyncOperationContext *context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE AbortCodePackage( 
-            /* [in] */ FABRIC_STRING_LIST *codePackageNames) = 0;
+            /* [in] */ __RPC__in FABRIC_STRING_LIST *codePackageNames) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE RegisterCodePackageEventHandler( 
-            /* [in] */ IFabricCodePackageEventHandler *eventHandler,
-            /* [retval][out] */ ULONGLONG *callbackHandle) = 0;
+            /* [in] */ __RPC__in_opt IFabricCodePackageEventHandler *eventHandler,
+            /* [retval][out] */ __RPC__out ULONGLONG *callbackHandle) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE UnregisterCodePackageEventHandler( 
             /* [in] */ ULONGLONG callbackHandle) = 0;
@@ -10012,60 +10017,60 @@ EXTERN_C const IID IID_IFabricCodePackageActivator;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricCodePackageActivator * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricCodePackageActivator * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricCodePackageActivator * This);
+            __RPC__in IFabricCodePackageActivator * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricCodePackageActivator * This);
+            __RPC__in IFabricCodePackageActivator * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivator, BeginActivateCodePackage)
         HRESULT ( STDMETHODCALLTYPE *BeginActivateCodePackage )( 
-            IFabricCodePackageActivator * This,
-            /* [in] */ FABRIC_STRING_LIST *codePackageNames,
-            /* [in] */ FABRIC_STRING_MAP *environment,
+            __RPC__in IFabricCodePackageActivator * This,
+            /* [in] */ __RPC__in FABRIC_STRING_LIST *codePackageNames,
+            /* [in] */ __RPC__in FABRIC_STRING_MAP *environment,
             /* [in] */ DWORD timeoutMilliseconds,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivator, EndActivateCodePackage)
         HRESULT ( STDMETHODCALLTYPE *EndActivateCodePackage )( 
-            IFabricCodePackageActivator * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricCodePackageActivator * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivator, BeginDeactivateCodePackage)
         HRESULT ( STDMETHODCALLTYPE *BeginDeactivateCodePackage )( 
-            IFabricCodePackageActivator * This,
-            /* [in] */ FABRIC_STRING_LIST *codePackageNames,
+            __RPC__in IFabricCodePackageActivator * This,
+            /* [in] */ __RPC__in FABRIC_STRING_LIST *codePackageNames,
             /* [in] */ DWORD timeoutMilliseconds,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivator, EndDeactivateCodePackage)
         HRESULT ( STDMETHODCALLTYPE *EndDeactivateCodePackage )( 
-            IFabricCodePackageActivator * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricCodePackageActivator * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivator, AbortCodePackage)
         HRESULT ( STDMETHODCALLTYPE *AbortCodePackage )( 
-            IFabricCodePackageActivator * This,
-            /* [in] */ FABRIC_STRING_LIST *codePackageNames);
+            __RPC__in IFabricCodePackageActivator * This,
+            /* [in] */ __RPC__in FABRIC_STRING_LIST *codePackageNames);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivator, RegisterCodePackageEventHandler)
         HRESULT ( STDMETHODCALLTYPE *RegisterCodePackageEventHandler )( 
-            IFabricCodePackageActivator * This,
-            /* [in] */ IFabricCodePackageEventHandler *eventHandler,
-            /* [retval][out] */ ULONGLONG *callbackHandle);
+            __RPC__in IFabricCodePackageActivator * This,
+            /* [in] */ __RPC__in_opt IFabricCodePackageEventHandler *eventHandler,
+            /* [retval][out] */ __RPC__out ULONGLONG *callbackHandle);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageActivator, UnregisterCodePackageEventHandler)
         HRESULT ( STDMETHODCALLTYPE *UnregisterCodePackageEventHandler )( 
-            IFabricCodePackageActivator * This,
+            __RPC__in IFabricCodePackageActivator * This,
             /* [in] */ ULONGLONG callbackHandle);
         
         END_INTERFACE
@@ -10139,8 +10144,8 @@ EXTERN_C const IID IID_IFabricCodePackageEventHandler;
     {
     public:
         virtual void STDMETHODCALLTYPE OnCodePackageEvent( 
-            /* [in] */ IFabricCodePackageActivator *source,
-            /* [in] */ const FABRIC_CODE_PACKAGE_EVENT_DESCRIPTION *eventDesc) = 0;
+            /* [in] */ __RPC__in_opt IFabricCodePackageActivator *source,
+            /* [in] */ __RPC__in const FABRIC_CODE_PACKAGE_EVENT_DESCRIPTION *eventDesc) = 0;
         
     };
     
@@ -10153,24 +10158,24 @@ EXTERN_C const IID IID_IFabricCodePackageEventHandler;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricCodePackageEventHandler * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricCodePackageEventHandler * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricCodePackageEventHandler * This);
+            __RPC__in IFabricCodePackageEventHandler * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricCodePackageEventHandler * This);
+            __RPC__in IFabricCodePackageEventHandler * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageEventHandler, OnCodePackageEvent)
         void ( STDMETHODCALLTYPE *OnCodePackageEvent )( 
-            IFabricCodePackageEventHandler * This,
-            /* [in] */ IFabricCodePackageActivator *source,
-            /* [in] */ const FABRIC_CODE_PACKAGE_EVENT_DESCRIPTION *eventDesc);
+            __RPC__in IFabricCodePackageEventHandler * This,
+            /* [in] */ __RPC__in_opt IFabricCodePackageActivator *source,
+            /* [in] */ __RPC__in const FABRIC_CODE_PACKAGE_EVENT_DESCRIPTION *eventDesc);
         
         END_INTERFACE
     } IFabricCodePackageEventHandlerVtbl;
@@ -10226,142 +10231,142 @@ FabricRuntime;
 /* [dllname][uuid] */ 
 
 /* [entry] */ HRESULT FabricBeginCreateRuntime( 
-    /* [in] */ REFIID riid,
-    /* [in] */ IFabricProcessExitHandler *exitHandler,
+    /* [in] */ __RPC__in REFIID riid,
+    /* [in] */ __RPC__in_opt IFabricProcessExitHandler *exitHandler,
     /* [in] */ DWORD timeoutMilliseconds,
-    /* [in] */ IFabricAsyncOperationCallback *callback,
-    /* [retval][out] */ IFabricAsyncOperationContext **context);
+    /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+    /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
 
 /* [entry] */ HRESULT FabricEndCreateRuntime( 
-    /* [in] */ IFabricAsyncOperationContext *context,
-    /* [retval][out] */ void **fabricRuntime);
+    /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+    /* [retval][out] */ __RPC__deref_out_opt void **fabricRuntime);
 
 /* [entry] */ HRESULT FabricCreateRuntime( 
-    /* [in] */ REFIID riid,
-    /* [retval][out] */ void **fabricRuntime);
+    /* [in] */ __RPC__in REFIID riid,
+    /* [retval][out] */ __RPC__deref_out_opt void **fabricRuntime);
 
 /* [entry] */ HRESULT FabricBeginGetActivationContext( 
-    /* [in] */ REFIID riid,
+    /* [in] */ __RPC__in REFIID riid,
     /* [in] */ DWORD timeoutMilliseconds,
-    /* [in] */ IFabricAsyncOperationCallback *callback,
-    /* [retval][out] */ IFabricAsyncOperationContext **context);
+    /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+    /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
 
 /* [entry] */ HRESULT FabricEndGetActivationContext( 
-    /* [in] */ IFabricAsyncOperationContext *context,
-    /* [retval][out] */ void **activationContext);
+    /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+    /* [retval][out] */ __RPC__deref_out_opt void **activationContext);
 
 /* [entry] */ HRESULT FabricGetActivationContext( 
-    /* [in] */ REFIID riid,
-    /* [retval][out] */ void **activationContext);
+    /* [in] */ __RPC__in REFIID riid,
+    /* [retval][out] */ __RPC__deref_out_opt void **activationContext);
 
 /* [entry] */ HRESULT FabricCreateKeyValueStoreReplica( 
-    /* [in] */ REFIID riid,
-    /* [in] */ LPCWSTR storeName,
+    /* [in] */ __RPC__in REFIID riid,
+    /* [in] */ __RPC__in LPCWSTR storeName,
     /* [in] */ FABRIC_PARTITION_ID partitionId,
     /* [in] */ FABRIC_REPLICA_ID replicaId,
-    /* [in] */ const FABRIC_REPLICATOR_SETTINGS *replicatorSettings,
+    /* [in] */ __RPC__in const FABRIC_REPLICATOR_SETTINGS *replicatorSettings,
     /* [in] */ FABRIC_LOCAL_STORE_KIND localStoreKind,
-    /* [in] */ void *localStoreSettings,
-    /* [in] */ IFabricStoreEventHandler *storeEventHandler,
-    /* [retval][out] */ void **keyValueStore);
+    /* [in] */ __RPC__in void *localStoreSettings,
+    /* [in] */ __RPC__in_opt IFabricStoreEventHandler *storeEventHandler,
+    /* [retval][out] */ __RPC__deref_out_opt void **keyValueStore);
 
 /* [entry] */ HRESULT FabricCreateKeyValueStoreReplica2( 
-    /* [in] */ REFIID riid,
-    /* [in] */ LPCWSTR storeName,
+    /* [in] */ __RPC__in REFIID riid,
+    /* [in] */ __RPC__in LPCWSTR storeName,
     /* [in] */ FABRIC_PARTITION_ID partitionId,
     /* [in] */ FABRIC_REPLICA_ID replicaId,
-    /* [in] */ const FABRIC_REPLICATOR_SETTINGS *replicatorSettings,
+    /* [in] */ __RPC__in const FABRIC_REPLICATOR_SETTINGS *replicatorSettings,
     /* [in] */ FABRIC_LOCAL_STORE_KIND localStoreKind,
-    /* [in] */ void *localStoreSettings,
-    /* [in] */ IFabricStoreEventHandler *storeEventHandler,
-    /* [in] */ IFabricSecondaryEventHandler *secondaryEventHandler,
+    /* [in] */ __RPC__in void *localStoreSettings,
+    /* [in] */ __RPC__in_opt IFabricStoreEventHandler *storeEventHandler,
+    /* [in] */ __RPC__in_opt IFabricSecondaryEventHandler *secondaryEventHandler,
     /* [in] */ FABRIC_KEY_VALUE_STORE_NOTIFICATION_MODE notificationMode,
-    /* [retval][out] */ void **keyValueStore);
+    /* [retval][out] */ __RPC__deref_out_opt void **keyValueStore);
 
 /* [entry] */ HRESULT FabricCreateKeyValueStoreReplica3( 
-    /* [in] */ REFIID riid,
-    /* [in] */ LPCWSTR storeName,
+    /* [in] */ __RPC__in REFIID riid,
+    /* [in] */ __RPC__in LPCWSTR storeName,
     /* [in] */ FABRIC_PARTITION_ID partitionId,
     /* [in] */ FABRIC_REPLICA_ID replicaId,
-    /* [in] */ const FABRIC_REPLICATOR_SETTINGS *replicatorSettings,
+    /* [in] */ __RPC__in const FABRIC_REPLICATOR_SETTINGS *replicatorSettings,
     /* [in] */ FABRIC_LOCAL_STORE_KIND localStoreKind,
-    /* [in] */ void *localStoreSettings,
-    /* [in] */ IFabricStoreEventHandler *storeEventHandler,
-    /* [in] */ IFabricSecondaryEventHandler *secondaryEventHandler,
+    /* [in] */ __RPC__in void *localStoreSettings,
+    /* [in] */ __RPC__in_opt IFabricStoreEventHandler *storeEventHandler,
+    /* [in] */ __RPC__in_opt IFabricSecondaryEventHandler *secondaryEventHandler,
     /* [in] */ FABRIC_KEY_VALUE_STORE_NOTIFICATION_MODE notificationMode,
-    /* [retval][out] */ void **keyValueStore);
+    /* [retval][out] */ __RPC__deref_out_opt void **keyValueStore);
 
 /* [entry] */ HRESULT FabricCreateKeyValueStoreReplica4( 
-    /* [in] */ REFIID riid,
-    /* [in] */ LPCWSTR storeName,
+    /* [in] */ __RPC__in REFIID riid,
+    /* [in] */ __RPC__in LPCWSTR storeName,
     /* [in] */ FABRIC_PARTITION_ID partitionId,
     /* [in] */ FABRIC_REPLICA_ID replicaId,
-    /* [in] */ FABRIC_URI serviceName,
-    /* [in] */ const FABRIC_REPLICATOR_SETTINGS *replicatorSettings,
+    /* [in] */ __RPC__in FABRIC_URI serviceName,
+    /* [in] */ __RPC__in const FABRIC_REPLICATOR_SETTINGS *replicatorSettings,
     /* [in] */ FABRIC_LOCAL_STORE_KIND localStoreKind,
-    /* [in] */ void *localStoreSettings,
-    /* [in] */ IFabricStoreEventHandler *storeEventHandler,
-    /* [in] */ IFabricSecondaryEventHandler *secondaryEventHandler,
+    /* [in] */ __RPC__in void *localStoreSettings,
+    /* [in] */ __RPC__in_opt IFabricStoreEventHandler *storeEventHandler,
+    /* [in] */ __RPC__in_opt IFabricSecondaryEventHandler *secondaryEventHandler,
     /* [in] */ FABRIC_KEY_VALUE_STORE_NOTIFICATION_MODE notificationMode,
-    /* [retval][out] */ void **keyValueStore);
+    /* [retval][out] */ __RPC__deref_out_opt void **keyValueStore);
 
 /* [entry] */ HRESULT FabricCreateKeyValueStoreReplica5( 
-    /* [in] */ REFIID riid,
-    /* [in] */ LPCWSTR storeName,
+    /* [in] */ __RPC__in REFIID riid,
+    /* [in] */ __RPC__in LPCWSTR storeName,
     /* [in] */ FABRIC_PARTITION_ID partitionId,
     /* [in] */ FABRIC_REPLICA_ID replicaId,
-    /* [in] */ FABRIC_URI serviceName,
-    /* [in] */ const FABRIC_REPLICATOR_SETTINGS *replicatorSettings,
-    /* [in] */ const FABRIC_KEY_VALUE_STORE_REPLICA_SETTINGS *kvsSettings,
+    /* [in] */ __RPC__in FABRIC_URI serviceName,
+    /* [in] */ __RPC__in const FABRIC_REPLICATOR_SETTINGS *replicatorSettings,
+    /* [in] */ __RPC__in const FABRIC_KEY_VALUE_STORE_REPLICA_SETTINGS *kvsSettings,
     /* [in] */ FABRIC_LOCAL_STORE_KIND localStoreKind,
-    /* [in] */ void *localStoreSettings,
-    /* [in] */ IFabricStoreEventHandler *storeEventHandler,
-    /* [in] */ IFabricSecondaryEventHandler *secondaryEventHandler,
-    /* [retval][out] */ void **keyValueStore);
+    /* [in] */ __RPC__in void *localStoreSettings,
+    /* [in] */ __RPC__in_opt IFabricStoreEventHandler *storeEventHandler,
+    /* [in] */ __RPC__in_opt IFabricSecondaryEventHandler *secondaryEventHandler,
+    /* [retval][out] */ __RPC__deref_out_opt void **keyValueStore);
 
 /* [entry] */ HRESULT FabricBeginGetNodeContext( 
     /* [in] */ DWORD timeoutMilliseconds,
-    /* [in] */ IFabricAsyncOperationCallback *callback,
-    /* [retval][out] */ IFabricAsyncOperationContext **context);
+    /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+    /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
 
 /* [entry] */ HRESULT FabricEndGetNodeContext( 
-    /* [in] */ IFabricAsyncOperationContext *context,
-    /* [retval][out] */ void **nodeContext);
+    /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+    /* [retval][out] */ __RPC__deref_out_opt void **nodeContext);
 
 /* [entry] */ HRESULT FabricGetNodeContext( 
-    /* [retval][out] */ void **nodeContext);
+    /* [retval][out] */ __RPC__deref_out_opt void **nodeContext);
 
 /* [entry] */ HRESULT FabricLoadReplicatorSettings( 
-    /* [in] */ const IFabricCodePackageActivationContext *codePackageActivationContext,
-    /* [in] */ LPCWSTR configurationPackageName,
-    /* [in] */ LPCWSTR sectionName,
-    /* [retval][out] */ IFabricReplicatorSettingsResult **replicatorSettings);
+    /* [in] */ __RPC__in_opt const IFabricCodePackageActivationContext *codePackageActivationContext,
+    /* [in] */ __RPC__in LPCWSTR configurationPackageName,
+    /* [in] */ __RPC__in LPCWSTR sectionName,
+    /* [retval][out] */ __RPC__deref_out_opt IFabricReplicatorSettingsResult **replicatorSettings);
 
 /* [entry] */ HRESULT FabricLoadSecurityCredentials( 
-    /* [in] */ const IFabricCodePackageActivationContext *codePackageActivationContext,
-    /* [in] */ LPCWSTR configurationPackageName,
-    /* [in] */ LPCWSTR sectionName,
-    /* [retval][out] */ IFabricSecurityCredentialsResult **securityCredentials);
+    /* [in] */ __RPC__in_opt const IFabricCodePackageActivationContext *codePackageActivationContext,
+    /* [in] */ __RPC__in LPCWSTR configurationPackageName,
+    /* [in] */ __RPC__in LPCWSTR sectionName,
+    /* [retval][out] */ __RPC__deref_out_opt IFabricSecurityCredentialsResult **securityCredentials);
 
 /* [entry] */ HRESULT FabricLoadEseLocalStoreSettings( 
-    /* [in] */ const IFabricCodePackageActivationContext *codePackageActivationContext,
-    /* [in] */ LPCWSTR configurationPackageName,
-    /* [in] */ LPCWSTR sectionName,
-    /* [retval][out] */ IFabricEseLocalStoreSettingsResult **settings);
+    /* [in] */ __RPC__in_opt const IFabricCodePackageActivationContext *codePackageActivationContext,
+    /* [in] */ __RPC__in LPCWSTR configurationPackageName,
+    /* [in] */ __RPC__in LPCWSTR sectionName,
+    /* [retval][out] */ __RPC__deref_out_opt IFabricEseLocalStoreSettingsResult **settings);
 
 /* [entry] */ HRESULT FabricBeginGetCodePackageActivator( 
-    /* [in] */ REFIID riid,
+    /* [in] */ __RPC__in REFIID riid,
     /* [in] */ DWORD timeoutMilliseconds,
-    /* [in] */ IFabricAsyncOperationCallback *callback,
-    /* [retval][out] */ IFabricAsyncOperationContext **context);
+    /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+    /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
 
 /* [entry] */ HRESULT FabricEndGetCodePackageActivator( 
-    /* [in] */ IFabricAsyncOperationContext *context,
-    /* [retval][out] */ void **activator);
+    /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+    /* [retval][out] */ __RPC__deref_out_opt void **activator);
 
 /* [entry] */ HRESULT FabricGetCodePackageActivator( 
-    /* [in] */ REFIID riid,
-    /* [retval][out] */ void **activator);
+    /* [in] */ __RPC__in REFIID riid,
+    /* [retval][out] */ __RPC__deref_out_opt void **activator);
 
 #endif /* __FabricRuntimeModule_MODULE_DEFINED__ */
 #endif /* __FabricRuntimeLib_LIBRARY_DEFINED__ */
@@ -10382,7 +10387,7 @@ EXTERN_C const IID IID_IFabricStateReplicator2;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE GetReplicatorSettings( 
-            /* [retval][out] */ IFabricReplicatorSettingsResult **replicatorSettings) = 0;
+            /* [retval][out] */ __RPC__deref_out_opt IFabricReplicatorSettingsResult **replicatorSettings) = 0;
         
     };
     
@@ -10395,52 +10400,52 @@ EXTERN_C const IID IID_IFabricStateReplicator2;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricStateReplicator2 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricStateReplicator2 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricStateReplicator2 * This);
+            __RPC__in IFabricStateReplicator2 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricStateReplicator2 * This);
+            __RPC__in IFabricStateReplicator2 * This);
         
         DECLSPEC_XFGVIRT(IFabricStateReplicator, BeginReplicate)
         HRESULT ( STDMETHODCALLTYPE *BeginReplicate )( 
-            IFabricStateReplicator2 * This,
-            /* [in] */ IFabricOperationData *operationData,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [out] */ FABRIC_SEQUENCE_NUMBER *sequenceNumber,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricStateReplicator2 * This,
+            /* [in] */ __RPC__in_opt IFabricOperationData *operationData,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *sequenceNumber,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStateReplicator, EndReplicate)
         HRESULT ( STDMETHODCALLTYPE *EndReplicate )( 
-            IFabricStateReplicator2 * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ FABRIC_SEQUENCE_NUMBER *sequenceNumber);
+            __RPC__in IFabricStateReplicator2 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__out FABRIC_SEQUENCE_NUMBER *sequenceNumber);
         
         DECLSPEC_XFGVIRT(IFabricStateReplicator, GetReplicationStream)
         HRESULT ( STDMETHODCALLTYPE *GetReplicationStream )( 
-            IFabricStateReplicator2 * This,
-            /* [retval][out] */ IFabricOperationStream **stream);
+            __RPC__in IFabricStateReplicator2 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricOperationStream **stream);
         
         DECLSPEC_XFGVIRT(IFabricStateReplicator, GetCopyStream)
         HRESULT ( STDMETHODCALLTYPE *GetCopyStream )( 
-            IFabricStateReplicator2 * This,
-            /* [retval][out] */ IFabricOperationStream **stream);
+            __RPC__in IFabricStateReplicator2 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricOperationStream **stream);
         
         DECLSPEC_XFGVIRT(IFabricStateReplicator, UpdateReplicatorSettings)
         HRESULT ( STDMETHODCALLTYPE *UpdateReplicatorSettings )( 
-            IFabricStateReplicator2 * This,
-            /* [in] */ const FABRIC_REPLICATOR_SETTINGS *replicatorSettings);
+            __RPC__in IFabricStateReplicator2 * This,
+            /* [in] */ __RPC__in const FABRIC_REPLICATOR_SETTINGS *replicatorSettings);
         
         DECLSPEC_XFGVIRT(IFabricStateReplicator2, GetReplicatorSettings)
         HRESULT ( STDMETHODCALLTYPE *GetReplicatorSettings )( 
-            IFabricStateReplicator2 * This,
-            /* [retval][out] */ IFabricReplicatorSettingsResult **replicatorSettings);
+            __RPC__in IFabricStateReplicator2 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricReplicatorSettingsResult **replicatorSettings);
         
         END_INTERFACE
     } IFabricStateReplicator2Vtbl;
@@ -10511,17 +10516,17 @@ EXTERN_C const IID IID_IFabricCodePackageChangeHandler;
     {
     public:
         virtual void STDMETHODCALLTYPE OnPackageAdded( 
-            /* [in] */ IFabricCodePackageActivationContext *source,
-            /* [in] */ IFabricCodePackage *codePackage) = 0;
+            /* [in] */ __RPC__in_opt IFabricCodePackageActivationContext *source,
+            /* [in] */ __RPC__in_opt IFabricCodePackage *codePackage) = 0;
         
         virtual void STDMETHODCALLTYPE OnPackageRemoved( 
-            /* [in] */ IFabricCodePackageActivationContext *source,
-            /* [in] */ IFabricCodePackage *codePackage) = 0;
+            /* [in] */ __RPC__in_opt IFabricCodePackageActivationContext *source,
+            /* [in] */ __RPC__in_opt IFabricCodePackage *codePackage) = 0;
         
         virtual void STDMETHODCALLTYPE OnPackageModified( 
-            /* [in] */ IFabricCodePackageActivationContext *source,
-            /* [in] */ IFabricCodePackage *previousCodePackage,
-            /* [in] */ IFabricCodePackage *codePackage) = 0;
+            /* [in] */ __RPC__in_opt IFabricCodePackageActivationContext *source,
+            /* [in] */ __RPC__in_opt IFabricCodePackage *previousCodePackage,
+            /* [in] */ __RPC__in_opt IFabricCodePackage *codePackage) = 0;
         
     };
     
@@ -10534,37 +10539,37 @@ EXTERN_C const IID IID_IFabricCodePackageChangeHandler;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricCodePackageChangeHandler * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricCodePackageChangeHandler * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricCodePackageChangeHandler * This);
+            __RPC__in IFabricCodePackageChangeHandler * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricCodePackageChangeHandler * This);
+            __RPC__in IFabricCodePackageChangeHandler * This);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageChangeHandler, OnPackageAdded)
         void ( STDMETHODCALLTYPE *OnPackageAdded )( 
-            IFabricCodePackageChangeHandler * This,
-            /* [in] */ IFabricCodePackageActivationContext *source,
-            /* [in] */ IFabricCodePackage *codePackage);
+            __RPC__in IFabricCodePackageChangeHandler * This,
+            /* [in] */ __RPC__in_opt IFabricCodePackageActivationContext *source,
+            /* [in] */ __RPC__in_opt IFabricCodePackage *codePackage);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageChangeHandler, OnPackageRemoved)
         void ( STDMETHODCALLTYPE *OnPackageRemoved )( 
-            IFabricCodePackageChangeHandler * This,
-            /* [in] */ IFabricCodePackageActivationContext *source,
-            /* [in] */ IFabricCodePackage *codePackage);
+            __RPC__in IFabricCodePackageChangeHandler * This,
+            /* [in] */ __RPC__in_opt IFabricCodePackageActivationContext *source,
+            /* [in] */ __RPC__in_opt IFabricCodePackage *codePackage);
         
         DECLSPEC_XFGVIRT(IFabricCodePackageChangeHandler, OnPackageModified)
         void ( STDMETHODCALLTYPE *OnPackageModified )( 
-            IFabricCodePackageChangeHandler * This,
-            /* [in] */ IFabricCodePackageActivationContext *source,
-            /* [in] */ IFabricCodePackage *previousCodePackage,
-            /* [in] */ IFabricCodePackage *codePackage);
+            __RPC__in IFabricCodePackageChangeHandler * This,
+            /* [in] */ __RPC__in_opt IFabricCodePackageActivationContext *source,
+            /* [in] */ __RPC__in_opt IFabricCodePackage *previousCodePackage,
+            /* [in] */ __RPC__in_opt IFabricCodePackage *codePackage);
         
         END_INTERFACE
     } IFabricCodePackageChangeHandlerVtbl;
@@ -10625,12 +10630,12 @@ EXTERN_C const IID IID_IFabricKeyValueStoreReplica4;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE BeginRestore( 
-            /* [in] */ LPCWSTR backupDirectory,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in LPCWSTR backupDirectory,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndRestore( 
-            /* [in] */ IFabricAsyncOperationContext *context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context) = 0;
         
     };
     
@@ -10643,188 +10648,188 @@ EXTERN_C const IID IID_IFabricKeyValueStoreReplica4;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricKeyValueStoreReplica4 * This);
+            __RPC__in IFabricKeyValueStoreReplica4 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricKeyValueStoreReplica4 * This);
+            __RPC__in IFabricKeyValueStoreReplica4 * This);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, BeginOpen)
         HRESULT ( STDMETHODCALLTYPE *BeginOpen )( 
-            IFabricKeyValueStoreReplica4 * This,
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
             /* [in] */ FABRIC_REPLICA_OPEN_MODE openMode,
-            /* [in] */ IFabricStatefulServicePartition *partition,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricStatefulServicePartition *partition,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, EndOpen)
         HRESULT ( STDMETHODCALLTYPE *EndOpen )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricReplicator **replicator);
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricReplicator **replicator);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, BeginChangeRole)
         HRESULT ( STDMETHODCALLTYPE *BeginChangeRole )( 
-            IFabricKeyValueStoreReplica4 * This,
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
             /* [in] */ FABRIC_REPLICA_ROLE newRole,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, EndChangeRole)
         HRESULT ( STDMETHODCALLTYPE *EndChangeRole )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricStringResult **serviceAddress);
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **serviceAddress);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, BeginClose)
         HRESULT ( STDMETHODCALLTYPE *BeginClose )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, EndClose)
         HRESULT ( STDMETHODCALLTYPE *EndClose )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, Abort)
         void ( STDMETHODCALLTYPE *Abort )( 
-            IFabricKeyValueStoreReplica4 * This);
+            __RPC__in IFabricKeyValueStoreReplica4 * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, GetCurrentEpoch)
         HRESULT ( STDMETHODCALLTYPE *GetCurrentEpoch )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [out] */ FABRIC_EPOCH *currentEpoch);
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [out] */ __RPC__out FABRIC_EPOCH *currentEpoch);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, UpdateReplicatorSettings)
         HRESULT ( STDMETHODCALLTYPE *UpdateReplicatorSettings )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [in] */ const FABRIC_REPLICATOR_SETTINGS *replicatorSettings);
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [in] */ __RPC__in const FABRIC_REPLICATOR_SETTINGS *replicatorSettings);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, CreateTransaction)
         HRESULT ( STDMETHODCALLTYPE *CreateTransaction )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [retval][out] */ IFabricTransaction **transaction);
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricTransaction **transaction);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Add)
         HRESULT ( STDMETHODCALLTYPE *Add )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ LONG valueSizeInBytes,
-            /* [size_is][in] */ const BYTE *value);
+            /* [size_is][in] */ __RPC__in_ecount_full(valueSizeInBytes) const BYTE *value);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Remove)
         HRESULT ( STDMETHODCALLTYPE *Remove )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ FABRIC_SEQUENCE_NUMBER checkSequenceNumber);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Update)
         HRESULT ( STDMETHODCALLTYPE *Update )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ LONG valueSizeInBytes,
-            /* [size_is][in] */ const BYTE *value,
+            /* [size_is][in] */ __RPC__in_ecount_full(valueSizeInBytes) const BYTE *value,
             /* [in] */ FABRIC_SEQUENCE_NUMBER checkSequenceNumber);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Get)
         HRESULT ( STDMETHODCALLTYPE *Get )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ IFabricKeyValueStoreItemResult **result);
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemResult **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, GetMetadata)
         HRESULT ( STDMETHODCALLTYPE *GetMetadata )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataResult **result);
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataResult **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Contains)
         HRESULT ( STDMETHODCALLTYPE *Contains )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ BOOLEAN *result);
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__out BOOLEAN *result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Enumerate)
         HRESULT ( STDMETHODCALLTYPE *Enumerate )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [retval][out] */ IFabricKeyValueStoreItemEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, EnumerateByKey)
         HRESULT ( STDMETHODCALLTYPE *EnumerateByKey )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR keyPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, EnumerateMetadata)
         HRESULT ( STDMETHODCALLTYPE *EnumerateMetadata )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, EnumerateMetadataByKey)
         HRESULT ( STDMETHODCALLTYPE *EnumerateMetadataByKey )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR keyPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica2, Backup)
         HRESULT ( STDMETHODCALLTYPE *Backup )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [in] */ LPCWSTR backupDirectory);
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [in] */ __RPC__in LPCWSTR backupDirectory);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica2, Restore)
         HRESULT ( STDMETHODCALLTYPE *Restore )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [in] */ LPCWSTR backupDirectory);
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [in] */ __RPC__in LPCWSTR backupDirectory);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica2, CreateTransaction2)
         HRESULT ( STDMETHODCALLTYPE *CreateTransaction2 )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [in] */ const FABRIC_KEY_VALUE_STORE_TRANSACTION_SETTINGS *settings,
-            /* [retval][out] */ IFabricTransaction **transaction);
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [in] */ __RPC__in const FABRIC_KEY_VALUE_STORE_TRANSACTION_SETTINGS *settings,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricTransaction **transaction);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica3, BeginBackup)
         HRESULT ( STDMETHODCALLTYPE *BeginBackup )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [in] */ LPCWSTR backupDirectory,
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [in] */ __RPC__in LPCWSTR backupDirectory,
             /* [in] */ FABRIC_STORE_BACKUP_OPTION backupOption,
-            /* [in] */ IFabricStorePostBackupHandler *postBackupHandler,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricStorePostBackupHandler *postBackupHandler,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica3, EndBackup)
         HRESULT ( STDMETHODCALLTYPE *EndBackup )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica4, BeginRestore)
         HRESULT ( STDMETHODCALLTYPE *BeginRestore )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [in] */ LPCWSTR backupDirectory,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [in] */ __RPC__in LPCWSTR backupDirectory,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica4, EndRestore)
         HRESULT ( STDMETHODCALLTYPE *EndRestore )( 
-            IFabricKeyValueStoreReplica4 * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricKeyValueStoreReplica4 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         END_INTERFACE
     } IFabricKeyValueStoreReplica4Vtbl;
@@ -10961,47 +10966,47 @@ EXTERN_C const IID IID_IFabricKeyValueStoreReplica5;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE TryAdd( 
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ LONG valueSizeInBytes,
-            /* [size_is][in] */ const BYTE *value,
-            /* [retval][out] */ BOOLEAN *added) = 0;
+            /* [size_is][in] */ __RPC__in_ecount_full(valueSizeInBytes) const BYTE *value,
+            /* [retval][out] */ __RPC__out BOOLEAN *added) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE TryRemove( 
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ FABRIC_SEQUENCE_NUMBER checkSequenceNumber,
-            /* [retval][out] */ BOOLEAN *exists) = 0;
+            /* [retval][out] */ __RPC__out BOOLEAN *exists) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE TryUpdate( 
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ LONG valueSizeInBytes,
-            /* [size_is][in] */ const BYTE *value,
+            /* [size_is][in] */ __RPC__in_ecount_full(valueSizeInBytes) const BYTE *value,
             /* [in] */ FABRIC_SEQUENCE_NUMBER checkSequenceNumber,
-            /* [retval][out] */ BOOLEAN *exists) = 0;
+            /* [retval][out] */ __RPC__out BOOLEAN *exists) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE TryGet( 
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ IFabricKeyValueStoreItemResult **result) = 0;
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemResult **result) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE TryGetMetadata( 
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataResult **result) = 0;
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataResult **result) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EnumerateByKey2( 
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR keyPrefix,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
             /* [in] */ BOOLEAN strictPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemEnumerator **result) = 0;
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemEnumerator **result) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EnumerateMetadataByKey2( 
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR keyPrefix,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
             /* [in] */ BOOLEAN strictPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataEnumerator **result) = 0;
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataEnumerator **result) = 0;
         
     };
     
@@ -11014,245 +11019,245 @@ EXTERN_C const IID IID_IFabricKeyValueStoreReplica5;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricKeyValueStoreReplica5 * This);
+            __RPC__in IFabricKeyValueStoreReplica5 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricKeyValueStoreReplica5 * This);
+            __RPC__in IFabricKeyValueStoreReplica5 * This);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, BeginOpen)
         HRESULT ( STDMETHODCALLTYPE *BeginOpen )( 
-            IFabricKeyValueStoreReplica5 * This,
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
             /* [in] */ FABRIC_REPLICA_OPEN_MODE openMode,
-            /* [in] */ IFabricStatefulServicePartition *partition,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricStatefulServicePartition *partition,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, EndOpen)
         HRESULT ( STDMETHODCALLTYPE *EndOpen )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricReplicator **replicator);
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricReplicator **replicator);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, BeginChangeRole)
         HRESULT ( STDMETHODCALLTYPE *BeginChangeRole )( 
-            IFabricKeyValueStoreReplica5 * This,
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
             /* [in] */ FABRIC_REPLICA_ROLE newRole,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, EndChangeRole)
         HRESULT ( STDMETHODCALLTYPE *EndChangeRole )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricStringResult **serviceAddress);
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **serviceAddress);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, BeginClose)
         HRESULT ( STDMETHODCALLTYPE *BeginClose )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, EndClose)
         HRESULT ( STDMETHODCALLTYPE *EndClose )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, Abort)
         void ( STDMETHODCALLTYPE *Abort )( 
-            IFabricKeyValueStoreReplica5 * This);
+            __RPC__in IFabricKeyValueStoreReplica5 * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, GetCurrentEpoch)
         HRESULT ( STDMETHODCALLTYPE *GetCurrentEpoch )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [out] */ FABRIC_EPOCH *currentEpoch);
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [out] */ __RPC__out FABRIC_EPOCH *currentEpoch);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, UpdateReplicatorSettings)
         HRESULT ( STDMETHODCALLTYPE *UpdateReplicatorSettings )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ const FABRIC_REPLICATOR_SETTINGS *replicatorSettings);
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in const FABRIC_REPLICATOR_SETTINGS *replicatorSettings);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, CreateTransaction)
         HRESULT ( STDMETHODCALLTYPE *CreateTransaction )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [retval][out] */ IFabricTransaction **transaction);
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricTransaction **transaction);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Add)
         HRESULT ( STDMETHODCALLTYPE *Add )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ LONG valueSizeInBytes,
-            /* [size_is][in] */ const BYTE *value);
+            /* [size_is][in] */ __RPC__in_ecount_full(valueSizeInBytes) const BYTE *value);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Remove)
         HRESULT ( STDMETHODCALLTYPE *Remove )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ FABRIC_SEQUENCE_NUMBER checkSequenceNumber);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Update)
         HRESULT ( STDMETHODCALLTYPE *Update )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ LONG valueSizeInBytes,
-            /* [size_is][in] */ const BYTE *value,
+            /* [size_is][in] */ __RPC__in_ecount_full(valueSizeInBytes) const BYTE *value,
             /* [in] */ FABRIC_SEQUENCE_NUMBER checkSequenceNumber);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Get)
         HRESULT ( STDMETHODCALLTYPE *Get )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ IFabricKeyValueStoreItemResult **result);
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemResult **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, GetMetadata)
         HRESULT ( STDMETHODCALLTYPE *GetMetadata )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataResult **result);
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataResult **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Contains)
         HRESULT ( STDMETHODCALLTYPE *Contains )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ BOOLEAN *result);
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__out BOOLEAN *result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Enumerate)
         HRESULT ( STDMETHODCALLTYPE *Enumerate )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [retval][out] */ IFabricKeyValueStoreItemEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, EnumerateByKey)
         HRESULT ( STDMETHODCALLTYPE *EnumerateByKey )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR keyPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, EnumerateMetadata)
         HRESULT ( STDMETHODCALLTYPE *EnumerateMetadata )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, EnumerateMetadataByKey)
         HRESULT ( STDMETHODCALLTYPE *EnumerateMetadataByKey )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR keyPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica2, Backup)
         HRESULT ( STDMETHODCALLTYPE *Backup )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ LPCWSTR backupDirectory);
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in LPCWSTR backupDirectory);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica2, Restore)
         HRESULT ( STDMETHODCALLTYPE *Restore )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ LPCWSTR backupDirectory);
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in LPCWSTR backupDirectory);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica2, CreateTransaction2)
         HRESULT ( STDMETHODCALLTYPE *CreateTransaction2 )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ const FABRIC_KEY_VALUE_STORE_TRANSACTION_SETTINGS *settings,
-            /* [retval][out] */ IFabricTransaction **transaction);
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in const FABRIC_KEY_VALUE_STORE_TRANSACTION_SETTINGS *settings,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricTransaction **transaction);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica3, BeginBackup)
         HRESULT ( STDMETHODCALLTYPE *BeginBackup )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ LPCWSTR backupDirectory,
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in LPCWSTR backupDirectory,
             /* [in] */ FABRIC_STORE_BACKUP_OPTION backupOption,
-            /* [in] */ IFabricStorePostBackupHandler *postBackupHandler,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricStorePostBackupHandler *postBackupHandler,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica3, EndBackup)
         HRESULT ( STDMETHODCALLTYPE *EndBackup )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica4, BeginRestore)
         HRESULT ( STDMETHODCALLTYPE *BeginRestore )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ LPCWSTR backupDirectory,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in LPCWSTR backupDirectory,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica4, EndRestore)
         HRESULT ( STDMETHODCALLTYPE *EndRestore )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica5, TryAdd)
         HRESULT ( STDMETHODCALLTYPE *TryAdd )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ LONG valueSizeInBytes,
-            /* [size_is][in] */ const BYTE *value,
-            /* [retval][out] */ BOOLEAN *added);
+            /* [size_is][in] */ __RPC__in_ecount_full(valueSizeInBytes) const BYTE *value,
+            /* [retval][out] */ __RPC__out BOOLEAN *added);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica5, TryRemove)
         HRESULT ( STDMETHODCALLTYPE *TryRemove )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ FABRIC_SEQUENCE_NUMBER checkSequenceNumber,
-            /* [retval][out] */ BOOLEAN *exists);
+            /* [retval][out] */ __RPC__out BOOLEAN *exists);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica5, TryUpdate)
         HRESULT ( STDMETHODCALLTYPE *TryUpdate )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ LONG valueSizeInBytes,
-            /* [size_is][in] */ const BYTE *value,
+            /* [size_is][in] */ __RPC__in_ecount_full(valueSizeInBytes) const BYTE *value,
             /* [in] */ FABRIC_SEQUENCE_NUMBER checkSequenceNumber,
-            /* [retval][out] */ BOOLEAN *exists);
+            /* [retval][out] */ __RPC__out BOOLEAN *exists);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica5, TryGet)
         HRESULT ( STDMETHODCALLTYPE *TryGet )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ IFabricKeyValueStoreItemResult **result);
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemResult **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica5, TryGetMetadata)
         HRESULT ( STDMETHODCALLTYPE *TryGetMetadata )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataResult **result);
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataResult **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica5, EnumerateByKey2)
         HRESULT ( STDMETHODCALLTYPE *EnumerateByKey2 )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR keyPrefix,
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
             /* [in] */ BOOLEAN strictPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemEnumerator **result);
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica5, EnumerateMetadataByKey2)
         HRESULT ( STDMETHODCALLTYPE *EnumerateMetadataByKey2 )( 
-            IFabricKeyValueStoreReplica5 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR keyPrefix,
+            __RPC__in IFabricKeyValueStoreReplica5 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
             /* [in] */ BOOLEAN strictPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataEnumerator **result);
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataEnumerator **result);
         
         END_INTERFACE
     } IFabricKeyValueStoreReplica5Vtbl;
@@ -11411,10 +11416,10 @@ EXTERN_C const IID IID_IFabricKeyValueStoreReplica6;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE BeginRestore2( 
-            /* [in] */ LPCWSTR backupDirectory,
-            /* [in] */ FABRIC_KEY_VALUE_STORE_RESTORE_SETTINGS *settings,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in LPCWSTR backupDirectory,
+            /* [in] */ __RPC__in FABRIC_KEY_VALUE_STORE_RESTORE_SETTINGS *settings,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
     };
     
@@ -11427,253 +11432,253 @@ EXTERN_C const IID IID_IFabricKeyValueStoreReplica6;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricKeyValueStoreReplica6 * This);
+            __RPC__in IFabricKeyValueStoreReplica6 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricKeyValueStoreReplica6 * This);
+            __RPC__in IFabricKeyValueStoreReplica6 * This);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, BeginOpen)
         HRESULT ( STDMETHODCALLTYPE *BeginOpen )( 
-            IFabricKeyValueStoreReplica6 * This,
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
             /* [in] */ FABRIC_REPLICA_OPEN_MODE openMode,
-            /* [in] */ IFabricStatefulServicePartition *partition,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricStatefulServicePartition *partition,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, EndOpen)
         HRESULT ( STDMETHODCALLTYPE *EndOpen )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricReplicator **replicator);
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricReplicator **replicator);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, BeginChangeRole)
         HRESULT ( STDMETHODCALLTYPE *BeginChangeRole )( 
-            IFabricKeyValueStoreReplica6 * This,
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
             /* [in] */ FABRIC_REPLICA_ROLE newRole,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, EndChangeRole)
         HRESULT ( STDMETHODCALLTYPE *EndChangeRole )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ IFabricStringResult **serviceAddress);
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **serviceAddress);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, BeginClose)
         HRESULT ( STDMETHODCALLTYPE *BeginClose )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, EndClose)
         HRESULT ( STDMETHODCALLTYPE *EndClose )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricStatefulServiceReplica, Abort)
         void ( STDMETHODCALLTYPE *Abort )( 
-            IFabricKeyValueStoreReplica6 * This);
+            __RPC__in IFabricKeyValueStoreReplica6 * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, GetCurrentEpoch)
         HRESULT ( STDMETHODCALLTYPE *GetCurrentEpoch )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [out] */ FABRIC_EPOCH *currentEpoch);
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [out] */ __RPC__out FABRIC_EPOCH *currentEpoch);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, UpdateReplicatorSettings)
         HRESULT ( STDMETHODCALLTYPE *UpdateReplicatorSettings )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ const FABRIC_REPLICATOR_SETTINGS *replicatorSettings);
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in const FABRIC_REPLICATOR_SETTINGS *replicatorSettings);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, CreateTransaction)
         HRESULT ( STDMETHODCALLTYPE *CreateTransaction )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [retval][out] */ IFabricTransaction **transaction);
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricTransaction **transaction);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Add)
         HRESULT ( STDMETHODCALLTYPE *Add )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ LONG valueSizeInBytes,
-            /* [size_is][in] */ const BYTE *value);
+            /* [size_is][in] */ __RPC__in_ecount_full(valueSizeInBytes) const BYTE *value);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Remove)
         HRESULT ( STDMETHODCALLTYPE *Remove )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ FABRIC_SEQUENCE_NUMBER checkSequenceNumber);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Update)
         HRESULT ( STDMETHODCALLTYPE *Update )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ LONG valueSizeInBytes,
-            /* [size_is][in] */ const BYTE *value,
+            /* [size_is][in] */ __RPC__in_ecount_full(valueSizeInBytes) const BYTE *value,
             /* [in] */ FABRIC_SEQUENCE_NUMBER checkSequenceNumber);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Get)
         HRESULT ( STDMETHODCALLTYPE *Get )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ IFabricKeyValueStoreItemResult **result);
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemResult **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, GetMetadata)
         HRESULT ( STDMETHODCALLTYPE *GetMetadata )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataResult **result);
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataResult **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Contains)
         HRESULT ( STDMETHODCALLTYPE *Contains )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ BOOLEAN *result);
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__out BOOLEAN *result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, Enumerate)
         HRESULT ( STDMETHODCALLTYPE *Enumerate )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [retval][out] */ IFabricKeyValueStoreItemEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, EnumerateByKey)
         HRESULT ( STDMETHODCALLTYPE *EnumerateByKey )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR keyPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, EnumerateMetadata)
         HRESULT ( STDMETHODCALLTYPE *EnumerateMetadata )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica, EnumerateMetadataByKey)
         HRESULT ( STDMETHODCALLTYPE *EnumerateMetadataByKey )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR keyPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataEnumerator **result);
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica2, Backup)
         HRESULT ( STDMETHODCALLTYPE *Backup )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ LPCWSTR backupDirectory);
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in LPCWSTR backupDirectory);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica2, Restore)
         HRESULT ( STDMETHODCALLTYPE *Restore )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ LPCWSTR backupDirectory);
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in LPCWSTR backupDirectory);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica2, CreateTransaction2)
         HRESULT ( STDMETHODCALLTYPE *CreateTransaction2 )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ const FABRIC_KEY_VALUE_STORE_TRANSACTION_SETTINGS *settings,
-            /* [retval][out] */ IFabricTransaction **transaction);
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in const FABRIC_KEY_VALUE_STORE_TRANSACTION_SETTINGS *settings,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricTransaction **transaction);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica3, BeginBackup)
         HRESULT ( STDMETHODCALLTYPE *BeginBackup )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ LPCWSTR backupDirectory,
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in LPCWSTR backupDirectory,
             /* [in] */ FABRIC_STORE_BACKUP_OPTION backupOption,
-            /* [in] */ IFabricStorePostBackupHandler *postBackupHandler,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            /* [in] */ __RPC__in_opt IFabricStorePostBackupHandler *postBackupHandler,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica3, EndBackup)
         HRESULT ( STDMETHODCALLTYPE *EndBackup )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica4, BeginRestore)
         HRESULT ( STDMETHODCALLTYPE *BeginRestore )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ LPCWSTR backupDirectory,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in LPCWSTR backupDirectory,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica4, EndRestore)
         HRESULT ( STDMETHODCALLTYPE *EndRestore )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica5, TryAdd)
         HRESULT ( STDMETHODCALLTYPE *TryAdd )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ LONG valueSizeInBytes,
-            /* [size_is][in] */ const BYTE *value,
-            /* [retval][out] */ BOOLEAN *added);
+            /* [size_is][in] */ __RPC__in_ecount_full(valueSizeInBytes) const BYTE *value,
+            /* [retval][out] */ __RPC__out BOOLEAN *added);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica5, TryRemove)
         HRESULT ( STDMETHODCALLTYPE *TryRemove )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ FABRIC_SEQUENCE_NUMBER checkSequenceNumber,
-            /* [retval][out] */ BOOLEAN *exists);
+            /* [retval][out] */ __RPC__out BOOLEAN *exists);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica5, TryUpdate)
         HRESULT ( STDMETHODCALLTYPE *TryUpdate )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
             /* [in] */ LONG valueSizeInBytes,
-            /* [size_is][in] */ const BYTE *value,
+            /* [size_is][in] */ __RPC__in_ecount_full(valueSizeInBytes) const BYTE *value,
             /* [in] */ FABRIC_SEQUENCE_NUMBER checkSequenceNumber,
-            /* [retval][out] */ BOOLEAN *exists);
+            /* [retval][out] */ __RPC__out BOOLEAN *exists);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica5, TryGet)
         HRESULT ( STDMETHODCALLTYPE *TryGet )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ IFabricKeyValueStoreItemResult **result);
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemResult **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica5, TryGetMetadata)
         HRESULT ( STDMETHODCALLTYPE *TryGetMetadata )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR key,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataResult **result);
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR key,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataResult **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica5, EnumerateByKey2)
         HRESULT ( STDMETHODCALLTYPE *EnumerateByKey2 )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR keyPrefix,
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
             /* [in] */ BOOLEAN strictPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemEnumerator **result);
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica5, EnumerateMetadataByKey2)
         HRESULT ( STDMETHODCALLTYPE *EnumerateMetadataByKey2 )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ IFabricTransactionBase *transaction,
-            /* [in] */ LPCWSTR keyPrefix,
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in_opt IFabricTransactionBase *transaction,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
             /* [in] */ BOOLEAN strictPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataEnumerator **result);
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreReplica6, BeginRestore2)
         HRESULT ( STDMETHODCALLTYPE *BeginRestore2 )( 
-            IFabricKeyValueStoreReplica6 * This,
-            /* [in] */ LPCWSTR backupDirectory,
-            /* [in] */ FABRIC_KEY_VALUE_STORE_RESTORE_SETTINGS *settings,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricKeyValueStoreReplica6 * This,
+            /* [in] */ __RPC__in LPCWSTR backupDirectory,
+            /* [in] */ __RPC__in FABRIC_KEY_VALUE_STORE_RESTORE_SETTINGS *settings,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         END_INTERFACE
     } IFabricKeyValueStoreReplica6Vtbl;
@@ -11836,12 +11841,12 @@ EXTERN_C const IID IID_IFabricKeyValueStoreEnumerator;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE EnumerateByKey( 
-            /* [in] */ LPCWSTR keyPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemEnumerator **result) = 0;
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemEnumerator **result) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EnumerateMetadataByKey( 
-            /* [in] */ LPCWSTR keyPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataEnumerator **result) = 0;
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataEnumerator **result) = 0;
         
     };
     
@@ -11854,30 +11859,30 @@ EXTERN_C const IID IID_IFabricKeyValueStoreEnumerator;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricKeyValueStoreEnumerator * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricKeyValueStoreEnumerator * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricKeyValueStoreEnumerator * This);
+            __RPC__in IFabricKeyValueStoreEnumerator * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricKeyValueStoreEnumerator * This);
+            __RPC__in IFabricKeyValueStoreEnumerator * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreEnumerator, EnumerateByKey)
         HRESULT ( STDMETHODCALLTYPE *EnumerateByKey )( 
-            IFabricKeyValueStoreEnumerator * This,
-            /* [in] */ LPCWSTR keyPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemEnumerator **result);
+            __RPC__in IFabricKeyValueStoreEnumerator * This,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreEnumerator, EnumerateMetadataByKey)
         HRESULT ( STDMETHODCALLTYPE *EnumerateMetadataByKey )( 
-            IFabricKeyValueStoreEnumerator * This,
-            /* [in] */ LPCWSTR keyPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataEnumerator **result);
+            __RPC__in IFabricKeyValueStoreEnumerator * This,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataEnumerator **result);
         
         END_INTERFACE
     } IFabricKeyValueStoreEnumeratorVtbl;
@@ -11935,14 +11940,14 @@ EXTERN_C const IID IID_IFabricKeyValueStoreEnumerator2;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE EnumerateByKey2( 
-            /* [in] */ LPCWSTR keyPrefix,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
             /* [in] */ BOOLEAN strictPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemEnumerator **result) = 0;
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemEnumerator **result) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EnumerateMetadataByKey2( 
-            /* [in] */ LPCWSTR keyPrefix,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
             /* [in] */ BOOLEAN strictPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataEnumerator **result) = 0;
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataEnumerator **result) = 0;
         
     };
     
@@ -11955,44 +11960,44 @@ EXTERN_C const IID IID_IFabricKeyValueStoreEnumerator2;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricKeyValueStoreEnumerator2 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricKeyValueStoreEnumerator2 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricKeyValueStoreEnumerator2 * This);
+            __RPC__in IFabricKeyValueStoreEnumerator2 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricKeyValueStoreEnumerator2 * This);
+            __RPC__in IFabricKeyValueStoreEnumerator2 * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreEnumerator, EnumerateByKey)
         HRESULT ( STDMETHODCALLTYPE *EnumerateByKey )( 
-            IFabricKeyValueStoreEnumerator2 * This,
-            /* [in] */ LPCWSTR keyPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemEnumerator **result);
+            __RPC__in IFabricKeyValueStoreEnumerator2 * This,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreEnumerator, EnumerateMetadataByKey)
         HRESULT ( STDMETHODCALLTYPE *EnumerateMetadataByKey )( 
-            IFabricKeyValueStoreEnumerator2 * This,
-            /* [in] */ LPCWSTR keyPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataEnumerator **result);
+            __RPC__in IFabricKeyValueStoreEnumerator2 * This,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreEnumerator2, EnumerateByKey2)
         HRESULT ( STDMETHODCALLTYPE *EnumerateByKey2 )( 
-            IFabricKeyValueStoreEnumerator2 * This,
-            /* [in] */ LPCWSTR keyPrefix,
+            __RPC__in IFabricKeyValueStoreEnumerator2 * This,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
             /* [in] */ BOOLEAN strictPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemEnumerator **result);
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemEnumerator **result);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreEnumerator2, EnumerateMetadataByKey2)
         HRESULT ( STDMETHODCALLTYPE *EnumerateMetadataByKey2 )( 
-            IFabricKeyValueStoreEnumerator2 * This,
-            /* [in] */ LPCWSTR keyPrefix,
+            __RPC__in IFabricKeyValueStoreEnumerator2 * This,
+            /* [in] */ __RPC__in LPCWSTR keyPrefix,
             /* [in] */ BOOLEAN strictPrefix,
-            /* [retval][out] */ IFabricKeyValueStoreItemMetadataEnumerator **result);
+            /* [retval][out] */ __RPC__deref_out_opt IFabricKeyValueStoreItemMetadataEnumerator **result);
         
         END_INTERFACE
     } IFabricKeyValueStoreEnumerator2Vtbl;
@@ -12057,7 +12062,7 @@ EXTERN_C const IID IID_IFabricKeyValueStoreItemEnumerator2;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE TryMoveNext( 
-            /* [retval][out] */ BOOLEAN *success) = 0;
+            /* [retval][out] */ __RPC__out BOOLEAN *success) = 0;
         
     };
     
@@ -12070,31 +12075,31 @@ EXTERN_C const IID IID_IFabricKeyValueStoreItemEnumerator2;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricKeyValueStoreItemEnumerator2 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricKeyValueStoreItemEnumerator2 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricKeyValueStoreItemEnumerator2 * This);
+            __RPC__in IFabricKeyValueStoreItemEnumerator2 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricKeyValueStoreItemEnumerator2 * This);
+            __RPC__in IFabricKeyValueStoreItemEnumerator2 * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreItemEnumerator, MoveNext)
         HRESULT ( STDMETHODCALLTYPE *MoveNext )( 
-            IFabricKeyValueStoreItemEnumerator2 * This);
+            __RPC__in IFabricKeyValueStoreItemEnumerator2 * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreItemEnumerator, get_Current)
         IFabricKeyValueStoreItemResult *( STDMETHODCALLTYPE *get_Current )( 
-            IFabricKeyValueStoreItemEnumerator2 * This);
+            __RPC__in IFabricKeyValueStoreItemEnumerator2 * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreItemEnumerator2, TryMoveNext)
         HRESULT ( STDMETHODCALLTYPE *TryMoveNext )( 
-            IFabricKeyValueStoreItemEnumerator2 * This,
-            /* [retval][out] */ BOOLEAN *success);
+            __RPC__in IFabricKeyValueStoreItemEnumerator2 * This,
+            /* [retval][out] */ __RPC__out BOOLEAN *success);
         
         END_INTERFACE
     } IFabricKeyValueStoreItemEnumerator2Vtbl;
@@ -12156,7 +12161,7 @@ EXTERN_C const IID IID_IFabricKeyValueStoreItemMetadataEnumerator2;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE TryMoveNext( 
-            /* [retval][out] */ BOOLEAN *success) = 0;
+            /* [retval][out] */ __RPC__out BOOLEAN *success) = 0;
         
     };
     
@@ -12169,31 +12174,31 @@ EXTERN_C const IID IID_IFabricKeyValueStoreItemMetadataEnumerator2;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricKeyValueStoreItemMetadataEnumerator2 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricKeyValueStoreItemMetadataEnumerator2 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricKeyValueStoreItemMetadataEnumerator2 * This);
+            __RPC__in IFabricKeyValueStoreItemMetadataEnumerator2 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricKeyValueStoreItemMetadataEnumerator2 * This);
+            __RPC__in IFabricKeyValueStoreItemMetadataEnumerator2 * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreItemMetadataEnumerator, MoveNext)
         HRESULT ( STDMETHODCALLTYPE *MoveNext )( 
-            IFabricKeyValueStoreItemMetadataEnumerator2 * This);
+            __RPC__in IFabricKeyValueStoreItemMetadataEnumerator2 * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreItemMetadataEnumerator, get_Current)
         IFabricKeyValueStoreItemMetadataResult *( STDMETHODCALLTYPE *get_Current )( 
-            IFabricKeyValueStoreItemMetadataEnumerator2 * This);
+            __RPC__in IFabricKeyValueStoreItemMetadataEnumerator2 * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreItemMetadataEnumerator2, TryMoveNext)
         HRESULT ( STDMETHODCALLTYPE *TryMoveNext )( 
-            IFabricKeyValueStoreItemMetadataEnumerator2 * This,
-            /* [retval][out] */ BOOLEAN *success);
+            __RPC__in IFabricKeyValueStoreItemMetadataEnumerator2 * This,
+            /* [retval][out] */ __RPC__out BOOLEAN *success);
         
         END_INTERFACE
     } IFabricKeyValueStoreItemMetadataEnumerator2Vtbl;
@@ -12255,7 +12260,7 @@ EXTERN_C const IID IID_IFabricKeyValueStoreNotificationEnumerator2;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE TryMoveNext( 
-            /* [retval][out] */ BOOLEAN *success) = 0;
+            /* [retval][out] */ __RPC__out BOOLEAN *success) = 0;
         
     };
     
@@ -12268,35 +12273,35 @@ EXTERN_C const IID IID_IFabricKeyValueStoreNotificationEnumerator2;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricKeyValueStoreNotificationEnumerator2 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricKeyValueStoreNotificationEnumerator2 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricKeyValueStoreNotificationEnumerator2 * This);
+            __RPC__in IFabricKeyValueStoreNotificationEnumerator2 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricKeyValueStoreNotificationEnumerator2 * This);
+            __RPC__in IFabricKeyValueStoreNotificationEnumerator2 * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreNotificationEnumerator, MoveNext)
         HRESULT ( STDMETHODCALLTYPE *MoveNext )( 
-            IFabricKeyValueStoreNotificationEnumerator2 * This);
+            __RPC__in IFabricKeyValueStoreNotificationEnumerator2 * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreNotificationEnumerator, get_Current)
         IFabricKeyValueStoreNotification *( STDMETHODCALLTYPE *get_Current )( 
-            IFabricKeyValueStoreNotificationEnumerator2 * This);
+            __RPC__in IFabricKeyValueStoreNotificationEnumerator2 * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreNotificationEnumerator, Reset)
         void ( STDMETHODCALLTYPE *Reset )( 
-            IFabricKeyValueStoreNotificationEnumerator2 * This);
+            __RPC__in IFabricKeyValueStoreNotificationEnumerator2 * This);
         
         DECLSPEC_XFGVIRT(IFabricKeyValueStoreNotificationEnumerator2, TryMoveNext)
         HRESULT ( STDMETHODCALLTYPE *TryMoveNext )( 
-            IFabricKeyValueStoreNotificationEnumerator2 * This,
-            /* [retval][out] */ BOOLEAN *success);
+            __RPC__in IFabricKeyValueStoreNotificationEnumerator2 * This,
+            /* [retval][out] */ __RPC__out BOOLEAN *success);
         
         END_INTERFACE
     } IFabricKeyValueStoreNotificationEnumerator2Vtbl;
@@ -12373,22 +12378,22 @@ EXTERN_C const IID IID_IFabricStoreEventHandler;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricStoreEventHandler * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricStoreEventHandler * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricStoreEventHandler * This);
+            __RPC__in IFabricStoreEventHandler * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricStoreEventHandler * This);
+            __RPC__in IFabricStoreEventHandler * This);
         
         DECLSPEC_XFGVIRT(IFabricStoreEventHandler, OnDataLoss)
         void ( STDMETHODCALLTYPE *OnDataLoss )( 
-            IFabricStoreEventHandler * This);
+            __RPC__in IFabricStoreEventHandler * This);
         
         END_INTERFACE
     } IFabricStoreEventHandlerVtbl;
@@ -12443,12 +12448,12 @@ EXTERN_C const IID IID_IFabricStoreEventHandler2;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE BeginOnDataLoss( 
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndOnDataLoss( 
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ BOOLEAN *isStateChanged) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__out BOOLEAN *isStateChanged) = 0;
         
     };
     
@@ -12461,34 +12466,34 @@ EXTERN_C const IID IID_IFabricStoreEventHandler2;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricStoreEventHandler2 * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricStoreEventHandler2 * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricStoreEventHandler2 * This);
+            __RPC__in IFabricStoreEventHandler2 * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricStoreEventHandler2 * This);
+            __RPC__in IFabricStoreEventHandler2 * This);
         
         DECLSPEC_XFGVIRT(IFabricStoreEventHandler, OnDataLoss)
         void ( STDMETHODCALLTYPE *OnDataLoss )( 
-            IFabricStoreEventHandler2 * This);
+            __RPC__in IFabricStoreEventHandler2 * This);
         
         DECLSPEC_XFGVIRT(IFabricStoreEventHandler2, BeginOnDataLoss)
         HRESULT ( STDMETHODCALLTYPE *BeginOnDataLoss )( 
-            IFabricStoreEventHandler2 * This,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricStoreEventHandler2 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStoreEventHandler2, EndOnDataLoss)
         HRESULT ( STDMETHODCALLTYPE *EndOnDataLoss )( 
-            IFabricStoreEventHandler2 * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ BOOLEAN *isStateChanged);
+            __RPC__in IFabricStoreEventHandler2 * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__out BOOLEAN *isStateChanged);
         
         END_INTERFACE
     } IFabricStoreEventHandler2Vtbl;
@@ -12550,13 +12555,13 @@ EXTERN_C const IID IID_IFabricStorePostBackupHandler;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE BeginPostBackup( 
-            /* [in] */ FABRIC_STORE_BACKUP_INFO *info,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context) = 0;
+            /* [in] */ __RPC__in FABRIC_STORE_BACKUP_INFO *info,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EndPostBackup( 
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ BOOLEAN *status) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__out BOOLEAN *status) = 0;
         
     };
     
@@ -12569,31 +12574,31 @@ EXTERN_C const IID IID_IFabricStorePostBackupHandler;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricStorePostBackupHandler * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricStorePostBackupHandler * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricStorePostBackupHandler * This);
+            __RPC__in IFabricStorePostBackupHandler * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricStorePostBackupHandler * This);
+            __RPC__in IFabricStorePostBackupHandler * This);
         
         DECLSPEC_XFGVIRT(IFabricStorePostBackupHandler, BeginPostBackup)
         HRESULT ( STDMETHODCALLTYPE *BeginPostBackup )( 
-            IFabricStorePostBackupHandler * This,
-            /* [in] */ FABRIC_STORE_BACKUP_INFO *info,
-            /* [in] */ IFabricAsyncOperationCallback *callback,
-            /* [retval][out] */ IFabricAsyncOperationContext **context);
+            __RPC__in IFabricStorePostBackupHandler * This,
+            /* [in] */ __RPC__in FABRIC_STORE_BACKUP_INFO *info,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationCallback *callback,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationContext **context);
         
         DECLSPEC_XFGVIRT(IFabricStorePostBackupHandler, EndPostBackup)
         HRESULT ( STDMETHODCALLTYPE *EndPostBackup )( 
-            IFabricStorePostBackupHandler * This,
-            /* [in] */ IFabricAsyncOperationContext *context,
-            /* [retval][out] */ BOOLEAN *status);
+            __RPC__in IFabricStorePostBackupHandler * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context,
+            /* [retval][out] */ __RPC__out BOOLEAN *status);
         
         END_INTERFACE
     } IFabricStorePostBackupHandlerVtbl;
@@ -12651,10 +12656,10 @@ EXTERN_C const IID IID_IFabricSecondaryEventHandler;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE OnCopyComplete( 
-            /* [in] */ IFabricKeyValueStoreEnumerator *enumerator) = 0;
+            /* [in] */ __RPC__in_opt IFabricKeyValueStoreEnumerator *enumerator) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE OnReplicationOperation( 
-            /* [in] */ IFabricKeyValueStoreNotificationEnumerator *enumerator) = 0;
+            /* [in] */ __RPC__in_opt IFabricKeyValueStoreNotificationEnumerator *enumerator) = 0;
         
     };
     
@@ -12667,28 +12672,28 @@ EXTERN_C const IID IID_IFabricSecondaryEventHandler;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricSecondaryEventHandler * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricSecondaryEventHandler * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricSecondaryEventHandler * This);
+            __RPC__in IFabricSecondaryEventHandler * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricSecondaryEventHandler * This);
+            __RPC__in IFabricSecondaryEventHandler * This);
         
         DECLSPEC_XFGVIRT(IFabricSecondaryEventHandler, OnCopyComplete)
         HRESULT ( STDMETHODCALLTYPE *OnCopyComplete )( 
-            IFabricSecondaryEventHandler * This,
-            /* [in] */ IFabricKeyValueStoreEnumerator *enumerator);
+            __RPC__in IFabricSecondaryEventHandler * This,
+            /* [in] */ __RPC__in_opt IFabricKeyValueStoreEnumerator *enumerator);
         
         DECLSPEC_XFGVIRT(IFabricSecondaryEventHandler, OnReplicationOperation)
         HRESULT ( STDMETHODCALLTYPE *OnReplicationOperation )( 
-            IFabricSecondaryEventHandler * This,
-            /* [in] */ IFabricKeyValueStoreNotificationEnumerator *enumerator);
+            __RPC__in IFabricSecondaryEventHandler * This,
+            /* [in] */ __RPC__in_opt IFabricKeyValueStoreNotificationEnumerator *enumerator);
         
         END_INTERFACE
     } IFabricSecondaryEventHandlerVtbl;

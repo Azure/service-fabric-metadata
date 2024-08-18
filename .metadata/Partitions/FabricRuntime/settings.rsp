@@ -1,0 +1,4 @@
+--traverse
+<IncludeRoot>/FabricRuntime.h
+--namespace
+Microsoft.ServiceFabric.FabricRuntime

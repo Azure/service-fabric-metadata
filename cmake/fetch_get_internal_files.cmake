@@ -25,7 +25,7 @@ foreach(_idl_file ${internal_idl_files})
     add_custom_command(
         OUTPUT ${_out_header} ${_out_src}
         BYPRODUCTS ${_out_dir}/${_file_name}_p.c ${_out_dir}/${_file_name}.tlb
-        COMMAND ${MIDL_exe} /no_settings_comment /utf8 /I ${CMAKE_CURRENT_SOURCE_DIR}/idl /I ${CMAKE_CURRENT_SOURCE_DIR}/internal_idl ${_idl_out_path} /out ${_out_dir}
+        COMMAND ${MIDL_exe} /no_settings_comment /utf8 /sal /sal_local /I ${CMAKE_CURRENT_SOURCE_DIR}/idl /I ${CMAKE_CURRENT_SOURCE_DIR}/internal_idl ${_idl_out_path} /out ${_out_dir}
         COMMAND ${CMAKE_COMMAND} -E rm -f ${_out_dir}/${_file_name}_p.c ${_out_dir}/${_file_name}.tlb ${_out_dir}/dlldata.c
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         VERBATIM

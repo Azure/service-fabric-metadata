@@ -16,6 +16,11 @@
 #define __REQUIRED_RPCNDR_H_VERSION__ 475
 #endif
 
+/* verify that the <rpcsal.h> version is high enough to compile this file*/
+#ifndef __REQUIRED_RPCSAL_H_VERSION__
+#define __REQUIRED_RPCSAL_H_VERSION__ 100
+#endif
+
 #include "rpc.h"
 #include "rpcndr.h"
 
@@ -179,7 +184,7 @@ EXTERN_C const IID IID_IFabricAsyncOperationCallback;
     {
     public:
         virtual void STDMETHODCALLTYPE Invoke( 
-            /* [in] */ IFabricAsyncOperationContext *context) = 0;
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context) = 0;
         
     };
     
@@ -192,23 +197,23 @@ EXTERN_C const IID IID_IFabricAsyncOperationCallback;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricAsyncOperationCallback * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricAsyncOperationCallback * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricAsyncOperationCallback * This);
+            __RPC__in IFabricAsyncOperationCallback * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricAsyncOperationCallback * This);
+            __RPC__in IFabricAsyncOperationCallback * This);
         
         DECLSPEC_XFGVIRT(IFabricAsyncOperationCallback, Invoke)
         void ( STDMETHODCALLTYPE *Invoke )( 
-            IFabricAsyncOperationCallback * This,
-            /* [in] */ IFabricAsyncOperationContext *context);
+            __RPC__in IFabricAsyncOperationCallback * This,
+            /* [in] */ __RPC__in_opt IFabricAsyncOperationContext *context);
         
         END_INTERFACE
     } IFabricAsyncOperationCallbackVtbl;
@@ -267,7 +272,7 @@ EXTERN_C const IID IID_IFabricAsyncOperationContext;
         virtual BOOLEAN STDMETHODCALLTYPE CompletedSynchronously( void) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE get_Callback( 
-            /* [retval][out] */ IFabricAsyncOperationCallback **callback) = 0;
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationCallback **callback) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE Cancel( void) = 0;
         
@@ -282,35 +287,35 @@ EXTERN_C const IID IID_IFabricAsyncOperationContext;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricAsyncOperationContext * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricAsyncOperationContext * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricAsyncOperationContext * This);
+            __RPC__in IFabricAsyncOperationContext * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricAsyncOperationContext * This);
+            __RPC__in IFabricAsyncOperationContext * This);
         
         DECLSPEC_XFGVIRT(IFabricAsyncOperationContext, IsCompleted)
         BOOLEAN ( STDMETHODCALLTYPE *IsCompleted )( 
-            IFabricAsyncOperationContext * This);
+            __RPC__in IFabricAsyncOperationContext * This);
         
         DECLSPEC_XFGVIRT(IFabricAsyncOperationContext, CompletedSynchronously)
         BOOLEAN ( STDMETHODCALLTYPE *CompletedSynchronously )( 
-            IFabricAsyncOperationContext * This);
+            __RPC__in IFabricAsyncOperationContext * This);
         
         DECLSPEC_XFGVIRT(IFabricAsyncOperationContext, get_Callback)
         HRESULT ( STDMETHODCALLTYPE *get_Callback )( 
-            IFabricAsyncOperationContext * This,
-            /* [retval][out] */ IFabricAsyncOperationCallback **callback);
+            __RPC__in IFabricAsyncOperationContext * This,
+            /* [retval][out] */ __RPC__deref_out_opt IFabricAsyncOperationCallback **callback);
         
         DECLSPEC_XFGVIRT(IFabricAsyncOperationContext, Cancel)
         HRESULT ( STDMETHODCALLTYPE *Cancel )( 
-            IFabricAsyncOperationContext * This);
+            __RPC__in IFabricAsyncOperationContext * This);
         
         END_INTERFACE
     } IFabricAsyncOperationContextVtbl;
@@ -386,22 +391,22 @@ EXTERN_C const IID IID_IFabricStringResult;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricStringResult * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricStringResult * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricStringResult * This);
+            __RPC__in IFabricStringResult * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricStringResult * This);
+            __RPC__in IFabricStringResult * This);
         
         DECLSPEC_XFGVIRT(IFabricStringResult, get_String)
         LPCWSTR ( STDMETHODCALLTYPE *get_String )( 
-            IFabricStringResult * This);
+            __RPC__in IFabricStringResult * This);
         
         END_INTERFACE
     } IFabricStringResultVtbl;
@@ -456,8 +461,8 @@ EXTERN_C const IID IID_IFabricStringListResult;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE GetStrings( 
-            /* [out] */ ULONG *itemCount,
-            /* [retval][out] */ const LPCWSTR **bufferedItems) = 0;
+            /* [out] */ __RPC__out ULONG *itemCount,
+            /* [retval][out] */ __RPC__deref_out_opt const LPCWSTR **bufferedItems) = 0;
         
     };
     
@@ -470,24 +475,24 @@ EXTERN_C const IID IID_IFabricStringListResult;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricStringListResult * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricStringListResult * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricStringListResult * This);
+            __RPC__in IFabricStringListResult * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricStringListResult * This);
+            __RPC__in IFabricStringListResult * This);
         
         DECLSPEC_XFGVIRT(IFabricStringListResult, GetStrings)
         HRESULT ( STDMETHODCALLTYPE *GetStrings )( 
-            IFabricStringListResult * This,
-            /* [out] */ ULONG *itemCount,
-            /* [retval][out] */ const LPCWSTR **bufferedItems);
+            __RPC__in IFabricStringListResult * This,
+            /* [out] */ __RPC__out ULONG *itemCount,
+            /* [retval][out] */ __RPC__deref_out_opt const LPCWSTR **bufferedItems);
         
         END_INTERFACE
     } IFabricStringListResultVtbl;
@@ -554,22 +559,22 @@ EXTERN_C const IID IID_IFabricGetReplicatorStatusResult;
         
         DECLSPEC_XFGVIRT(IUnknown, QueryInterface)
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IFabricGetReplicatorStatusResult * This,
-            /* [in] */ REFIID riid,
+            __RPC__in IFabricGetReplicatorStatusResult * This,
+            /* [in] */ __RPC__in REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         DECLSPEC_XFGVIRT(IUnknown, AddRef)
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IFabricGetReplicatorStatusResult * This);
+            __RPC__in IFabricGetReplicatorStatusResult * This);
         
         DECLSPEC_XFGVIRT(IUnknown, Release)
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IFabricGetReplicatorStatusResult * This);
+            __RPC__in IFabricGetReplicatorStatusResult * This);
         
         DECLSPEC_XFGVIRT(IFabricGetReplicatorStatusResult, get_ReplicatorStatus)
         const FABRIC_REPLICATOR_STATUS_QUERY_RESULT *( STDMETHODCALLTYPE *get_ReplicatorStatus )( 
-            IFabricGetReplicatorStatusResult * This);
+            __RPC__in IFabricGetReplicatorStatusResult * This);
         
         END_INTERFACE
     } IFabricGetReplicatorStatusResultVtbl;
@@ -617,36 +622,36 @@ EXTERN_C const IID IID_IFabricGetReplicatorStatusResult;
 /* [dllname][uuid] */ 
 
 /* [entry] */ HRESULT FabricGetLastErrorMessage( 
-    /* [retval][out] */ IFabricStringResult **message);
+    /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **message);
 
 /* [entry] */ HRESULT FabricEncryptText( 
-    /* [in] */ LPCWSTR text,
-    /* [in] */ LPCWSTR certThumbprint,
-    /* [in] */ LPCWSTR certStoreName,
+    /* [in] */ __RPC__in LPCWSTR text,
+    /* [in] */ __RPC__in LPCWSTR certThumbprint,
+    /* [in] */ __RPC__in LPCWSTR certStoreName,
     /* [in] */ FABRIC_X509_STORE_LOCATION certStoreLocation,
-    /* [in] */ LPCSTR algorithmOid,
-    /* [retval][out] */ IFabricStringResult **encryptedValue);
+    /* [in] */ __RPC__in LPCSTR algorithmOid,
+    /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **encryptedValue);
 
 /* [entry] */ HRESULT FabricEncryptText2( 
-    /* [in] */ LPCWSTR text,
-    /* [in] */ LPCWSTR certFilePath,
-    /* [in] */ LPCSTR algorithmOid,
-    /* [retval][out] */ IFabricStringResult **encryptedValue);
+    /* [in] */ __RPC__in LPCWSTR text,
+    /* [in] */ __RPC__in LPCWSTR certFilePath,
+    /* [in] */ __RPC__in LPCSTR algorithmOid,
+    /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **encryptedValue);
 
 /* [entry] */ HRESULT FabricDecryptText( 
-    /* [in] */ LPCWSTR encryptedText,
+    /* [in] */ __RPC__in LPCWSTR encryptedText,
     /* [in] */ FABRIC_X509_STORE_LOCATION certStoreLocation,
-    /* [retval][out] */ IFabricStringResult **decryptedText);
+    /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **decryptedText);
 
 /* [entry] */ HRESULT FabricEncryptValue( 
-    /* [in] */ LPCWSTR certThumbprint,
-    /* [in] */ LPCWSTR certStoreName,
-    /* [in] */ LPCWSTR text,
-    /* [retval][out] */ IFabricStringResult **encryptedValue);
+    /* [in] */ __RPC__in LPCWSTR certThumbprint,
+    /* [in] */ __RPC__in LPCWSTR certStoreName,
+    /* [in] */ __RPC__in LPCWSTR text,
+    /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **encryptedValue);
 
 /* [entry] */ HRESULT FabricDecryptValue( 
-    /* [in] */ LPCWSTR encryptedValue,
-    /* [retval][out] */ IFabricStringResult **decryptedValue);
+    /* [in] */ __RPC__in LPCWSTR encryptedValue,
+    /* [retval][out] */ __RPC__deref_out_opt IFabricStringResult **decryptedValue);
 
 #endif /* __FabricCommonModule_MODULE_DEFINED__ */
 #endif /* __FabricCommonLib_LIBRARY_DEFINED__ */

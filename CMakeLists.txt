@@ -93,4 +93,9 @@ if(fabric_metadata_MAIN_PROJECT)
     src/fabric_internal/include src/fabric_internal/src importlibs
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
   )
+
+  add_custom_target(soft_clean
+    COMMAND ${dotnet_exe} clean
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/.metadata
+  )
 endif()
