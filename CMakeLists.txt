@@ -12,8 +12,6 @@ endif()
 if(fabric_metadata_MAIN_PROJECT)
   include(cmake/fetch_get_files.cmake)
   include(cmake/fetch_get_internal_files.cmake)
-  # fabric headers are utf16 and clang fmt cannot format them.
-  #include(cmake/clang-format.cmake)
 endif()
 
 if(fabric_metadata_MAIN_PROJECT)

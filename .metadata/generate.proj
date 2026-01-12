@@ -20,6 +20,8 @@
     </ItemGroup>
     <!-- Note: Native typedef is defined in autoTypes.json. The metadata generator eliminates native types during scanning. 
     But native types/typedef make generated code better. -->
+    <!-- Note: import libs are not added to generator because mssf does not need linking.
+        Module level C functions are omitted in the winmd. -->
     <ItemGroup>
         <Idls Include="$(SFIdlDir)\FabricClient.idl;$(SFIdlDir)\FabricCommon.idl;$(SFIdlDir)\FabricRuntime.idl;$(SFIdlDir)\FabricTypes.idl;$(SFInternalIdlDir)\fabrictransport_.idl" />
         <ImportLibs Include="../importlibs/*.lib" />
