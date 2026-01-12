@@ -8,16 +8,16 @@ jobs:
     strategy:
       matrix:
         BUILD_TYPE: ["Debug", "Release"]
-        os: [ windows-2022 ]
+        os: [ windows-latest ]
     steps:
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v5
 
     - name: Get MSVC
       uses: ilammy/msvc-dev-cmd@v1
 
-    - name: Get specific version CMake, v3.21.2
-      uses: lukka/get-cmake@v3.21.2
+    - name: Show cmake version
+      run: cmake --version
 
     - name: check sf exist
       run: |
