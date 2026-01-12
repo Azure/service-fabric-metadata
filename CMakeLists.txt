@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(fabric-metadata LANGUAGES C CXX)
+project(fabric-metadata LANGUAGES)
 
 set(fabric_metadata_MAIN_PROJECT OFF)
 if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
