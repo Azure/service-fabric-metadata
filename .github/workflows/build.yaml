@@ -47,8 +47,11 @@ jobs:
     - name: run cmake
       run: > 
         cmake . -DCMAKE_BUILD_TYPE=${{ matrix.BUILD_TYPE }} -B build -T host=x64 -A x64
-    - name: run build
-      run: cmake --build build --config ${{ matrix.BUILD_TYPE }}
+    - name: clean build
+      run: cmake --build build --config ${{ matrix.BUILD_TYPE }} --target force_clean
 
     - name: run generate all
-      run: cmake --build build --config ${{ matrix.BUILD_TYPE }} --target generate_fabric_all
+      run: cmake --build build --config ${{ matrix.BUILD_TYPE }} --target generate_winmd
+
+    - name: validate winmd
+      run: cmake --build build --config ${{ matrix.BUILD_TYPE }} --target validate_winmd
