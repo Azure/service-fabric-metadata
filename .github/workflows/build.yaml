@@ -38,13 +38,6 @@ jobs:
     - name: restore winmd generator nuget
       run: dotnet restore .metadata\generate.proj
 
-    # The VS component requirement for winmd generator is needed. It will cause ci failure.
-    # The install of component will likely requires restart machine to work.
-    # We remove all the requirements to work around
-    - name: hack
-      run: echo "" | Out-File -FilePath "C:\Users\runneradmin\.nuget\packages\microsoft.windows.winmdgenerator\0.63.31-preview\scripts\Get-RequiredWorkloads.ps1"
-      shell: pwsh
-
     - name: run cmake
       run: > 
         cmake . -DCMAKE_BUILD_TYPE=${{ matrix.BUILD_TYPE }} -B build -T host=x64 -A x64

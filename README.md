@@ -9,9 +9,8 @@ Metadata of service-fabric copied and selected from: [service-fabric](https://gi
 
 # Code Generation Dependencies
 The use of this repo as a dependency does not require these dependencies.
-* Midl for c/cpp header generation
-* dotnet `winget install Microsoft.DotNet.SDK.6` and `winget install Microsoft.DotNet.Runtime.6`
-* ClangSharpPInvokeGenerator `dotnet tool install --global ClangSharpPInvokeGenerator --version 16.0.0`
+* dotnet `winget install Microsoft.DotNet.SDK.6` and `winget install Microsoft.DotNet.Runtime.8`
+* ClangSharpPInvokeGenerator `dotnet tool install --global ClangSharpPInvokeGenerator --version 17.0.1`
 
 # Contents
 idl from https://github.com/microsoft/service-fabric/tree/master/src/prod/src/idl into [idl](./idl/) and [internal_idl](./internal_idl/)
