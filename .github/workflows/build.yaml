@@ -31,8 +31,9 @@ jobs:
         dotnet-version: 
           8.0.x
 
+    # TODO: newer tool requires dotnet 10.
     - name: install ClangSharpPInvokeGenerator
-      run: dotnet tool install --global ClangSharpPInvokeGenerator --version 21.1.8
+      run: dotnet tool install --global ClangSharpPInvokeGenerator --version 17.0.1
 
     - name: restore winmd generator nuget
       run: dotnet restore .metadata\generate.proj
@@ -41,7 +42,7 @@ jobs:
     # The install of component will likely requires restart machine to work.
     # We remove all the requirements to work around
     - name: hack
-      run: echo "" | Out-File -FilePath "C:\Users\runneradmin\.nuget\packages\microsoft.windows.winmdgenerator\0.69.7-preview\scripts\Get-RequiredWorkloads.ps1"
+      run: echo "" | Out-File -FilePath "C:\Users\runneradmin\.nuget\packages\microsoft.windows.winmdgenerator\0.63.31-preview\scripts\Get-RequiredWorkloads.ps1"
       shell: pwsh
 
     - name: run cmake
