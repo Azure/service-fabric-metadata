@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(fabric-metadata LANGUAGES C CXX)
+project(fabric-metadata LANGUAGES)
 
 set(fabric_metadata_MAIN_PROJECT OFF)
 if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
@@ -54,6 +54,8 @@ if(fabric_metadata_MAIN_PROJECT)
 
   add_custom_target(validate_winmd
     COMMAND pwsh -Command "if (!(ildasm /text ${CMAKE_CURRENT_SOURCE_DIR}/.windows/winmd/Microsoft.ServiceFabric.winmd | Select-String 'IFabricClient' -Quiet)) { Write-Error 'IFabricClient not found'; exit 1 } else { Write-Host 'Found IFabricClient' }"
+    # Ensures that regenerated winmd is up to date in git.
+    COMMAND pwsh -File ${CMAKE_CURRENT_SOURCE_DIR}/scripts/check_winmd.ps1
     DEPENDS generate_winmd
   )
 endif()
