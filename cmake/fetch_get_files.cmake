@@ -1,18 +1,11 @@
-find_program (
-    MIDL_exe
-    NAMES midl.exe
-    REQUIRED
-)
 
+# This CMake script downloads necessary IDL files for Service Fabric if they do not already exist.
 set(idl_files
     FabricClient.idl
     FabricCommon.idl
     FabricRuntime.idl
     FabricTypes.idl
 )
-
-set(out_headers "")
-set(out_srcs "")
 
 # download idls
 foreach(_idl_file ${idl_files})
@@ -25,60 +18,4 @@ foreach(_idl_file ${idl_files})
             ${_idl_out_path}
         )
     endif()
-
-    set(_out_dir ${CMAKE_CURRENT_BINARY_DIR}/gen)
-    set(_out_header ${_out_dir}/${_file_name}.h)
-    set(_out_src ${_out_dir}/${_file_name}_i.c)
-    add_custom_command(
-        OUTPUT ${_out_header} ${_out_src}
-        COMMAND ${MIDL_exe} /no_settings_comment /utf8 /sal /sal_local /I ${CMAKE_CURRENT_SOURCE_DIR}/idl ${_idl_out_path} /out ${_out_dir}
-        # remove unused outfile
-        COMMAND ${CMAKE_COMMAND} -E rm -f ${_out_dir}/${_file_name}_p.c ${_out_dir}/${_file_name}.tlb ${_out_dir}/dlldata.c
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        VERBATIM
-    )
-    list(APPEND out_headers ${_out_header})
-    list(APPEND out_srcs ${_out_src})
 endforeach()
-
-# static lib that has uuids
-# add_library(fabric_uuids STATIC
-#     ${out_srcs}
-# )
-
-### generate preprocessed header
-### midl generated header has large portion of c defs that is never used by cpp.
-### we generate the headers removing those c defs.
-
-#preprocess headers and write to fabric lib src dir
-set(out_header_cpps "")
-foreach(_header_c ${out_headers})
-    get_filename_component(_file_name ${_header_c} NAME_WE)
-    set(_out_dir ${CMAKE_CURRENT_SOURCE_DIR}/src/fabric/include)
-    set(_out_header_cpp ${_out_dir}/${_file_name}.h)
-    add_custom_command(
-        OUTPUT ${_out_header_cpp}
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${_header_c} ${_out_header_cpp}
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} # coan relative to the cmake source dir
-        DEPENDS ${_header_c}
-    )
-    list(APPEND out_header_cpps ${_out_header_cpp})
-endforeach()
-
-add_custom_target(copy_fabric_uuid_files
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_SOURCE_DIR}/src/fabric/src
-  COMMAND ${CMAKE_COMMAND} -E copy_if_different ${out_srcs} ${CMAKE_CURRENT_SOURCE_DIR}/src/fabric/src
-  DEPENDS ${out_srcs}
-)
-
-# generate trimmed cpp headers into src/fabric/include
-add_custom_target(generate_cpp_headers
-    DEPENDS ${out_header_cpps}
-    copy_fabric_uuid_files
-)
-
-# fabric cpp only headers
-# add_library(fabric_headers INTERFACE ${out_header_cpps})
-# target_include_directories(fabric_headers INTERFACE
-#     ${CMAKE_CURRENT_BINARY_DIR}/include # generated includes
-# )
