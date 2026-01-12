@@ -16,9 +16,6 @@ if(fabric_metadata_MAIN_PROJECT)
   #include(cmake/clang-format.cmake)
 endif()
 
-include(cmake/ImportFabric.cmake)
-# add_subdirectory(src)
-
 if(fabric_metadata_MAIN_PROJECT)
   # generate winmd. defer generation task in .metadata csproj.
   find_program (
@@ -42,60 +39,23 @@ if(fabric_metadata_MAIN_PROJECT)
     VERBATIM
   )
 
-  # add fabric import libs
-  set(FABRIC_LIB_NAMES
-    FabricCommon
-    FabricRuntime
-    FabricClient
-    FabricResources
-    FabricServiceCommunication
-    FabricTransport
-  )
-
-  foreach(_fabric_lib_name ${FABRIC_LIB_NAMES})
-    add_fabric_lib(
-      NAME ${_fabric_lib_name}
-      OUTDIR ${CMAKE_CURRENT_SOURCE_DIR}/importlibs
-      DLLDIR ${ServiceFabric_Runtime_BINARY_DIR}
-    )
-  endforeach()
-
-  add_custom_target(generate_importlibs
-    DEPENDS
-    # generate all support libs. 
-    FabricCommon
-    FabricRuntime
-    FabricClient
-    FabricResources
-    FabricServiceCommunication
-    FabricTransport
-  )
-
-  # force generate
   add_custom_target(generate_winmd
     DEPENDS ${_out_winmd_paths}
-    generate_importlibs # generator needs to scan support lib files
-  )
-
-  # generate cpp
-  add_custom_target(generate_fabric_all
-    DEPENDS
-    generate_winmd
-    generate_cpp_headers
-    generate_internal_cpp_headers
-    copy_fabric_internal_uuid_files
-    copy_fabric_uuid_files
   )
 
   # clean all generated code
   add_custom_target(force_clean
-    COMMAND ${CMAKE_COMMAND} -E rm -rf .metadata/Obj .metadata/bin .windows src/fabric/include src/fabric/src
-    src/fabric_internal/include src/fabric_internal/src importlibs
+    COMMAND ${CMAKE_COMMAND} -E rm -rf .metadata/Obj .metadata/bin .windows 
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
   )
 
   add_custom_target(soft_clean
     COMMAND ${dotnet_exe} clean
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/.metadata
+  )
+
+  add_custom_target(validate_winmd
+    COMMAND pwsh -Command "if (!(ildasm /text ${CMAKE_CURRENT_SOURCE_DIR}/.windows/winmd/Microsoft.ServiceFabric.winmd | Select-String 'IFabricClient' -Quiet)) { Write-Error 'IFabricClient not found'; exit 1 } else { Write-Host 'Found IFabricClient' }"
+    DEPENDS generate_winmd
   )
 endif()

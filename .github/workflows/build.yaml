@@ -8,16 +8,16 @@ jobs:
     strategy:
       matrix:
         BUILD_TYPE: ["Debug", "Release"]
-        os: [ windows-2022 ]
+        os: [ windows-latest ]
     steps:
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v5
 
     - name: Get MSVC
       uses: ilammy/msvc-dev-cmd@v1
 
-    - name: Get specific version CMake, v3.21.2
-      uses: lukka/get-cmake@v3.21.2
+    - name: Show cmake version
+      run: cmake --version
 
     - name: check sf exist
       run: |
@@ -31,6 +31,7 @@ jobs:
         dotnet-version: 
           8.0.x
 
+    # TODO: newer tool requires dotnet 10.
     - name: install ClangSharpPInvokeGenerator
       run: dotnet tool install --global ClangSharpPInvokeGenerator --version 17.0.1
 
@@ -41,14 +42,17 @@ jobs:
     # The install of component will likely requires restart machine to work.
     # We remove all the requirements to work around
     - name: hack
-      run: echo "" | Out-File -FilePath "C:\Users\runneradmin\.nuget\packages\microsoft.windows.winmdgenerator\0.56.13-preview\scripts\Get-RequiredWorkloads.ps1"
+      run: echo "" | Out-File -FilePath "C:\Users\runneradmin\.nuget\packages\microsoft.windows.winmdgenerator\0.63.31-preview\scripts\Get-RequiredWorkloads.ps1"
       shell: pwsh
 
     - name: run cmake
       run: > 
         cmake . -DCMAKE_BUILD_TYPE=${{ matrix.BUILD_TYPE }} -B build -T host=x64 -A x64
-    - name: run build
-      run: cmake --build build --config ${{ matrix.BUILD_TYPE }}
+    - name: clean build
+      run: cmake --build build --config ${{ matrix.BUILD_TYPE }} --target force_clean
 
     - name: run generate all
-      run: cmake --build build --config ${{ matrix.BUILD_TYPE }} --target generate_fabric_all
+      run: cmake --build build --config ${{ matrix.BUILD_TYPE }} --target generate_winmd
+
+    - name: validate winmd
+      run: cmake --build build --config ${{ matrix.BUILD_TYPE }} --target validate_winmd
