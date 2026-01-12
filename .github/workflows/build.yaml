@@ -32,7 +32,7 @@ jobs:
           8.0.x
 
     - name: install ClangSharpPInvokeGenerator
-      run: dotnet tool install --global ClangSharpPInvokeGenerator --version 17.0.1
+      run: dotnet tool install --global ClangSharpPInvokeGenerator --version 21.1.8
 
     - name: restore winmd generator nuget
       run: dotnet restore .metadata\generate.proj
