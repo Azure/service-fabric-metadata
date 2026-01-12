@@ -41,7 +41,7 @@ jobs:
     # The install of component will likely requires restart machine to work.
     # We remove all the requirements to work around
     - name: hack
-      run: echo "" | Out-File -FilePath "C:\Users\runneradmin\.nuget\packages\microsoft.windows.winmdgenerator\0.56.13-preview\scripts\Get-RequiredWorkloads.ps1"
+      run: echo "" | Out-File -FilePath "C:\Users\runneradmin\.nuget\packages\microsoft.windows.winmdgenerator\0.69.7-preview\scripts\Get-RequiredWorkloads.ps1"
       shell: pwsh
 
     - name: run cmake
