@@ -9,7 +9,7 @@ set(idl_files
 
 # idls from sf-c-util repo which is managed by another azure team.
 # The idl has version 11.1
-# To update idl files, remove the existing files and change the commit hash below to the latest one from
+# To update idl files, remove the existing files and change the commit hash below to the latest one from sf-c-util repo.
 set(_remote_dir https://raw.githubusercontent.com/Azure/sf-c-util/bb29234abb6c542bd71bf7710fcc2aa7f04683cb/deps/servicefabric/idl)
 
 # download idls
