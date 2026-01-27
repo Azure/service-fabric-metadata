@@ -7,6 +7,11 @@ set(idl_files
     FabricTypes.idl
 )
 
+# idls from sf-c-util repo which is managed by another azure team.
+# The idl has version 11.1
+# To update idl files, remove the existing files and change the commit hash below to the latest one from sf-c-util repo.
+set(_remote_dir https://raw.githubusercontent.com/Azure/sf-c-util/bb29234abb6c542bd71bf7710fcc2aa7f04683cb/deps/servicefabric/idl)
+
 # download idls
 foreach(_idl_file ${idl_files})
     get_filename_component(_file_name ${_idl_file} NAME_WE)
@@ -14,7 +19,7 @@ foreach(_idl_file ${idl_files})
     if(NOT EXISTS ${_idl_out_path})
         message(STATUS "downloading ${_idl_file}")
         file(DOWNLOAD
-            https://raw.githubusercontent.com/microsoft/service-fabric/master/src/prod/src/idl/public/${_idl_file}
+            ${_remote_dir}/${_idl_file}
             ${_idl_out_path}
         )
     endif()

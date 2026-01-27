@@ -2,7 +2,9 @@
 ![ci](https://github.com/Azure/service-fabric-metadata/actions/workflows/build.yaml/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://raw.githubusercontent.com/Azure/service-fabric-metadata/main/LICENSE)
 
-Metadata of service-fabric copied and selected from: [service-fabric](https://github.com/microsoft/service-fabric) 
+Metadata of service-fabric copied and selected from: [service-fabric](https://github.com/microsoft/service-fabric) and [sf-c-util](https://github.com/Azure/sf-c-util)
+
+Currently the public idl version used is SF 11.1.
 
 # Depenencies
 * service fabric runtime installation. See [get-started](https://learn.microsoft.com/en-us/azure/service-fabric/service-fabric-get-started)

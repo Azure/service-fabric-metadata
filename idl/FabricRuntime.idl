@@ -19,6 +19,7 @@ import "FabricCommon.idl";
 // Forward Declarations
 //
 interface IFabricRuntime;
+interface IFabricRuntime2;
 interface IFabricProcessExitHandler;
 
 interface IFabricStatelessServiceFactory;
@@ -34,6 +35,11 @@ interface IFabricStatefulServicePartition;
 interface IFabricStatefulServicePartition1;
 interface IFabricStatefulServicePartition2;
 interface IFabricStatefulServicePartition3;
+
+interface IFabricSelfReconfiguringServiceFactory;
+interface IFabricSelfReconfiguringConfigurationChangeRequest;
+interface IFabricSelfReconfiguringServiceInstance;
+interface IFabricSelfReconfiguringServicePartition;
 
 interface IFabricStateProvider;
 interface IFabricStateReplicator;
@@ -79,6 +85,8 @@ interface IFabricKeyValueStoreReplica3;
 interface IFabricKeyValueStoreReplica4;
 interface IFabricKeyValueStoreReplica5;
 interface IFabricKeyValueStoreReplica6;
+interface IFabricKeyValueStoreReplica7;
+interface IFabricKeyValueStoreReplica8;
 interface IFabricKeyValueStoreEnumerator;
 interface IFabricKeyValueStoreEnumerator2;
 interface IFabricKeyValueStoreItemEnumerator;
@@ -101,8 +109,10 @@ interface IFabricEseLocalStoreSettingsResult;
 interface IFabricSecurityCredentialsResult;
 
 interface IFabricCodePackageActivator;
+interface IFabricCodePackageActivator2;
 interface IFabricCodePackageEventHandler;
 
+interface IExtentLogicalLog;
 
 [
     uuid(cc53af9a-74cd-11df-ac3e-0024811e3892),
@@ -117,6 +127,7 @@ library FabricRuntimeLib
     // List of interfaces to include in the type library
     //
     interface IFabricRuntime;
+    interface IFabricRuntime2;
     interface IFabricProcessExitHandler;
 
     interface IFabricStatelessServiceFactory;
@@ -134,6 +145,11 @@ library FabricRuntimeLib
     interface IFabricStatefulServicePartition3;
     interface IFabricStateProvider;
     interface IFabricStateReplicator;
+
+    interface IFabricSelfReconfiguringServiceFactory;
+    interface IFabricSelfReconfiguringConfigurationChangeRequest;
+    interface IFabricSelfReconfiguringServiceInstance;
+    interface IFabricSelfReconfiguringServicePartition;
 
     interface IFabricReplicator;
     interface IFabricPrimaryReplicator;
@@ -187,8 +203,11 @@ library FabricRuntimeLib
     interface IFabricSecurityCredentialsResult;
 
     interface IFabricCodePackageActivator;
+    interface IFabricCodePackageActivator2;
     interface IFabricCodePackageEventHandler;
-    
+
+    interface IExtentLogicalLog;
+
     // ----------------------------------------------------------------------------
     // coclass definitions
 
@@ -345,6 +364,12 @@ library FabricRuntimeLib
          [entry("FabricGetCodePackageActivator")] HRESULT FabricGetCodePackageActivator(
              [in] REFIID riid,
              [out, retval] void ** activator);
+
+         [entry("FabricCreateExtentLog")] HRESULT FabricCreateExtentLog(
+             [in] FABRIC_PARTITION_ID partitionId,
+             [in] FABRIC_REPLICA_ID replicaId,
+             [in] LPCWSTR directoryPath,
+             [out, retval] void **result);
     }
 
 #pragma pack (pop)
@@ -402,6 +427,24 @@ interface IFabricRuntime : IUnknown
         [in] IFabricServiceGroupFactory * factory);
 }
 
+[object, local, uuid(2eb1046c-6fc9-494b-bd03-d9764be209fd)]
+interface IFabricRuntime2 : IFabricRuntime
+{
+    [] HRESULT BeginRegisterSelfReconfiguringServiceFactory(
+        [in] LPCWSTR serviceTypeName,
+        [in] IFabricSelfReconfiguringServiceFactory* factory,
+        [in] DWORD timeoutMilliseconds,
+        [in] IFabricAsyncOperationCallback* callback,
+        [out, retval] IFabricAsyncOperationContext** context);
+
+    [] HRESULT EndRegisterSelfReconfiguringServiceFactory(
+        [in] IFabricAsyncOperationContext* context);
+
+    [] HRESULT RegisterSelfReconfiguringServiceFactory(
+        [in] LPCWSTR serviceTypeName,
+        [in] IFabricSelfReconfiguringServiceFactory* factory);
+}
+
 [object, local, uuid(cc53af8f-74cd-11df-ac3e-0024811e3892)]
 interface IFabricStatelessServiceFactory : IUnknown
 {
@@ -409,7 +452,7 @@ interface IFabricStatelessServiceFactory : IUnknown
         [in] LPCWSTR serviceTypeName,
         [in] FABRIC_URI serviceName,
         [in] ULONG initializationDataLength,
-        [in, size_is(initializationDataLength)] const byte * initializationData,
+        [in, size_is(initializationDataLength)] const BYTE * initializationData,
         [in] FABRIC_PARTITION_ID partitionId,
         [in] FABRIC_INSTANCE_ID instanceId,
         [out, retval] IFabricStatelessServiceInstance ** serviceInstance);
@@ -478,6 +521,12 @@ interface IFabricStatelessServicePartition3 : IFabricStatelessServicePartition2
         [in] const FABRIC_HEALTH_REPORT_SEND_OPTIONS * sendOptions);
 }
 
+[object, local, uuid(4e3c6976-b642-49a7-a323-46c316dd883d)]
+interface IFabricStatelessServicePartition4 : IFabricStatelessServicePartition3
+{
+    [] HRESULT ReportCompletion();
+}
+
 [object, local, uuid(77ff0c6b-6780-48ec-b4b0-61989327b0f2)]
 interface IFabricStatefulServiceFactory : IUnknown
 {
@@ -485,7 +534,7 @@ interface IFabricStatefulServiceFactory : IUnknown
         [in] LPCWSTR serviceTypeName,
         [in] FABRIC_URI serviceName,
         [in] ULONG initializationDataLength,
-        [in, size_is(initializationDataLength)] const byte * initializationData,
+        [in, size_is(initializationDataLength)] const BYTE * initializationData,
         [in] FABRIC_PARTITION_ID partitionId,
         [in] FABRIC_REPLICA_ID replicaId,
         [out, retval] IFabricStatefulServiceReplica ** serviceReplica);
@@ -572,6 +621,86 @@ interface IFabricStatefulServicePartition3 : IFabricStatefulServicePartition2
         [in] const FABRIC_HEALTH_INFORMATION * healthInfo,
         [in] const FABRIC_HEALTH_REPORT_SEND_OPTIONS * sendOptions);
 }
+
+// -- BEGIN self reconfiguring interfaces
+
+[object, local, uuid(7edf5508-44c2-4f41-b594-1a8ba19882a5)]
+interface IFabricSelfReconfiguringServiceFactory : IUnknown
+{
+    [] HRESULT CreateInstance(
+        [in] LPCWSTR serviceTypeName,
+        [in] FABRIC_URI serviceName,
+        [in] ULONG initializationDataLength,
+        [in, size_is(initializationDataLength)] const BYTE * initializationData,
+        [in] FABRIC_PARTITION_ID partitionId,
+        [in] FABRIC_INSTANCE_ID instanceId,
+        [out, retval] IFabricSelfReconfiguringServiceInstance ** serviceInstance);
+}
+
+[object, local, uuid(90c010de-f86f-4aa1-87a3-915879c9901c)] 
+interface IFabricSelfReconfiguringConfigurationChangeRequest : IUnknown
+{
+    [] const FABRIC_SELF_RECONFIGURING_CONFIGURATION_CHANGE_REQUEST * get_ConfigurationChangeRequest();
+}
+
+[object, local, uuid(d1dcb0dd-431a-4ae6-99ed-e241aa123a43)]
+interface IFabricSelfReconfiguringServiceInstance : IUnknown
+{
+    [] HRESULT BeginOpen(
+        [in] FABRIC_SELF_RECONFIGURING_INSTANCE_OPEN_MODE openMode,
+        [in] IFabricSelfReconfiguringServicePartition * partition,
+        [in] IFabricAsyncOperationCallback * callback,
+        [out, retval] IFabricAsyncOperationContext ** context);
+
+    [] HRESULT EndOpen(
+        [in] IFabricAsyncOperationContext * context,
+        [out, retval] IFabricStringResult ** serviceAddress);
+
+    [] HRESULT RequestConfiguration(
+        [in] const FABRIC_SELF_RECONFIGURING_CONFIGURATION_REQUEST * configurationRequest);
+
+    [] HRESULT RequestConfigurationChange(
+        [in] IFabricSelfReconfiguringConfigurationChangeRequest * configurationChangeRequest);
+
+    [] HRESULT BeginClose(
+        [in] IFabricAsyncOperationCallback * callback,
+        [out, retval] IFabricAsyncOperationContext ** context);
+
+    [] HRESULT EndClose(
+        [in] IFabricAsyncOperationContext * context);
+
+    [] void Abort();
+}
+
+[object, local, uuid(35e3b088-ce7d-4d89-b4b5-fafbe8d8aa3e)]
+interface IFabricSelfReconfiguringServicePartition : IUnknown
+{
+    [] HRESULT GetPartitionInfo(
+        [out, retval] const FABRIC_SERVICE_PARTITION_INFORMATION ** bufferedValue);
+
+    [] HRESULT ReportLoad(
+        [in] ULONG metricCount,
+        [in, size_is(metricCount)] const FABRIC_LOAD_METRIC * metrics);
+       
+    [] HRESULT ReportFault(
+        [in] FABRIC_FAULT_TYPE faultType);
+
+    [] HRESULT ReportMoveCost(
+        [in] FABRIC_MOVE_COST moveCost);
+
+    [] HRESULT ReportInstanceHealth(
+        [in] const FABRIC_HEALTH_INFORMATION * healthInfo,
+        [in /*optional*/] const FABRIC_HEALTH_REPORT_SEND_OPTIONS * sendOptions);
+
+    [] HRESULT ReportPartitionHealth(
+        [in] const FABRIC_HEALTH_INFORMATION * healthInfo,
+        [in /*optional*/] const FABRIC_HEALTH_REPORT_SEND_OPTIONS * sendOptions);
+
+    [] HRESULT ReportConfiguration(
+        [in] const FABRIC_SELF_RECONFIGURING_CONFIGURATION_REPORT * configurationReport);
+}
+
+// -- END self reconfiguring interfaces
 
 [object, local, uuid(89e9a978-c771-44f2-92e8-3bf271cabe9c)]
 interface IFabricStateReplicator : IUnknown
@@ -1303,6 +1432,34 @@ interface IFabricKeyValueStoreReplica6 : IFabricKeyValueStoreReplica5
         [out, retval] IFabricAsyncOperationContext ** context);
 }
 
+[object, local, uuid(2903f8b3-f508-4ee8-b205-289d877f63ce)]
+interface IFabricKeyValueStoreReplica7 : IFabricKeyValueStoreReplica6
+{
+    [] HRESULT EnumerateByLSN(
+        [in] IFabricTransactionBase * transaction,
+        [in] FABRIC_SEQUENCE_NUMBER fromLsn,
+        [out, retval] IFabricKeyValueStoreItemEnumerator ** result);
+
+    [] HRESULT EnumerateKeysAndTombstonesByLSN(
+        [in] IFabricTransactionBase * transaction,
+        [in] FABRIC_SEQUENCE_NUMBER fromLsn,
+        [out, retval] IFabricKeyValueStoreItemEnumerator ** result);
+
+    [] HRESULT GetLastCommittedSequenceNumber(
+        [out, retval] FABRIC_SEQUENCE_NUMBER *lastCommittedSequenceNumber);
+}
+
+[object, local, uuid(fb87ec27-fff9-4c03-820e-41a7ef38e732)]
+interface IFabricKeyValueStoreReplica8 : IFabricKeyValueStoreReplica7
+{
+    [] HRESULT TryAbortExistingTransactionsAndRejectWrites(
+        [out, retval] BOOLEAN *readyForFinalMigration);
+
+    [] HRESULT GetLSNSplitPercentile(
+        [in] LONG percentile,
+        [out, retval] FABRIC_SEQUENCE_NUMBER *readyForFinalMigration);
+}
+
 [object, local, uuid(6722b848-15bb-4528-bf54-c7bbe27b6f9a)]
 interface IFabricKeyValueStoreEnumerator : IUnknown
 {
@@ -1413,7 +1570,7 @@ interface IFabricStorePostBackupHandler : IUnknown
 {
     /// <summary>
     /// Begins a post backup operation that is implemented by clients/users of the key-value store.
-    /// This allows clients to take additional actions on the backed up folder contents. 
+    /// This allows clients to take additional actions on the backed up folder contents.
     /// </summary>
     /// <param name="info">The info about the backup created in the call to Backup or BeginBackup.</param>
     /// <param name="callback">The callback to be invoked when the backup is completed.</param>
@@ -1425,9 +1582,9 @@ interface IFabricStorePostBackupHandler : IUnknown
         [out, retval] IFabricAsyncOperationContext ** context);
 
     /// <summary>
-    /// Ends a post backup operation that began with BeginPostBackup. This is implemented by 
-    /// clients/users of the key-value store. This allows clients to take additional actions on the backed 
-    /// up folder contents. 
+    /// Ends a post backup operation that began with BeginPostBackup. This is implemented by
+    /// clients/users of the key-value store. This allows clients to take additional actions on the backed
+    /// up folder contents.
     /// </summary>
     /// <param name="info">The info about the backup created in the call to Backup or BeginBackup.</param>
     /// <param name="context">The operation context that was returned as an out parameter from the BeginPostBackup method.</param>
@@ -1518,12 +1675,53 @@ interface IFabricCodePackageActivator : IUnknown
         [in] ULONGLONG callbackHandle);
 }
 
+[object, local, uuid(13C742AA-A426-4A5B-B2D2-7A9AC0DB71E2)]
+interface IFabricCodePackageActivator2 : IFabricCodePackageActivator
+{
+    [] HRESULT BeginActivateCodePackage2(
+        [in] FABRIC_CODE_PACKAGE_ACTIVATION_INFORMATION_LIST * cpActivationInfoList,
+        [in] FABRIC_STRING_MAP * environment,
+        [in] DWORD timeoutMilliseconds,
+        [in] IFabricAsyncOperationCallback * callback,
+        [out, retval] IFabricAsyncOperationContext ** context);
+}
+
 [object, local, uuid(899E0CA8-16DF-458E-8915-D0307B4AB101)]
 interface IFabricCodePackageEventHandler : IUnknown
 {
     [] void OnCodePackageEvent(
         [in] IFabricCodePackageActivator * source,
         [in] const FABRIC_CODE_PACKAGE_EVENT_DESCRIPTION * eventDesc);
+}
+
+[object, local, uuid(778dfdc1-58f5-4cec-a266-65e1bc8281f4)]
+interface IExtentLogicalLog : IUnknown
+{
+    [] HRESULT BeginOpen(
+        [in] LPCWSTR directoryPath,
+        [in] IFabricAsyncOperationCallback * callback,
+        [out, retval] IFabricAsyncOperationContext ** context);
+
+    [] HRESULT EndOpen(
+        [in] IFabricAsyncOperationContext * context);
+
+    [] HRESULT Append(
+        [in] ULONG bufferSizeInBytes,
+        [in, size_is(bufferSizeInBytes)] const BYTE * buffer);
+
+    [] HRESULT BeginFlushWithMarker(
+        [in] IFabricAsyncOperationCallback * callback,
+        [out, retval] IFabricAsyncOperationContext ** context);
+
+    [] HRESULT EndFlushWithMarker(
+        [in] IFabricAsyncOperationContext * context);
+
+    [] HRESULT BeginClose(
+        [in] IFabricAsyncOperationCallback * callback,
+        [out, retval] IFabricAsyncOperationContext ** context);
+
+    [] HRESULT EndClose(
+        [in] IFabricAsyncOperationContext * context);
 }
 
 //
