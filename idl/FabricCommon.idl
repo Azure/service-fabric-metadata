@@ -59,13 +59,13 @@ library FabricCommonLib
             [in] LPCWSTR certThumbprint,
             [in] LPCWSTR certStoreName,
             [in] FABRIC_X509_STORE_LOCATION certStoreLocation,
-            [in] LPCSTR algorithmOid,
+            [in] LPCWSTR algorithmOid,
             [out, retval] IFabricStringResult ** encryptedValue);
 
         [entry("FabricEncryptText2")] HRESULT FabricEncryptText2(
             [in] LPCWSTR text,
             [in] LPCWSTR certFilePath,
-            [in] LPCSTR algorithmOid,
+            [in] LPCWSTR algorithmOid,
             [out, retval] IFabricStringResult ** encryptedValue);
 
         [entry("FabricDecryptText")] HRESULT FabricDecryptText(
