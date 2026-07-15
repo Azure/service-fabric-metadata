@@ -116,6 +116,19 @@ fn main() {
         .to_string_lossy()
         .replace('\\', "/");
 
+    // Self-contained seed defining FILETIME under Microsoft.ServiceFabric.FabricTypes.
+    // The SF surface's only Win32 base *struct* is FILETIME (GUID/HRESULT/IUnknown/
+    // BOOL/BOOLEAN/PCWSTR are windows-core builtins that bindgen never emits).
+    // Defining FILETIME SF-locally and rewriting its references (below) keeps the
+    // final winmd single-rooted under `Microsoft` so the windows-bindgen
+    // `--package` writer can consume it (it panics on a second, bare `Windows` root).
+    let win32_seed = repo
+        .join("rust-metadata")
+        .join("seed")
+        .join("FabricTypesWin32.rdl")
+        .to_string_lossy()
+        .replace('\\', "/");
+
     for p in PARTITIONS {
         let rdl_path = rdl_dir.join(format!("{}.rdl", p.header));
         let source = format!("#include <{}.h>", p.header);
@@ -140,6 +153,21 @@ fn main() {
             .write()
             .unwrap_or_else(|e| panic!("clang scrape of {} failed: {e}", p.header));
 
+        // windows-clang qualifies FILETIME to the external flat Windows.Win32
+        // layout. Rewrite that single reference to the SF-local definition
+        // supplied by the FabricTypesWin32 seed, so nothing lands under a second
+        // `Windows` root. All other Windows::Win32::* references are builtins.
+        {
+            let text = std::fs::read_to_string(&rdl_path)
+                .unwrap_or_else(|e| panic!("read {} failed: {e}", rdl_path.display()));
+            let rewritten = text.replace(
+                "Windows::Win32::FILETIME",
+                "Microsoft::ServiceFabric::FabricTypes::FILETIME",
+            );
+            std::fs::write(&rdl_path, rewritten)
+                .unwrap_or_else(|e| panic!("write {} failed: {e}", rdl_path.display()));
+        }
+
         // Compile this partition (plus its dependency winmds) into an
         // intermediate winmd that later partitions reference.
         let part_winmd = winmd_dir.join(format!("{}.winmd", p.header));
@@ -148,9 +176,12 @@ fn main() {
         reader.input(&win32_winmd);
         // The alias seed lives in the FabricTypes namespace; supply it when
         // compiling that partition so its winmd (and every downstream
-        // reference) carries FABRIC_STRING_PAIR.
+        // reference) carries FABRIC_STRING_PAIR. The FILETIME seed is supplied
+        // the same way so downstream partitions resolve FILETIME to the SF-local
+        // definition rather than an external Windows.Win32 type.
         if p.header == "FabricTypes" {
             reader.input(&seed);
+            reader.input(&win32_seed);
         }
         for winmd in &built_winmds {
             reader.input(winmd);
@@ -163,6 +194,7 @@ fn main() {
         rdl_paths.push(rdl_path.to_string_lossy().replace('\\', "/"));
         if p.header == "FabricTypes" {
             rdl_paths.push(seed.clone());
+            rdl_paths.push(win32_seed.clone());
         }
         built_winmds.push(part_winmd.to_string_lossy().replace('\\', "/"));
     }
