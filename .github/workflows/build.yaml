@@ -11,7 +11,7 @@ jobs:
         os: [ windows-latest ]
     steps:
 
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v7
 
     - name: Get MSVC
       uses: ilammy/msvc-dev-cmd@v1
