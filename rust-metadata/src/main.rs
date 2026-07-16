@@ -129,6 +129,18 @@ fn main() {
         .to_string_lossy()
         .replace('\\', "/");
 
+    // Self-contained seed defining `MarshalingBehaviorAttribute` +
+    // `MarshalingType` (under Microsoft.ServiceFabric.Metadata). The post-scrape
+    // rewrite (below) stamps every interface with this attribute so windows-bindgen
+    // projects them as thread-agile (`Send` + `Sync`). Compiled into the
+    // FabricTypes partition winmd so all later partitions resolve the attribute.
+    let agile_seed = repo
+        .join("rust-metadata")
+        .join("seed")
+        .join("FabricAgile.rdl")
+        .to_string_lossy()
+        .replace('\\', "/");
+
     for p in PARTITIONS {
         let rdl_path = rdl_dir.join(format!("{}.rdl", p.header));
         let source = format!("#include <{}.h>", p.header);
@@ -164,6 +176,56 @@ fn main() {
                 "Windows::Win32::FILETIME",
                 "Microsoft::ServiceFabric::FabricTypes::FILETIME",
             );
+
+            // windows-clang scrapes `const wchar_t*` typedefs (LPCWSTR, and
+            // FABRIC_URI which aliases it) as raw `*const u16`. The old dotnet
+            // win32metadata toolchain mapped these to PCWSTR, which the mssf
+            // string helpers (WString <-> PCWSTR) depend on. Re-point the LPCWSTR
+            // alias at the Win32 PCWSTR builtin so the whole chain (LPCWSTR,
+            // FABRIC_URI, and every struct field that uses them) projects as
+            // `windows_core::PCWSTR` again.
+            let rewritten =
+                rewritten.replace("type LPCWSTR = *const u16;", "type LPCWSTR = Windows::Win32::PCWSTR;");
+
+            // Restore FABRIC_URI as a distinct newtype. The old dotnet toolchain
+            // emitted `pub struct FABRIC_URI(pub *mut u16)`, but the new
+            // windows-bindgen bare-aliases any typedef whose underlying is a
+            // pointer to a *non-void* type (`aliases_pointer`), so
+            // `type FABRIC_URI = LPCWSTR` collapses to a transparent alias and is
+            // no longer constructible as `FABRIC_URI(..)`. A pointer to *void*
+            // keeps the newtype (like `HANDLE`/`HWND`), so re-point FABRIC_URI at
+            // `*mut void`: bindgen then emits `pub struct FABRIC_URI(pub *mut
+            // c_void)`. It is only ever passed by value into the vtable (no
+            // `Param<FABRIC_URI>` bound), so the void pointer is ABI-identical.
+            let rewritten =
+                rewritten.replace("type FABRIC_URI = LPCWSTR;", "type FABRIC_URI = *mut void;");
+
+            // windows-clang scrapes the SF header's `FABRIC_AAD_ClAIMS_RETRIEVAL_METADATA`
+            // types with a lowercase `l` (a typo carried from the MIDL output). The
+            // dotnet win32metadata baseline exposes them as `...CLAIMS...`; normalize to
+            // that so consumers use the conventional spelling.
+            let rewritten = rewritten.replace("FABRIC_AAD_ClAIMS", "FABRIC_AAD_CLAIMS");
+
+            // The new windows-bindgen projects unscoped (C-style) enums as a bare
+            // `pub type X = i32` alias with plain integer constants, whereas the
+            // old toolchain emitted a `pub struct X(pub i32)` newtype. mssf-core
+            // relies on the newtype (constructs `FABRIC_X(v)` and reads `.0`). A
+            // `ScopedEnumAttribute` (RDL `#[scoped]`) makes bindgen keep the
+            // newtype projection. Every `#[repr(i32)]` in the scraped RDL precedes
+            // an enum, so tag them all as scoped.
+            let rewritten = rewritten.replace("#[repr(i32)]", "#[repr(i32)] #[scoped]");
+
+            // Stamp every scraped interface with `MarshalingBehaviorAttribute(Agile)`
+            // so windows-bindgen emits `unsafe impl Send/Sync` for it (see the
+            // FabricAgile.rdl seed). Interfaces are always at 12-space indent under
+            // the three-level `mod Microsoft { mod ServiceFabric { mod FabricX {`
+            // nesting, immediately preceded by their `#[guid(..)]` line; inserting
+            // the attribute right before `interface ` stacks it with the guid.
+            let rewritten = rewritten.replace(
+                "\n            interface ",
+                "\n            #[Microsoft::ServiceFabric::Metadata::MarshalingBehavior(Agile)]\n            interface ",
+            );
+
             std::fs::write(&rdl_path, rewritten)
                 .unwrap_or_else(|e| panic!("write {} failed: {e}", rdl_path.display()));
         }
@@ -182,6 +244,10 @@ fn main() {
         if p.header == "FabricTypes" {
             reader.input(&seed);
             reader.input(&win32_seed);
+            // Agile marker types (MarshalingBehaviorAttribute + MarshalingType).
+            // Compiling them into FabricTypes.winmd lets every later partition
+            // resolve the `#[MarshalingBehavior(Agile)]` stamped on its interfaces.
+            reader.input(&agile_seed);
         }
         for winmd in &built_winmds {
             reader.input(winmd);
@@ -195,6 +261,7 @@ fn main() {
         if p.header == "FabricTypes" {
             rdl_paths.push(seed.clone());
             rdl_paths.push(win32_seed.clone());
+            rdl_paths.push(agile_seed.clone());
         }
         built_winmds.push(part_winmd.to_string_lossy().replace('\\', "/"));
     }
