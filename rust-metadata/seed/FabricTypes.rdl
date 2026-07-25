@@ -1,0 +1,22 @@
+// Seed metadata supplying declarations that windows-clang does not emit from
+// the MIDL-generated headers.
+//
+// FABRIC_STRING_PAIR is declared in the SF IDL as a struct alias:
+//     typedef struct FABRIC_APPLICATION_PARAMETER FABRIC_STRING_PAIR;
+// windows-clang keeps references to FABRIC_STRING_PAIR but drops the alias
+// definition, leaving a dangling reference. (The dotnet win32metadata toolchain
+// instead resolves such references to the underlying FABRIC_APPLICATION_PARAMETER
+// and emits no FABRIC_STRING_PAIR at all.) This seed re-supplies the alias so the
+// RDL compiles.
+//
+// (FILETIME lives in the standalone FabricTypesWin32.rdl seed instead, because it
+// must be compiled on its own into a clang reference winmd — the FABRIC_STRING_PAIR
+// alias here depends on FABRIC_APPLICATION_PARAMETER and cannot compile standalone.)
+#[win32]
+mod Microsoft {
+    mod ServiceFabric {
+        mod FabricTypes {
+            type FABRIC_STRING_PAIR = FABRIC_APPLICATION_PARAMETER;
+        }
+    }
+}

@@ -1,0 +1,21 @@
+# Standalone workspace so cargo does not walk up into the repo root looking for
+# a parent manifest; this crate builds in isolation.
+[workspace]
+
+[package]
+name = "sf-winmd-gen"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+# Experimental tool: generate the Service Fabric winmd using the windows-rs
+# `windows-clang` / `windows-rdl` crates (Rust) instead of the dotnet
+# win32metadata (`Microsoft.Windows.WinmdGenerator`) toolchain.
+#
+# These crates are not yet published to crates.io, so they are referenced
+# directly from the windows-rs git repository. All three resolve from the same
+# git checkout so their internal `workspace = true` path dependencies line up.
+[dependencies]
+windows-clang = { git = "https://github.com/microsoft/windows-rs" }
+windows-rdl = { git = "https://github.com/microsoft/windows-rs" }
+windows-metadata = { git = "https://github.com/microsoft/windows-rs" }

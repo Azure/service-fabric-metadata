@@ -1,0 +1,28 @@
+// Self-contained seed for the single Win32 base *struct* the SF surface
+// references: FILETIME. (GUID and HRESULT resolve as windows-core builtins and
+// need no definition.)
+//
+// The SF headers reference FILETIME, which is defined in a Windows SDK header,
+// not in the SF IDL. The dotnet win32metadata flow resolved that reference to
+// the external Windows.Win32.Foundation.FILETIME. Doing the equivalent with the
+// Rust flow (referencing the flat Windows.Win32 winmd) makes the generated SF
+// winmd multi-rooted (`Microsoft` + `Windows`), which the new windows-bindgen
+// `--package` writer cannot handle — it assumes a single top-level root and
+// panics on the bare `Windows` root.
+//
+// Defining FILETIME here in the SF namespace keeps the generated winmd
+// single-rooted under `Microsoft`. This seed has no external dependencies, so it
+// compiles standalone into a reference winmd that windows-clang uses to qualify
+// FILETIME references as `Microsoft.ServiceFabric.FabricTypes.FILETIME` rather
+// than `Windows.Win32.FILETIME`.
+#[win32]
+mod Microsoft {
+    mod ServiceFabric {
+        mod FabricTypes {
+            struct FILETIME {
+                dwLowDateTime: u32,
+                dwHighDateTime: u32,
+            }
+        }
+    }
+}
