@@ -1,3 +1,8 @@
+# ------------------------------------------------------------
+# Copyright (c) Microsoft Corporation.  All rights reserved.
+# Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
+# ------------------------------------------------------------
+
 cmake_minimum_required(VERSION 3.14)
 
 project(fabric-metadata LANGUAGES)
@@ -15,47 +20,63 @@ if(fabric_metadata_MAIN_PROJECT)
 endif()
 
 if(fabric_metadata_MAIN_PROJECT)
-  # generate winmd. defer generation task in .metadata csproj.
   find_program (
-      dotnet_exe
-      NAMES dotnet.exe
+      pwsh_exe
+      NAMES pwsh.exe pwsh
       REQUIRED
   )
-  set(_out_winmds
-    Microsoft.ServiceFabric.winmd
-    Windows.Win32.winmd
+  find_program (
+      cargo_exe
+      NAMES cargo.exe cargo
+      REQUIRED
   )
-  set(_out_winmd_paths "")
-  foreach(_out_winmd ${_out_winmds})
-  list(APPEND _out_winmd_paths ${CMAKE_CURRENT_SOURCE_DIR}/.windows/winmd/${_out_winmd})
-  endforeach()
+  find_program (
+      git_exe
+      NAMES git.exe git
+      REQUIRED
+  )
+
+  set(_out_winmd_path
+    ${CMAKE_CURRENT_SOURCE_DIR}/.windows/winmd/Windows.ServiceFabric.winmd
+  )
+
+  file(GLOB_RECURSE _metadata_inputs CONFIGURE_DEPENDS
+    ${CMAKE_CURRENT_SOURCE_DIR}/idl/*.idl
+    ${CMAKE_CURRENT_SOURCE_DIR}/internal_idl/*.idl
+    ${CMAKE_CURRENT_SOURCE_DIR}/rust-metadata/app/*.rs
+    ${CMAKE_CURRENT_SOURCE_DIR}/rust-metadata/seed/*.rdl
+    ${CMAKE_CURRENT_SOURCE_DIR}/rust-metadata/tests/*.ps1
+    ${CMAKE_CURRENT_SOURCE_DIR}/rust-metadata/tests/*.rs
+  )
+  list(APPEND _metadata_inputs
+    ${CMAKE_CURRENT_SOURCE_DIR}/Cargo.toml
+    ${CMAKE_CURRENT_SOURCE_DIR}/Cargo.lock
+    ${CMAKE_CURRENT_SOURCE_DIR}/rust-metadata/Cargo.toml
+    ${CMAKE_CURRENT_SOURCE_DIR}/rust-metadata/run.ps1
+  )
 
   add_custom_command(
-    OUTPUT ${_out_winmd_paths}
-    COMMAND ${dotnet_exe} build
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/.metadata
+    OUTPUT ${_out_winmd_path}
+    COMMAND ${pwsh_exe} -NoProfile -File ${CMAKE_CURRENT_SOURCE_DIR}/rust-metadata/run.ps1
+    DEPENDS ${_metadata_inputs}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     VERBATIM
   )
 
   add_custom_target(generate_winmd
-    DEPENDS ${_out_winmd_paths}
+    DEPENDS ${_out_winmd_path}
   )
 
-  # clean all generated code
   add_custom_target(force_clean
-    COMMAND ${CMAKE_COMMAND} -E rm -rf .metadata/Obj .metadata/bin .windows 
+    COMMAND ${CMAKE_COMMAND} -E rm -rf .windows target rust-metadata/target
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
   )
 
-  add_custom_target(soft_clean
-    COMMAND ${dotnet_exe} clean
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/.metadata
-  )
-
   add_custom_target(validate_winmd
-    COMMAND pwsh -Command "if (!(ildasm /text ${CMAKE_CURRENT_SOURCE_DIR}/.windows/winmd/Microsoft.ServiceFabric.winmd | Select-String 'IFabricClient' -Quiet)) { Write-Error 'IFabricClient not found'; exit 1 } else { Write-Host 'Found IFabricClient' }"
-    # Ensures that regenerated winmd is up to date in git.
-    COMMAND pwsh -File ${CMAKE_CURRENT_SOURCE_DIR}/scripts/check_winmd.ps1
-    DEPENDS generate_winmd
+    COMMAND ${pwsh_exe} -NoProfile -File ${CMAKE_CURRENT_SOURCE_DIR}/rust-metadata/run.ps1
+    COMMAND ${cargo_exe} test --workspace --locked
+    COMMAND ${git_exe} --no-pager diff --exit-code HEAD -- .windows/winmd/Windows.ServiceFabric.winmd
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    VERBATIM
   )
 endif()

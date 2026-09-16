@@ -1,0 +1,12 @@
+[workspace]
+members = [
+    "rust-metadata",
+]
+resolver = "3"
+
+[workspace.dependencies]
+windows-clang = "0.100.0"
+windows-bindgen = "0.100.0"
+windows-default = "0.100.0"
+windows-metadata = "0.100.0"
+windows-rdl = "0.100.0"

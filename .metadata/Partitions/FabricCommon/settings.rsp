@@ -1,4 +1,0 @@
---traverse
-<IncludeRoot>/FabricCommon.h
---namespace
-Microsoft.ServiceFabric.FabricCommon

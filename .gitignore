@@ -2,6 +2,7 @@ build
 bin
 obj
 
-# Added by cargo
-
-/target
+# Cargo workspace output
+/target/
+.vscode
+.paw

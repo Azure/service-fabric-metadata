@@ -1,18 +1,32 @@
-# Notes
-The winmd generator has check of VS compenents but are not necessary. 
-If locally winmd generate may fail due to vs components missing, even though they are not needed.
+# Development
 
-This fails:
-& "C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe" -prerelease -format xml `
--version "[17.0,18.0)" `
--latest -requires Microsoft.NetCore.Component.Runtime.6.0 -requires Microsoft.NetCore.Component.SDK `
--requires Microsoft.VisualStudio.Component.VC.Tools.ARM64 -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 `
--requires Microsoft.VisualStudio.Component.Windows11SDK.22000
+## Prerequisites
 
-## Winmd generator
-For generator usage see [doc](https://github.com/microsoft/win32metadata/blob/main/CONTRIBUTING.md)
+- Rust stable toolchain
+- Visual Studio with the C++ build tools workload
+- A Windows 10 or 11 SDK containing the x64 `midl.exe`
+- PowerShell 7 (`pwsh`) and CMake
 
-To auto install the vs components required by generator:
-```ps1
-$HOME\.nuget\packages\microsoft.windows.winmdgenerator\0.56.13-preview\scripts\Install-VS.ps1
+The generator provisions its pinned libclang release on first use, so the first
+run requires network access.
+
+## Generate and validate metadata
+
+Run the repository's CMake targets:
+
+```pwsh
+cmake . -B build -T host=x64 -A x64
+cmake --build build --target generate_winmd
+cmake --build build --target validate_winmd
+```
+
+The generation target enters the Visual Studio developer environment and writes
+`.windows/winmd/Windows.ServiceFabric.winmd`. The validation target runs the
+metadata integration tests and verifies that the regenerated artifact matches
+the committed binary.
+
+For direct generator use:
+
+```pwsh
+pwsh -File rust-metadata/run.ps1
 ```

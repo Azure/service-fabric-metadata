@@ -1,0 +1,35 @@
+// ------------------------------------------------------------
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+// Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
+// ------------------------------------------------------------
+
+// Self-contained seed defining the marker that makes the SF COM interfaces
+// thread-agile (`Send` + `Sync` in the generated Rust).
+//
+// windows-bindgen emits `unsafe impl Send/Sync` for an interface only when its
+// metadata carries `MarshalingBehaviorAttribute` with `MarshalingType.Agile`
+// (value 2) — see `TypeDefExt::is_agile` in the bindgen `type_def` table. The
+// The former generator marked the SF interfaces agile; windows-clang does
+// not, so every scraped interface would otherwise come out `!Send`/`!Sync`,
+// breaking mssf-core's async runtime (which moves COM interfaces across
+// threads). SF COM objects are genuinely free-threaded, so marking them agile
+// is accurate, not a shortcut.
+//
+// These marker definitions live alongside Service Fabric metadata under the
+// shared `Windows` root. `is_agile` matches the attribute's name and enum value,
+// not its namespace. The post-scrape rewrite in main.rs applies the marker to
+// every matching IFabric interface.
+#[win32]
+mod Windows {
+    mod ServiceFabric {
+        mod Metadata {
+            #[repr(i32)]
+            enum MarshalingType {
+                Agile = 2,
+            }
+            attribute MarshalingBehaviorAttribute {
+                fn(behavior: MarshalingType);
+            }
+        }
+    }
+}

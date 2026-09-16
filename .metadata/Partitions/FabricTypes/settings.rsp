@@ -1,4 +1,0 @@
---traverse
-<IncludeRoot>/FabricTypes.h
---namespace
-Microsoft.ServiceFabric.FabricTypes

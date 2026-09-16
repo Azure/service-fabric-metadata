@@ -13,6 +13,9 @@ jobs:
 
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
+    - name: Setup Rust
+      uses: dtolnay/rust-toolchain@6bed0761d98439e5a578e2877258200ad565ba87 # stable
+
     - name: Get MSVC
       uses: ilammy/msvc-dev-cmd@0b201ec74fa43914dc39ae48a89fd1d8cb592756 # v1.13.0
 
@@ -24,28 +27,11 @@ jobs:
         Get-ItemPropertyValue 'HKLM:\SOFTWARE\Microsoft\Service Fabric\' -Name FabricVersion
       shell: pwsh
 
-    # winmd generate
-    - name: setup dotnet
-      uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
-      with:
-        dotnet-version: 
-          8.0.x
-
-    # TODO: newer tool requires dotnet 10.
-    - name: install ClangSharpPInvokeGenerator
-      run: dotnet tool install --global ClangSharpPInvokeGenerator --version 17.0.1
-
-    - name: restore winmd generator nuget
-      run: dotnet restore .metadata\generate.proj
-
     - name: run cmake
       run: > 
         cmake . -DCMAKE_BUILD_TYPE=${{ matrix.BUILD_TYPE }} -B build -T host=x64 -A x64
     - name: clean build
       run: cmake --build build --config ${{ matrix.BUILD_TYPE }} --target force_clean
-
-    - name: run generate all
-      run: cmake --build build --config ${{ matrix.BUILD_TYPE }} --target generate_winmd
 
     - name: validate winmd
       run: cmake --build build --config ${{ matrix.BUILD_TYPE }} --target validate_winmd

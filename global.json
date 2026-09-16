@@ -1,9 +1,0 @@
-{
-  "sdk": {
-    "version": "8.0.0",
-    "rollForward": "latestMinor"
-  },
-  "msbuild-sdks": {
-    "Microsoft.Windows.WinmdGenerator": "0.69.7-preview"
-  }
-}
