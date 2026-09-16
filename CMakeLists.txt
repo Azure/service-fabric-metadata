@@ -73,10 +73,10 @@ if(fabric_metadata_MAIN_PROJECT)
   )
 
   add_custom_target(validate_winmd
+    COMMAND ${pwsh_exe} -NoProfile -File ${CMAKE_CURRENT_SOURCE_DIR}/rust-metadata/run.ps1
     COMMAND ${cargo_exe} test --workspace --locked
     COMMAND ${git_exe} --no-pager diff --exit-code HEAD -- .windows/winmd/Windows.ServiceFabric.winmd
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    DEPENDS generate_winmd
     VERBATIM
   )
 endif()

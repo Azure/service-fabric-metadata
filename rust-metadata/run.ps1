@@ -53,3 +53,4 @@ Enter-VsDevShell -VsInstallPath $vsPath -SkipAutomaticLocation -DevCmdArguments 
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $scriptDir
 cargo run --release --locked --bin sf-winmd-gen
+exit $LASTEXITCODE

@@ -33,8 +33,5 @@ jobs:
     - name: clean build
       run: cmake --build build --config ${{ matrix.BUILD_TYPE }} --target force_clean
 
-    - name: run generate all
-      run: cmake --build build --config ${{ matrix.BUILD_TYPE }} --target generate_winmd
-
     - name: validate winmd
       run: cmake --build build --config ${{ matrix.BUILD_TYPE }} --target validate_winmd
