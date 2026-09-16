@@ -4,11 +4,7 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        BUILD_TYPE: ["Debug"] # There is not cpp code so 1 build type is enough.
-        os: [ windows-latest ]
+    runs-on: windows-latest
     steps:
 
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -16,22 +12,18 @@ jobs:
     - name: Setup Rust
       uses: dtolnay/rust-toolchain@6bed0761d98439e5a578e2877258200ad565ba87 # stable
 
+    - name: Setup just
+      uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4.0.0
+      with:
+        just-version: '1.58.0'
+
     - name: Get MSVC
       uses: ilammy/msvc-dev-cmd@0b201ec74fa43914dc39ae48a89fd1d8cb592756 # v1.13.0
-
-    - name: Show cmake version
-      run: cmake --version
 
     - name: check sf exist
       run: |
         Get-ItemPropertyValue 'HKLM:\SOFTWARE\Microsoft\Service Fabric\' -Name FabricVersion
       shell: pwsh
 
-    - name: run cmake
-      run: > 
-        cmake . -DCMAKE_BUILD_TYPE=${{ matrix.BUILD_TYPE }} -B build -T host=x64 -A x64
-    - name: clean build
-      run: cmake --build build --config ${{ matrix.BUILD_TYPE }} --target force_clean
-
     - name: validate winmd
-      run: cmake --build build --config ${{ matrix.BUILD_TYPE }} --target validate_winmd
+      run: just ci
