@@ -28,9 +28,9 @@ See [Development](docs/Development.md) for installation and additional recipes.
 # Contents
 idl from https://github.com/microsoft/service-fabric/tree/master/src/prod/src/idl into [idl](./idl/) and [internal_idl](./internal_idl/)
 
-`Windows.ServiceFabric.winmd`, used to generate C# or Rust bindings, is in the
-[.windows](./.windows) folder. Its metadata namespaces are rooted at
-`Windows.ServiceFabric`.
+`Windows.ServiceFabric.winmd`, used to generate C# or Rust bindings, is
+committed inside the [mssf-metadata](./mssf-metadata) crate. Its metadata
+namespaces are rooted at `Windows.ServiceFabric`.
 
 # Rust
 The [`mssf-metadata`](./mssf-metadata) crate embeds

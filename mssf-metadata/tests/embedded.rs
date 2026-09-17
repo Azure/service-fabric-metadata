@@ -6,20 +6,6 @@
 use windows_metadata::reader::{File, Index};
 
 #[test]
-fn embedded_metadata_matches_committed_artifact() {
-    let committed = std::fs::read(
-        std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
-            .parent()
-            .unwrap()
-            .join(".windows")
-            .join("winmd")
-            .join("Windows.ServiceFabric.winmd"),
-    )
-    .expect("committed winmd artifact is present");
-    assert_eq!(mssf_metadata::METADATA, committed.as_slice());
-}
-
-#[test]
 fn embedded_metadata_parses_and_contains_service_fabric_types() {
     let file = File::new(mssf_metadata::METADATA.to_vec()).expect("valid winmd file");
     let index = Index::new(vec![file]);

@@ -14,8 +14,7 @@ fn committed_winmd() -> std::path::PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR"))
         .parent()
         .unwrap()
-        .join(".windows")
-        .join("winmd")
+        .join("mssf-metadata")
         .join("Windows.ServiceFabric.winmd")
 }
 

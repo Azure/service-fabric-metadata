@@ -43,8 +43,7 @@ fn main() {
     let headers = out.join("headers");
     let rdl_dir = out.join("rdl");
     let winmd_out = repo
-        .join(".windows")
-        .join("winmd")
+        .join("mssf-metadata")
         .join("Windows.ServiceFabric.winmd");
     recreate_dir(&headers);
     recreate_dir(&rdl_dir);
