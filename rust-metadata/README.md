@@ -1,6 +1,6 @@
 # rust-metadata
 
-Rust-based generator for `.windows/winmd/Windows.ServiceFabric.winmd`, using
+Rust-based generator for `mssf-metadata/Windows.ServiceFabric.winmd`, using
 the published `windows-clang`, `windows-rdl`, `windows-metadata`, and
 `windows-default` crates at version `0.100.0`.
 
@@ -22,7 +22,7 @@ direct references to types such as `Windows.Win32.FILETIME`.
    `app/generate.rs`
    and `seed/FabricAgile.rdl`.
 7. Write the remapped metadata directly to
-   `.windows/winmd/Windows.ServiceFabric.winmd`.
+   `mssf-metadata/Windows.ServiceFabric.winmd`.
 
 Intermediates are written under the repository-root `target/metadata-gen/`.
 The embedded

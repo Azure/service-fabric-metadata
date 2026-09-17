@@ -28,13 +28,18 @@ See [Development](docs/Development.md) for installation and additional recipes.
 # Contents
 idl from https://github.com/microsoft/service-fabric/tree/master/src/prod/src/idl into [idl](./idl/) and [internal_idl](./internal_idl/)
 
-`Windows.ServiceFabric.winmd`, used to generate C# or Rust bindings, is in the
-[.windows](./.windows) folder. Its metadata namespaces are rooted at
-`Windows.ServiceFabric`.
+`Windows.ServiceFabric.winmd`, used to generate C# or Rust bindings, is
+committed inside the [mssf-metadata](./mssf-metadata) crate. Its metadata
+namespaces are rooted at `Windows.ServiceFabric`.
 
 # Rust
-Exposes fabric support libs to rust lang through build.rs.
-winmd is used by windows rust tool chain to generate rust bindings. See [service-fabric-rs](https://github.com/Azure/service-fabric-rs) for details.
+The [`mssf-metadata`](./mssf-metadata) crate embeds
+`Windows.ServiceFabric.winmd` as a byte slice, the same way the
+[`windows-default`](https://crates.io/crates/windows-default) crate embeds
+Win32 metadata. Downstream tools such as `windows-bindgen` can consume it
+directly without locating or distributing the `.winmd` file separately. See
+[service-fabric-rs](https://github.com/Azure/service-fabric-rs) for an example
+of generating Rust bindings from it.
 
 # License
 Microsoft MIT license

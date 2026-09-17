@@ -38,14 +38,15 @@ just validate
 ```
 
 The generation recipe enters the Visual Studio developer environment and
-writes `.windows/winmd/Windows.ServiceFabric.winmd`. The validation recipe
+writes `mssf-metadata/Windows.ServiceFabric.winmd`. The validation recipe
 runs the metadata integration tests and rejects staged or unstaged differences
 from the committed binary. Run `just fetch` manually to restore any missing
 IDL inputs; no other recipe depends on it.
 
 Run the same clean workflow as CI with `just ci`. The `just clean` recipe
-removes `.windows`, `target`, and `rust-metadata/target`; because `.windows`
-contains the tracked winmd, run generation afterward to restore it.
+removes `target` and `rust-metadata/target`; it does not touch the committed
+`mssf-metadata/Windows.ServiceFabric.winmd`, which `just generate` overwrites
+in place.
 
 For direct generator troubleshooting:
 

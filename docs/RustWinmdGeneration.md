@@ -1,7 +1,7 @@
 # Generating Service Fabric metadata with Rust
 
 `rust-metadata` is the repository's supported generator for
-`.windows/winmd/Windows.ServiceFabric.winmd`. It uses the published
+`mssf-metadata/Windows.ServiceFabric.winmd`. It uses the published
 windows-rs metadata crates and does not require a separate managed SDK or
 package restore.
 
@@ -79,7 +79,7 @@ Or run the generator directly:
 pwsh -File rust-metadata/run.ps1
 ```
 
-Both commands write `.windows/winmd/Windows.ServiceFabric.winmd`. Run
+Both commands write `mssf-metadata/Windows.ServiceFabric.winmd`. Run
 `just fetch` manually beforehand to restore any missing IDL inputs; no other
 recipe depends on it.
 
@@ -94,13 +94,25 @@ requires the binary to match both the index and `HEAD`:
 
 ```pwsh
 cargo test --workspace --locked
-git diff --exit-code -- .windows/winmd/Windows.ServiceFabric.winmd
-git diff --cached --exit-code HEAD -- .windows/winmd/Windows.ServiceFabric.winmd
+git diff --exit-code -- mssf-metadata/Windows.ServiceFabric.winmd
+git diff --cached --exit-code HEAD -- mssf-metadata/Windows.ServiceFabric.winmd
 ```
 
-Use `just ci` for the cold CI sequence. It removes `.windows`, `target`, and
-`rust-metadata/target` before validation, so the tracked winmd is regenerated
-exactly once.
+Use `just ci` for the cold CI sequence. It removes `target` and
+`rust-metadata/target` before validation; the committed winmd is overwritten
+in place by `generate`.
+
+## Consuming the metadata
+
+The [`mssf-metadata`](../mssf-metadata) crate embeds its committed
+`Windows.ServiceFabric.winmd` (living alongside its `Cargo.toml`) as a
+`pub static METADATA: &[u8]`, the same pattern the
+[`windows-default`](https://crates.io/crates/windows-default) crate uses for
+`Windows.Win32.winmd` and `Windows.winmd`. Downstream tools such as
+`windows-bindgen` can consume `METADATA` directly instead of locating or
+distributing the `.winmd` file separately, and because the file lives inside
+the crate directory, `mssf-metadata` packages and publishes correctly with
+`cargo package`/`cargo publish`.
 
 The tests check namespace ownership, type counts and uniqueness, canonical
 Win32 references, Service Fabric aliases, source-defined spellings, and the

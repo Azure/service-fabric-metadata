@@ -23,12 +23,12 @@ test:
 
 # Regenerate and verify the committed metadata artifact.
 validate: generate test
-    git --no-pager diff --exit-code -- .windows/winmd/Windows.ServiceFabric.winmd
-    git --no-pager diff --cached --exit-code HEAD -- .windows/winmd/Windows.ServiceFabric.winmd
+    git --no-pager diff --exit-code -- mssf-metadata/Windows.ServiceFabric.winmd
+    git --no-pager diff --cached --exit-code HEAD -- mssf-metadata/Windows.ServiceFabric.winmd
 
-# Remove generated metadata and Cargo outputs.
+# Remove generated Cargo outputs.
 clean:
-    $ErrorActionPreference = 'Stop'; $paths = '.windows', 'target', 'rust-metadata/target'; $paths | Where-Object { Test-Path -LiteralPath $_ } | ForEach-Object { Remove-Item -LiteralPath $_ -Recurse -Force }
+    $ErrorActionPreference = 'Stop'; $paths = 'target', 'rust-metadata/target'; $paths | Where-Object { Test-Path -LiteralPath $_ } | ForEach-Object { Remove-Item -LiteralPath $_ -Recurse -Force }
 
 # Run the cold validation workflow used by CI.
 ci: clean validate
