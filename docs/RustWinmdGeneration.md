@@ -79,8 +79,9 @@ Or run the generator directly:
 pwsh -File rust-metadata/run.ps1
 ```
 
-The recipe first restores any missing managed IDL inputs. Both commands write
-`.windows/winmd/Windows.ServiceFabric.winmd`.
+Both commands write `.windows/winmd/Windows.ServiceFabric.winmd`. Run
+`just fetch` manually beforehand to restore any missing IDL inputs; no other
+recipe depends on it.
 
 ## Validate
 

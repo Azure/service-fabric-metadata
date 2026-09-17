@@ -14,7 +14,7 @@ fetch:
     pwsh -NoProfile -File scripts/fetch_idl.ps1
 
 # Generate the Service Fabric metadata artifact.
-generate: fetch
+generate:
     pwsh -NoProfile -File rust-metadata/run.ps1
 
 # Run the locked Rust workspace tests.

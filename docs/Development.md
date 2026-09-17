@@ -37,11 +37,11 @@ just generate
 just validate
 ```
 
-The generation recipe restores missing IDL inputs, enters the Visual Studio
-developer environment, and writes
-`.windows/winmd/Windows.ServiceFabric.winmd`. The validation recipe runs the
-metadata integration tests and rejects staged or unstaged differences from the
-committed binary.
+The generation recipe enters the Visual Studio developer environment and
+writes `.windows/winmd/Windows.ServiceFabric.winmd`. The validation recipe
+runs the metadata integration tests and rejects staged or unstaged differences
+from the committed binary. Run `just fetch` manually to restore any missing
+IDL inputs; no other recipe depends on it.
 
 Run the same clean workflow as CI with `just ci`. The `just clean` recipe
 removes `.windows`, `target`, and `rust-metadata/target`; because `.windows`
