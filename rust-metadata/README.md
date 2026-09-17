@@ -32,8 +32,13 @@ distributed with the final artifact.
 ## Run
 
 Requires a stable Rust toolchain, Visual Studio C++ build tools, a Windows 10
-or 11 SDK, and PowerShell 7 (`pwsh`). The repository's standard CMake workflow
-also requires CMake:
+or 11 SDK, PowerShell 7 (`pwsh`), and `just` for repository recipes:
+
+```pwsh
+just generate
+```
+
+For direct generator troubleshooting:
 
 ```pwsh
 pwsh -File rust-metadata/run.ps1
@@ -47,6 +52,12 @@ environment, and runs the locked release build.
 From the repository root:
 
 ```pwsh
+just validate
+```
+
+For test-only iteration:
+
+```pwsh
 cargo test --workspace --locked
 ```
 
@@ -55,8 +66,8 @@ aliases, external Win32 references, type uniqueness, and interface agility.
 They also inspect raw TypeRef resolution scopes through
 `System.Reflection.Metadata` and exercise downstream `windows-bindgen
 --package` generation with the default metadata inputs.
-The CMake `validate_winmd` target additionally verifies that regeneration does
-not change the committed binary.
+The `just validate` recipe additionally regenerates metadata and rejects staged
+or unstaged differences from the committed binary.
 
 See [the detailed generation guide](../docs/RustWinmdGeneration.md) for design
 decisions, transformations, and troubleshooting.
