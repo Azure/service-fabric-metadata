@@ -13,15 +13,17 @@ Currently the public idl version used is SF 11.1.
 The use of this repo as a dependency does not require these dependencies.
 * Rust stable toolchain
 * Visual Studio C++ build tools and a Windows 10 or 11 SDK (for `midl.exe`)
-* PowerShell 7 (`pwsh`) and CMake
+* PowerShell 7 (`pwsh`)
+* [`just`](https://github.com/casey/just)
 
 Generate and validate the committed metadata:
 
 ```pwsh
-cmake . -B build -T host=x64 -A x64
-cmake --build build --target generate_winmd
-cmake --build build --target validate_winmd
+just generate
+just validate
 ```
+
+See [Development](docs/Development.md) for installation and additional recipes.
 
 # Contents
 idl from https://github.com/microsoft/service-fabric/tree/master/src/prod/src/idl into [idl](./idl/) and [internal_idl](./internal_idl/)

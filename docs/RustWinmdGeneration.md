@@ -65,13 +65,12 @@ The agility marker definitions are in `rust-metadata/seed/FabricAgile.rdl`.
 
 Prerequisites are a stable Rust toolchain, Visual Studio C++ build tools, a
 Windows 10 or 11 SDK containing x64 `midl.exe`, PowerShell 7 (`pwsh`), and
-CMake. The first run may download the pinned libclang component.
+`just`. The first run may download the pinned libclang component.
 
-Use the standard CMake target:
+Use the standard recipe:
 
 ```pwsh
-cmake . -B build -T host=x64 -A x64
-cmake --build build --target generate_winmd
+just generate
 ```
 
 Or run the generator directly:
@@ -80,21 +79,28 @@ Or run the generator directly:
 pwsh -File rust-metadata/run.ps1
 ```
 
-Both commands write `.windows/winmd/Windows.ServiceFabric.winmd`.
+Both commands write `.windows/winmd/Windows.ServiceFabric.winmd`. Run
+`just fetch` manually beforehand to restore any missing IDL inputs; no other
+recipe depends on it.
 
 ## Validate
 
 ```pwsh
-cmake --build build --target validate_winmd
+just validate
 ```
 
-Validation runs the focused metadata integration tests and then requires the
-deterministically regenerated binary to match the committed artifact exactly:
+Validation regenerates metadata, runs the focused integration tests, and then
+requires the binary to match both the index and `HEAD`:
 
 ```pwsh
 cargo test --workspace --locked
-git diff --exit-code HEAD -- .windows/winmd/Windows.ServiceFabric.winmd
+git diff --exit-code -- .windows/winmd/Windows.ServiceFabric.winmd
+git diff --cached --exit-code HEAD -- .windows/winmd/Windows.ServiceFabric.winmd
 ```
+
+Use `just ci` for the cold CI sequence. It removes `.windows`, `target`, and
+`rust-metadata/target` before validation, so the tracked winmd is regenerated
+exactly once.
 
 The tests check namespace ownership, type counts and uniqueness, canonical
 Win32 references, Service Fabric aliases, source-defined spellings, and the
@@ -119,6 +125,8 @@ did not represent distinct APIs were intentionally omitted:
 
 ## Troubleshooting
 
+- **`just` is missing**: install version 1.58.0 with Cargo, install
+  `Casey.Just` with WinGet, or download a prebuilt Windows release.
 - **Visual Studio discovery fails**: install Visual Studio C++ build tools, or
   set `SF_METADATA_VSWHERE` / `SF_METADATA_VS_INSTALL_PATH`.
 - **`midl.exe` is missing**: install a Windows 10 or 11 SDK, or set
