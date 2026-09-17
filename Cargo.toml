@@ -1,5 +1,6 @@
 [workspace]
 members = [
+    "mssf-metadata",
     "rust-metadata",
 ]
 resolver = "3"

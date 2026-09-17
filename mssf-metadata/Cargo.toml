@@ -1,0 +1,13 @@
+[package]
+name = "mssf-metadata"
+version = "0.0.3"
+edition = "2024"
+license = "MIT"
+description = "Embedded Windows Metadata (.winmd) for Microsoft Service Fabric on Windows."
+homepage = "https://learn.microsoft.com/en-us/azure/service-fabric/service-fabric-overview"
+documentation = "https://learn.microsoft.com/en-us/azure/service-fabric/"
+repository = "https://github.com/Azure/service-fabric-metadata"
+readme = "README.md"
+
+[dev-dependencies]
+windows-metadata.workspace = true

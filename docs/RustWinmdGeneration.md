@@ -102,6 +102,17 @@ Use `just ci` for the cold CI sequence. It removes `.windows`, `target`, and
 `rust-metadata/target` before validation, so the tracked winmd is regenerated
 exactly once.
 
+## Consuming the metadata
+
+The [`mssf-metadata`](../mssf-metadata) crate embeds
+`.windows/winmd/Windows.ServiceFabric.winmd` as a `pub static METADATA: &[u8]`,
+the same pattern the [`windows-default`](https://crates.io/crates/windows-default)
+crate uses for `Windows.Win32.winmd` and `Windows.winmd`. Downstream tools such
+as `windows-bindgen` can consume `METADATA` directly instead of locating or
+distributing the `.winmd` file separately. `mssf-metadata`'s own tests assert
+that its embedded bytes match the committed artifact, so regenerating the
+winmd and running `just validate`/`cargo test --workspace` keeps both in sync.
+
 The tests check namespace ownership, type counts and uniqueness, canonical
 Win32 references, Service Fabric aliases, source-defined spellings, and the
 `IFabric*` agility contract. A raw ECMA-335 check also verifies that every
