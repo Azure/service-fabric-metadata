@@ -7,7 +7,16 @@ updates:
     cooldown:
       default-days: 7
 
-  - package-ecosystem: "nuget"
+  - package-ecosystem: "rust-toolchain"
     directory: "/"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 7
+
+  - package-ecosystem: "cargo"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 7
